@@ -1,0 +1,944 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebP转PNG在线转换器 - 免费图片格式转换工具 - 易工具网</title>
+    <meta name="description" content="免费在线WebP转PNG工具，无需安装软件，直接在浏览器中将WebP图片转换为PNG格式。支持透明背景，无损质量输出，兼容所有设备，批量转换最多20个文件，完全免费！">
+    <meta name="keywords" content="webp转png,WebP转PNG,webp转换png,在线webp转png,webp转png工具,webp格式转换png,免费webp转png,webp转png在线转换,图片格式转换,webp兼容">
+    <link rel="canonical" href="webp-to-png.html">
+    <link rel="alternate" hreflang="zh-Hans" href="webp-to-png.html" />
+    <link rel="alternate" hreflang="en" href="en/webp-to-png.html" />
+    <link rel="alternate" hreflang="x-default" href="en/webp-to-png.html" />
+    <link rel="stylesheet" href="assets/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="icon" href="assets/favicon.ico">
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "WebP转PNG在线转换工具",
+        "description": "免费在线WebP转PNG工具，支持透明背景，无损质量输出，兼容所有设备，批量转换最多20个文件",
+        "applicationCategory": "UtilityApplication",
+        "featureList": ["webp转png", "WebP转PNG", "在线webp转png", "webp转png工具", "批量webp转png", "免费webp转png"],
+        "operatingSystem": "All",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "CNY"
+        },
+        "url": "webp-to-png.html"
+    }
+    </script>
+    <meta property="og:title" content="WebP转PNG在线转换器 - 免费图片格式转换工具">
+    <meta property="og:description" content="免费在线WebP转PNG工具，支持透明背景，无损质量输出，兼容所有设备，批量转换，完全免费！">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="webp-to-png.html">
+    <style>
+        .page-header {
+            margin-bottom: 0.5rem !important;
+            padding-bottom: 0 !important;
+        }
+
+        .page-title {
+            font-size: 1.75rem !important;
+            margin-bottom: 0.5rem !important;
+        }
+
+        .page-subtitle {
+            font-size: 0.95rem !important;
+            margin-bottom: 0 !important;
+        }
+
+        .tool-page {
+            padding-top: 0 !important;
+        }
+
+        .tool-card {
+            margin-bottom: 0.75rem;
+            padding: 1rem 1.25rem !important;
+        }
+
+        .upload-section {
+            margin-bottom: 0.75rem;
+        }
+
+        .upload-area {
+            border: 2px dashed var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: var(--bg-light);
+        }
+
+        .upload-area:hover,
+        .upload-area.dragover {
+            border-color: var(--primary-color);
+            background: var(--primary-light);
+        }
+
+        .upload-icon {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 0.75rem;
+        }
+
+        .upload-area h3 {
+            margin-bottom: 0.25rem;
+            font-size: 1rem;
+            color: var(--text-primary);
+        }
+
+        .upload-area p {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .upload-hint {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .file-info-display {
+            display: flex;
+            gap: 1rem;
+            margin-top: 0.75rem;
+            padding: 0.75rem;
+            background: var(--bg-white);
+            border-radius: var(--radius-md);
+            border: 2px solid var(--primary-color);
+            flex-wrap: wrap;
+        }
+
+        .file-info-item {
+            display: flex;
+            align-items: center;
+            gap: 0.375rem;
+            font-size: 0.85rem;
+            color: var(--text-primary);
+        }
+
+        .file-info-item i {
+            color: var(--primary-color);
+            font-size: 1rem;
+        }
+
+        .file-info-item strong {
+            color: var(--primary-color);
+        }
+
+        .files-list {
+            margin-bottom: 0.75rem;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .file-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.5rem;
+            background: var(--bg-light);
+            border-radius: var(--radius-md);
+            margin-bottom: 0.375rem;
+        }
+
+        .file-preview {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border-color);
+        }
+
+        .file-details {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .file-name {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-primary);
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .file-size {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        .file-remove {
+            padding: 0.375rem;
+            cursor: pointer;
+            color: var(--text-secondary);
+            transition: color 0.2s;
+        }
+
+        .file-remove:hover {
+            color: #e74c3c;
+        }
+
+        .settings-section {
+            margin-bottom: 0.75rem;
+            padding: 0.75rem;
+            background: var(--bg-light);
+            border-radius: var(--radius-lg);
+        }
+
+        .settings-title {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.95rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .settings-info {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .settings-info i {
+            color: var(--primary-color);
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 0.5rem;
+            justify-content: flex-end;
+            margin-bottom: 0.75rem;
+        }
+
+        .btn {
+            display: flex;
+            align-items: center;
+            gap: 0.375rem;
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.2s;
+            border: none;
+        }
+
+        .btn-primary {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .btn-primary:hover:not(:disabled) {
+            background: var(--primary-hover);
+        }
+
+        .btn-secondary {
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+        }
+
+        .btn-secondary:hover {
+            background: var(--bg-light);
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .progress-container {
+            margin-bottom: 0.75rem;
+            padding: 0.5rem;
+            background: var(--bg-light);
+            border-radius: var(--radius-lg);
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: var(--bg-white);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 0.25rem;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--primary-color);
+            border-radius: 4px;
+            transition: width 0.3s;
+            width: 0%;
+        }
+
+        .progress-text {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            text-align: center;
+        }
+
+        .result-section {
+            margin-top: 0.75rem;
+            padding: 0.75rem;
+            background: #d4edda;
+            border-radius: var(--radius-lg);
+            border: 1px solid #c3e6cb;
+        }
+
+        .result-title {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #155724;
+            margin-bottom: 0.5rem;
+        }
+
+        .result-title i {
+            color: #28a745;
+        }
+
+        .result-info {
+            font-size: 0.9rem;
+            color: #155724;
+        }
+
+        .result-info p {
+            margin-bottom: 0.25rem;
+        }
+
+        .result-files {
+            margin-top: 0.5rem;
+            display: flex;
+            flex-wrap: gap: 0.5rem;
+            flex-direction: column;
+        }
+
+        .result-file-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.375rem;
+            background: rgba(255,255,255,0.5);
+            border-radius: var(--radius-sm);
+        }
+
+        .result-file-name {
+            flex: 1;
+            font-size: 0.85rem;
+        }
+
+        .download-link {
+            color: #155724;
+            text-decoration: underline;
+            font-size: 0.85rem;
+        }
+
+        .feature-card {
+            margin-bottom: 1rem;
+        }
+
+        .feature-card h2 {
+            margin-bottom: 1rem;
+            font-size: 1.25rem;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.75rem;
+        }
+
+        .feature-item {
+            display: flex;
+            gap: 0.75rem;
+            padding: 0.75rem;
+            background: var(--bg-light);
+            border-radius: var(--radius-md);
+            transition: all 0.3s ease;
+        }
+
+        .feature-item:hover {
+            transform: translateX(5px);
+        }
+
+        .feature-icon {
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .feature-content h3 {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.25rem;
+        }
+
+        .feature-content p {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        .tutorial-steps {
+            margin-top: 0.75rem;
+        }
+
+        .step {
+            display: flex;
+            gap: 1rem;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .step:last-child {
+            border-bottom: none;
+        }
+
+        .step-number {
+            flex-shrink: 0;
+            width: 2rem;
+            height: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .step-content h4 {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.25rem;
+        }
+
+        .step-content p {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        .knowledge-content {
+            font-size: 0.9rem;
+            line-height: 1.8;
+            color: var(--text-secondary);
+        }
+
+        .knowledge-content h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin: 0.75rem 0 0.375rem;
+        }
+
+        .knowledge-content h3:first-child {
+            margin-top: 0;
+        }
+
+        .knowledge-content p {
+            margin-bottom: 0.5rem;
+        }
+
+        .knowledge-content ul {
+            padding-left: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .knowledge-content li {
+            margin-bottom: 0.25rem;
+        }
+
+        .mistake-item {
+            padding: 0.75rem;
+            background: var(--bg-light);
+            border-radius: var(--radius-md);
+            margin-bottom: 0.5rem;
+        }
+
+        .mistake-wrong {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.5rem;
+            margin-bottom: 0.375rem;
+            color: #dc3545;
+            font-size: 0.9rem;
+        }
+
+        .mistake-right {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.5rem;
+            color: #28a745;
+            font-size: 0.9rem;
+        }
+
+        .scenario-item {
+            padding: 0.75rem;
+            background: var(--bg-light);
+            border-radius: var(--radius-md);
+            margin-bottom: 0.5rem;
+        }
+
+        .scenario-item h3 {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.25rem;
+        }
+
+        .scenario-item p {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        .faq-item {
+            margin-bottom: 0.75rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .faq-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .faq-question {
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.25rem;
+            font-size: 0.9rem;
+        }
+
+        .faq-answer {
+            color: var(--text-secondary);
+            line-height: 1.5;
+            font-size: 0.85rem;
+        }
+
+        @media (max-width: 768px) {
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .action-buttons {
+                justify-content: center;
+            }
+
+            .tool-card {
+                padding: 0.75rem 1rem !important;
+            }
+
+            .file-info-display {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .file-item {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+
+        .info-card {
+            padding: 1rem 1.25rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .info-card h2 {
+            font-size: 1.15rem;
+            margin-bottom: 0.5rem;
+            padding-bottom: 0.375rem;
+        }
+
+        .related-tools {
+            padding: 1.5rem 0;
+        }
+
+        .related-title {
+            font-size: 1rem;
+            margin-bottom: 0.75rem;
+        }
+    </style>
+</head>
+<body>
+
+<div id="header-placeholder"></div>
+
+<div class="page-header">
+    <h1 class="page-title">WebP转PNG在线转换器 - 免费图片格式转换工具</h1>
+    <p class="page-subtitle">将WebP图片转换为PNG格式，支持透明背景，无损质量输出，兼容所有设备和软件。PNG是通用性最强的图片格式之一，WebP转PNG确保您的图片在任何环境下都能正常显示，批量转换最多20个文件，完全免费！</p>
+</div>
+
+<section class="tool-page">
+    <div class="tool-container">
+        <div class="tool-card">
+            <div class="upload-section">
+                <div class="upload-area" id="uploadArea">
+                    <i class="bi bi-image upload-icon"></i>
+                    <h3>点击或拖拽上传 WebP 文件进行WebP转PNG操作</h3>
+                    <p>支持 .webp 格式，最大 50MB，最多 20 个文件，轻松实现WebP转PNG</p>
+                    <input type="file" id="fileInput" accept=".webp" multiple hidden>
+                </div>
+                <div class="upload-hint">
+                    <i class="bi bi-info-circle"></i>
+                    <span>上传WebP文件后，可预览图片并确认转换信息，所有WebP转PNG操作在浏览器本地完成，文件不会上传到服务器</span>
+                </div>
+
+                <div class="file-info-display" id="fileInfoDisplay" style="display: none;">
+                    <div class="file-info-item">
+                        <i class="bi bi-files"></i>
+                        <span>已选择: <strong id="selectedFileCount">0</strong> 个文件</span>
+                    </div>
+                    <div class="file-info-item">
+                        <i class="bi bi-hdd"></i>
+                        <span>总大小: <strong id="selectedFileSize">0 KB</strong></span>
+                    </div>
+                </div>
+
+                <div class="files-list" id="filesList" style="display: none;"></div>
+            </div>
+
+            <div class="settings-section" id="settingsSection" style="display: none;">
+                <h3 class="settings-title">
+                    <i class="bi bi-sliders"></i>
+                    WebP转PNG设置
+                </h3>
+                <div class="settings-info">
+                    <p><i class="bi bi-check-circle"></i> PNG为无损格式，转换后将完整保留原始画质</p>
+                    <p><i class="bi bi-check-circle"></i> 自动保留透明背景（Alpha通道）</p>
+                    <p><i class="bi bi-check-circle"></i> 无需调整质量参数，一键转换即可</p>
+                </div>
+            </div>
+
+            <div class="action-buttons">
+                <button class="btn btn-secondary" id="clearBtn">
+                    <i class="bi bi-trash"></i>
+                    清空文件
+                </button>
+                <button class="btn btn-primary" id="convertBtn" disabled>
+                    <i class="bi bi-image"></i>
+                    开始转换（WebP转PNG）
+                </button>
+            </div>
+
+            <div class="progress-container" id="progressContainer" style="display: none;">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                <div class="progress-text" id="progressText">正在转换中...</div>
+            </div>
+
+            <div class="result-section" id="resultSection" style="display: none;">
+                <h3 class="result-title">
+                    <i class="bi bi-check-circle"></i>
+                    WebP转PNG转换完成
+                </h3>
+                <div class="result-info" id="resultInfo"></div>
+                <div class="result-files" id="resultFiles"></div>
+            </div>
+        </div>
+
+        <div class="info-card feature-card">
+            <h2>为什么选择我们的WebP转PNG工具？</h2>
+            <div class="feature-grid">
+                <div class="feature-item">
+                    <div class="feature-icon">⚡</div>
+                    <div class="feature-content">
+                        <h3>极速转换效率</h3>
+                        <p>基于浏览器原生Canvas API，几秒内完成WebP转PNG，无需等待上传下载，转换速度极快。</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">📸</div>
+                    <div class="feature-content">
+                        <h3>无损质量输出</h3>
+                        <p>PNG是无损格式，转换后的图片完整保留原始WebP的画质和色彩，零质量损失。</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">📦</div>
+                    <div class="feature-content">
+                        <h3>批量处理支持</h3>
+                        <p>一次最多上传20个WebP文件批量转PNG，大幅提升工作效率，告别逐个转换的繁琐操作。</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">💰</div>
+                    <div class="feature-content">
+                        <h3>完全免费使用</h3>
+                        <p>WebP转PNG工具完全免费，无需注册登录，无隐藏收费，无次数限制，真正的免费工具。</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🔒</div>
+                    <div class="feature-content">
+                        <h3>本地安全处理</h3>
+                        <p>所有WebP转PNG操作都在浏览器本地完成，文件不会上传到任何服务器，完全保护您的隐私和数据安全。</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">📱</div>
+                    <div class="feature-content">
+                        <h3>全平台兼容</h3>
+                        <p>完美支持Windows、Mac、Linux系统及手机浏览器，转换后的PNG文件可在所有设备和软件中正常使用。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="info-card">
+            <h2>WebP转PNG使用教程</h2>
+            <div class="tutorial-steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h4>上传WebP文件</h4>
+                        <p>点击上传区域选择WebP文件，或直接拖拽文件到上传区域，支持一次选择多个文件（最多20个）。</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h4>预览图片</h4>
+                        <p>上传后自动显示图片缩略图和文件信息，确认图片内容无误后再进行转换。</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h4>确认转换设置</h4>
+                        <p>PNG为无损格式，无需调整质量参数。确认透明背景保留选项后即可开始转换。</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h4>开始转换</h4>
+                        <p>点击"开始转换"按钮，工具将自动处理WebP转PNG，实时显示转换进度。</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">5</div>
+                    <div class="step-content">
+                        <h4>下载PNG文件</h4>
+                        <p>转换完成后点击下载链接获取PNG文件，支持单个下载或批量下载所有转换结果。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="info-card">
+            <h2>知识科普 - WebP与PNG格式详解</h2>
+            <div class="knowledge-content">
+                <h3>WebP格式介绍</h3>
+                <p>WebP是由Google开发的现代图片格式，支持有损和无损两种压缩模式，同时支持Alpha透明通道和动画。WebP的最大优势在于压缩效率高，在相同画质下文件体积远小于JPEG和PNG，是网页图片优化的首选格式。</p>
+
+                <h3>PNG格式介绍</h3>
+                <p>PNG（Portable Network Graphics）是最通用的无损图片格式之一，支持Alpha透明通道，能够在所有操作系统、浏览器和图片编辑软件中正常显示。PNG采用无损压缩，不会丢失任何图像细节，是图片编辑、存档和需要广泛兼容性场景的最佳选择。</p>
+
+                <h3>WebP与PNG的核心区别</h3>
+                <ul>
+                    <li><strong>兼容性：</strong>PNG兼容所有设备和软件，WebP在旧版软件中可能不支持</li>
+                    <li><strong>文件体积：</strong>WebP比PNG小30%-70%，PNG体积较大但质量无损</li>
+                    <li><strong>压缩方式：</strong>PNG仅支持无损压缩，WebP支持有损和无损两种模式</li>
+                    <li><strong>透明支持：</strong>两种格式都支持Alpha透明通道</li>
+                    <li><strong>编辑能力：</strong>PNG被所有图片编辑器支持，WebP编辑支持相对有限</li>
+                </ul>
+
+                <h3>WebP转PNG的优势</h3>
+                <p>将WebP转换为PNG的主要目的是获得最广泛的兼容性。PNG能在所有设备、操作系统和软件中正常打开和编辑，无需担心格式兼容问题。此外，PNG的无损特性确保图片质量零损失，适合后续编辑和二次处理。当您需要在Photoshop、Word、PPT等软件中使用图片时，WebP转PNG是最可靠的选择。</p>
+            </div>
+        </div>
+
+        <div class="info-card">
+            <h2>常见错误与正确做法</h2>
+
+            <div class="mistake-item">
+                <div class="mistake-wrong">
+                    <i class="bi bi-x-circle"></i>
+                    <span><strong>错误：</strong>直接将WebP文件后缀改为.png，以为这样就是PNG格式。</span>
+                </div>
+                <div class="mistake-right">
+                    <i class="bi bi-check-circle"></i>
+                    <span><strong>正确：</strong>必须通过格式转换工具将WebP重新编码为PNG，单纯改后缀名不会改变文件的实际格式。</span>
+                </div>
+            </div>
+
+            <div class="mistake-item">
+                <div class="mistake-wrong">
+                    <i class="bi bi-x-circle"></i>
+                    <span><strong>错误：</strong>对需要网页展示的图片也转为PNG，导致文件体积大幅增加，影响加载速度。</span>
+                </div>
+                <div class="mistake-right">
+                    <i class="bi bi-check-circle"></i>
+                    <span><strong>正确：</strong>仅在需要兼容性（如编辑、文档嵌入、旧设备查看）时才转PNG，网页展示仍使用WebP。</span>
+                </div>
+            </div>
+
+            <div class="mistake-item">
+                <div class="mistake-wrong">
+                    <i class="bi bi-x-circle"></i>
+                    <span><strong>错误：</strong>忽略透明背景，在转换有透明区域的WebP时未检查PNG透明效果是否完整。</span>
+                </div>
+                <div class="mistake-right">
+                    <i class="bi bi-check-circle"></i>
+                    <span><strong>正确：</strong>转换后检查透明背景是否完整保留，确保PNG透明效果与原WebP一致。</span>
+                </div>
+            </div>
+
+            <div class="mistake-item">
+                <div class="mistake-wrong">
+                    <i class="bi bi-x-circle"></i>
+                    <span><strong>错误：</strong>使用截图工具手动截图保存为PNG，导致画质损失和尺寸不对。</span>
+                </div>
+                <div class="mistake-right">
+                    <i class="bi bi-check-circle"></i>
+                    <span><strong>正确：</strong>使用专业转换工具进行WebP转PNG，确保原始分辨率和画质完整保留。</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="info-card">
+            <h2>WebP转PNG应用场景</h2>
+
+            <div class="scenario-item">
+                <h3>🖼️ 图片编辑与设计</h3>
+                <p>Photoshop、Illustrator等设计软件对WebP支持有限，将WebP转PNG后可无缝导入进行编辑和设计，保留透明背景和完整画质。</p>
+            </div>
+
+            <div class="scenario-item">
+                <h3>📄 文档与演示嵌入</h3>
+                <p>Word、PPT、Excel等办公软件不支持WebP格式插入。将WebP转PNG后可正常嵌入文档和演示文稿，确保所有观众都能正常查看。</p>
+            </div>
+
+            <div class="scenario-item">
+                <h3>📱 旧设备与系统兼容</h3>
+                <p>部分旧版手机、电脑系统和软件不支持WebP格式。将WebP转PNG可确保图片在任何设备上都能正常显示和打开。</p>
+            </div>
+
+            <div class="scenario-item">
+                <h3>🏪 电商平台商品图</h3>
+                <p>部分电商平台后台不支持WebP格式上传。将商品图从WebP转PNG后可顺利上传，确保商品展示不受影响。</p>
+            </div>
+
+            <div class="scenario-item">
+                <h3>📂 图片存档与备份</h3>
+                <p>PNG作为通用无损格式，适合长期存档。将WebP转PNG进行备份，确保未来无论什么软件都能打开查看。</p>
+            </div>
+        </div>
+
+        <div class="info-card">
+            <h2>WebP转PNG常见问题解答 (FAQ)</h2>
+
+            <div class="faq-item">
+                <div class="faq-question">Q1：WebP转PNG后画质会下降吗？</div>
+                <div class="faq-answer">A：不会！PNG是无损格式，转换后的PNG将完整保留原始WebP的画质和色彩，零质量损失。</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">Q2：WebP转PNG能保留透明背景吗？</div>
+                <div class="faq-answer">A：可以！PNG完全支持Alpha透明通道，转换后的PNG图片会完美保留原始WebP的透明效果，包括半透明渐变。</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">Q3：转换后文件变大了正常吗？</div>
+                <div class="faq-answer">A：正常！PNG的无损压缩文件通常比WebP（有损压缩）大。如果WebP原本使用有损压缩，转为PNG后文件体积会增加，但画质是无损的。</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">Q4：为什么需要把WebP转成PNG？</div>
+                <div class="faq-answer">A：主要原因是兼容性。部分旧版浏览器、图片编辑软件、办公软件不支持WebP。PNG是通用性最强的图片格式之一，在任何设备和软件中都能正常使用。</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">Q5：WebP转PNG支持批量转换吗？</div>
+                <div class="faq-answer">A：支持！一次最多可上传20个WebP文件批量转PNG，转换完成后可逐个下载或一键批量下载。</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">Q6：文件大小有限制吗？</div>
+                <div class="faq-answer">A：单个文件最大支持50MB，一次最多20个文件。超过限制的建议先压缩后再进行WebP转PNG操作。</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">Q7：直接改后缀名能把WebP变PNG吗？</div>
+                <div class="faq-answer">A：不能！直接修改文件后缀名不会改变文件的实际编码格式，改后缀后的文件仍然无法在PNG编辑器中正常打开。必须通过格式转换工具重新编码才能生成真正的PNG文件。</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">Q8：转换后的PNG能在所有软件中使用吗？</div>
+                <div class="faq-answer">A：可以！PNG是最通用的图片格式之一，所有操作系统、浏览器、图片查看器和编辑软件都支持PNG格式，包括Photoshop、Word、PPT等。</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="related-tools">
+    <div class="container">
+        <h3 class="related-title">WebP转PNG相关工具推荐</h3>
+        <div class="related-grid">
+            <a href="png-to-webp.html" class="related-item">
+                <i class="bi bi-image related-icon"></i>
+                <div class="related-content">
+                    <h4>PNG转WebP</h4>
+                    <p>PNG转换为WebP格式</p>
+                </div>
+            </a>
+            <a href="webp-to-jpg.html" class="related-item">
+                <i class="bi bi-image related-icon"></i>
+                <div class="related-content">
+                    <h4>WebP转JPG</h4>
+                    <p>WebP转换为JPG格式</p>
+                </div>
+            </a>
+            <a href="avif-to-jpg.html" class="related-item">
+                <i class="bi bi-image related-icon"></i>
+                <div class="related-content">
+                    <h4>AVIF转JPG</h4>
+                    <p>AVIF转换为JPG格式</p>
+                </div>
+            </a>
+            <a href="jpg-to-webp.html" class="related-item">
+                <i class="bi bi-image related-icon"></i>
+                <div class="related-content">
+                    <h4>JPG转WebP</h4>
+                    <p>JPG转换为WebP格式</p>
+                </div>
+            </a>
+            <a href="target-size-compress.html" class="related-item">
+                <i class="bi bi-compress related-icon"></i>
+                <div class="related-content">
+                    <h4>图片压缩</h4>
+                    <p>压缩图片文件大小</p>
+                </div>
+            </a>
+        </div>
+    </div>
+</section>
+
+<div id="footer-placeholder"></div>
+<div id="toast" class="toast"></div>
+
+<script src="assets/webp-to-png.js"></script>
+<script src="assets/tools-data.js"></script>
+<script src="assets/site.js"></script>
+
+</body>
+</html>

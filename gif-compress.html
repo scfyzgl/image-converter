@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GIF免费无损压缩工具 - GIF在线压缩 - 易工具网</title>
+    <meta name="description" content="免费在线GIF无损压缩工具，支持批量上传GIF动图，采用先进无损压缩算法，保持画质和动画效果，本地浏览器处理保护隐私，一键下载压缩后的GIF图片。">
+    <meta name="keywords" content="gif免费无损压缩,gif文件过大无损压缩,gif在线压缩,GIF压缩工具,免费gif压缩,在线gif压缩">
+        <link rel="canonical" href="gif-compress.html">
+    <link rel="alternate" hreflang="zh-Hans" href="gif-compress.html" />
+    <link rel="alternate" hreflang="en" href="en/gif-compress.html" />
+    <link rel="alternate" hreflang="x-default" href="en/gif-compress.html" />
+    <link rel="stylesheet" href="assets/style.css">
+    <link rel="stylesheet" href="assets/gif-compress.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="icon" href="assets/favicon.ico">
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "GIF免费无损压缩工具",
+        "description": "免费在线GIF无损压缩工具，支持批量上传GIF动图，采用先进无损压缩算法，保持画质和动画效果，本地浏览器处理保护隐私，一键下载压缩后的GIF图片。",
+        "url": "gif-compress.html",
+        "applicationCategory": "UtilityApplication",
+        "operatingSystem": "Web",
+        "features": [
+            "批量上传GIF动图",
+            "无损压缩保持画质",
+            "智能压缩更高压缩率",
+            "本地浏览器处理保护隐私",
+            "一键下载压缩结果",
+            "GIF动画预览展示"
+        ],
+        "keywords": ["gif免费无损压缩", "gif文件过大无损压缩", "gif在线压缩", "GIF压缩工具", "免费gif压缩"]
+    }
+    </script>
+</head>
+<body>
+    <div id="header-placeholder"></div>
+
+    <!-- 页面标题 -->
+    <div class="page-header">
+        <h1 class="page-title">GIF免费无损压缩工具</h1>
+        <p class="page-subtitle">在线压缩GIF动图，采用先进无损压缩算法，在保持画质和动画效果的同时大幅减小文件体积，本地浏览器处理保护隐私安全。</p>
+    </div>
+
+    <!-- 工具主体 -->
+    <section class="tool-page">
+        <div class="tool-container">
+            <div class="tool-card">
+                <!-- 上传区域 -->
+                <div class="upload-area" id="uploadArea">
+                    <div class="upload-icon">
+                        <i class="bi bi-image"></i>
+                    </div>
+                    <h3>点击或拖拽 GIF 图片至此处</h3>
+                    <p>支持 .gif 格式 | 单次最多可批量上传 10 张图片 | 单个文件最大支持 100MB</p>
+                    <input type="file" id="fileInput" accept="image/gif" multiple hidden>
+                    <button class="upload-btn" id="browseBtn">
+                        <i class="bi bi-folder2-open"></i>
+                        选择本地 GIF 文件
+                    </button>
+                </div>
+
+                <!-- 文件列表 -->
+                <div class="files-section">
+                    <div class="files-header">
+                        <h3 class="section-subtitle">
+                            <i class="bi bi-list-ul"></i>
+                            GIF压缩文件列表
+                            <span class="file-count" id="fileCount">(0)</span>
+                        </h3>
+                    </div>
+                    <div id="filesList" class="files-list">
+                        <div class="empty-state">
+                            <i class="bi bi-image-off"></i>
+                            <p>暂无待压缩的 GIF 文件，请先上传您的图片</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 压缩模式选择 -->
+                <div class="options-section">
+                    <h3 class="section-subtitle">
+                        <i class="bi bi-gear"></i>
+                        GIF无损压缩参数设置
+                    </h3>
+                    <div class="mode-options">
+                        <label class="mode-card selected">
+                            <input type="radio" name="compressMode" value="lossless" checked>
+                            <div class="mode-icon">
+                                <i class="bi bi-shield-check"></i>
+                            </div>
+                            <div class="mode-info">
+                                <h4>无损压缩（推荐）</h4>
+                                <p>保持原始画质和动画效果，移除冗余数据和元信息，适用于需要高保真的场景</p>
+                                <span class="mode-tag">压缩率约 30-50%</span>
+                            </div>
+                        </label>
+                        <label class="mode-card">
+                            <input type="radio" name="compressMode" value="smart">
+                            <div class="mode-icon">
+                                <i class="bi bi-zap"></i>
+                            </div>
+                            <div class="mode-info">
+                                <h4>智能压缩</h4>
+                                <p>轻微有损压缩，肉眼基本无损，更高压缩率，文件更小，适用于网页和社交媒体</p>
+                                <span class="mode-tag">压缩率约 50-70%</span>
+                            </div>
+                        </label>
+                    </div>
+                    
+                    <!-- 文件名设置 -->
+                    <div class="option-item" style="margin-top: 0.75rem;">
+                        <label>文件名设置：</label>
+                        <div class="radio-group vertical">
+                            <label class="radio-label">
+                                <input type="radio" name="fileNameMode" value="original" checked>
+                                <span>保持原文件名</span>
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="fileNameMode" value="rename">
+                                <span>重命名（前缀+数字）</span>
+                            </label>
+                        </div>
+                        <div id="renamePrefixContainer" style="margin-top: 0.75rem; display: none;">
+                            <label for="renamePrefix">文件名前缀：</label>
+                            <input type="text" id="renamePrefix" placeholder="例如：tupian" value="image" class="form-control">
+                            <p class="option-hint">
+                                示例：前缀为「tupian」时，文件名将变为 tupian1.gif, tupian2.gif...
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 操作按钮 -->
+                <div class="action-buttons">
+                    <button class="btn btn-secondary" id="clearAllBtn" style="display:none;">
+                        <i class="bi bi-trash"></i>
+                        清空列表
+                    </button>
+                    <button class="btn btn-primary" id="compressBtn" style="display:none;">
+                        <i class="bi bi-arrow-down-short"></i>
+                        批量压缩 GIF
+                    </button>
+                    <button class="btn btn-success" id="downloadAllBtn" style="display:none;">
+                        <i class="bi bi-download"></i>
+                        打包下载全部
+                    </button>
+                </div>
+
+                <!-- 压缩结果 -->
+                <div class="result-section" id="resultSection" style="display:none;">
+                    <h3 class="section-subtitle">
+                        <i class="bi bi-check-circle"></i>
+                        压缩结果
+                    </h3>
+                    <div class="result-summary">
+                        <div class="summary-item">
+                            <span class="summary-label">原始总大小</span>
+                            <span class="summary-value" id="originalTotalSize">0 KB</span>
+                        </div>
+                        <div class="summary-item">
+                            <span class="summary-label">压缩后总大小</span>
+                            <span class="summary-value" id="compressedTotalSize">0 KB</span>
+                        </div>
+                        <div class="summary-item highlight">
+                            <span class="summary-label">节省空间</span>
+                            <span class="summary-value" id="savedPercentage">0%</span>
+                        </div>
+                    </div>
+                    <div id="resultList" class="result-list"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 功能特点 -->
+    <section class="features-section">
+        <div class="tool-container">
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="bi bi-gift"></i>
+                    </div>
+                    <h3>完全免费</h3>
+                    <p>免费使用，无任何限制，无需注册登录</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="bi bi-shield-check"></i>
+                    </div>
+                    <h3>无损压缩</h3>
+                    <p>保持原始画质和动画效果，像素级完整保留</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="bi bi-lock"></i>
+                    </div>
+                    <h3>隐私安全</h3>
+                    <p>图片在浏览器本地处理，不上传服务器</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="bi bi-images"></i>
+                    </div>
+                    <h3>批量处理</h3>
+                    <p>支持一次上传10张GIF，批量压缩更高效</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- GIF知识科普 -->
+    <section class="info-section">
+        <div class="tool-container">
+            <div class="info-card">
+                <h2>什么是GIF格式？</h2>
+                <p>GIF（Graphics Interchange Format）是一种支持动画的位图图像格式，由CompuServe公司在1987年开发。GIF支持256色，采用LZW无损压缩算法，广泛用于网页、社交媒体和即时通讯中。</p>
+                
+                <h3 style="margin-top:1.5rem;">GIF无损压缩原理</h3>
+                <p>GIF本身采用LZW压缩算法，我们的无损压缩通过以下方式进一步优化：</p>
+                <ul class="info-list">
+                    <li><strong>去除元数据</strong>：移除EXIF信息、注释、应用程序扩展等冗余数据</li>
+                    <li><strong>优化颜色表</strong>：重新排列调色板，提高LZW压缩效率</li>
+                    <li><strong>帧优化</strong>：检测并去除完全相同的帧，优化帧间差异编码</li>
+                    <li><strong>LZW参数优化</strong>：调整压缩参数，提高压缩率</li>
+                </ul>
+                
+                <h3 style="margin-top:1.5rem;">无损压缩 vs 智能压缩</h3>
+                <div class="compare-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>特性</th>
+                                <th>无损压缩</th>
+                                <th>智能压缩</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>画质</td>
+                                <td>完全保持</td>
+                                <td>基本无损</td>
+                            </tr>
+                            <tr>
+                                <td>压缩率</td>
+                                <td>中等（30-50%）</td>
+                                <td>较高（50-70%）</td>
+                            </tr>
+                            <tr>
+                                <td>适用场景</td>
+                                <td>设计作品、高保真需求</td>
+                                <td>网页、社交媒体</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 应用场景 -->
+    <section class="scenario-section">
+        <div class="tool-container">
+            <div class="scenario-card">
+                <h2>GIF压缩的应用场景</h2>
+                <div class="scenario-grid">
+                    <div class="scenario-item">
+                        <div class="scenario-icon">
+                            <i class="bi bi-globe"></i>
+                        </div>
+                        <h3>网页开发</h3>
+                        <p>优化GIF动图加载速度，提升网页性能和用户体验</p>
+                    </div>
+                    <div class="scenario-item">
+                        <div class="scenario-icon">
+                            <i class="bi bi-share"></i>
+                        </div>
+                        <h3>社交媒体</h3>
+                        <p>压缩GIF表情包，便于在社交平台分享和上传</p>
+                    </div>
+                    <div class="scenario-item">
+                        <div class="scenario-icon">
+                            <i class="bi bi-palette"></i>
+                        </div>
+                        <h3>设计工作</h3>
+                        <p>压缩动图作品，节省存储空间和传输时间</p>
+                    </div>
+                    <div class="scenario-item">
+                        <div class="scenario-icon">
+                            <i class="bi bi-envelope"></i>
+                        </div>
+                        <h3>邮件发送</h3>
+                        <p>压缩GIF附件，便于邮件发送，避免附件过大</p>
+                    </div>
+                    <div class="scenario-item">
+                        <div class="scenario-icon">
+                            <i class="bi bi-book"></i>
+                        </div>
+                        <h3>课件制作</h3>
+                        <p>压缩教学动图，便于在线分享和传输</p>
+                    </div>
+                    <div class="scenario-item">
+                        <div class="scenario-icon">
+                            <i class="bi bi-briefcase"></i>
+                        </div>
+                        <h3>商务演示</h3>
+                        <p>压缩演示文稿中的GIF，减小文件体积</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="faq-section">
+        <div class="tool-container">
+            <div class="faq-card">
+                <h2>常见问题</h2>
+                <div class="faq-item">
+                    <div class="faq-question">Q: GIF无损压缩会影响动画效果吗？</div>
+                    <div class="faq-answer">A: 不会。无损压缩在保持像素级完整性的同时，仅移除冗余数据和元信息，不会改变GIF的动画效果和画质。</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">Q: 支持哪些文件格式？</div>
+                    <div class="faq-answer">A: 目前支持GIF格式。如果您需要压缩其他格式的图片，可以先使用我们的图片格式转换工具进行转换。</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">Q: 单次最多可以上传多少张GIF？</div>
+                    <div class="faq-answer">A: 单次最多支持上传10张GIF图片，单个文件最大100MB。如果您有更多图片需要处理，可以分批上传。</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">Q: 图片会上传到服务器吗？</div>
+                    <div class="faq-answer">A: 不会。所有图片处理都在您的浏览器本地完成，不会上传到任何服务器，保护您的隐私安全。</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">Q: 压缩后的GIF如何下载？</div>
+                    <div class="faq-answer">A: 压缩完成后，每张GIF都有独立的下载按钮。您也可以点击「打包下载全部」按钮，一次性下载所有压缩后的GIF。</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">Q: 无损压缩和智能压缩有什么区别？</div>
+                    <div class="faq-answer">A: 无损压缩保持100%原始画质，压缩率约30-50%；智能压缩采用轻微有损算法，肉眼基本无损，压缩率更高约50-70%。可根据需求选择。</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">Q: GIF文件过大怎么压缩变小？</div>
+                    <div class="faq-answer">A: 当GIF文件过大时，可以尝试：1) 使用智能压缩模式；2) 如果仍需要更小体积，可以考虑将GIF转换为WebP格式；3) 对于非常大的GIF，可以考虑分割成多个小GIF。</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">Q: gif免费无损压缩工具好用吗？</div>
+                    <div class="faq-answer">A: 非常好用！本工具完全免费，支持批量处理，采用先进压缩算法，本地处理保护隐私，操作简单便捷，是压缩GIF的理想选择。</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">Q: gif在线压缩的优势有哪些？</div>
+                    <div class="faq-answer">A: gif在线压缩无需下载安装软件，打开网页即可使用；支持批量上传和处理；所有操作在本地完成，保护隐私；完全免费无广告，是压缩GIF的最佳选择。</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 相关工具 -->
+    <section class="related-section">
+        <div class="tool-container">
+            <h2 class="section-title">相关工具推荐</h2>
+            <div class="related-grid">
+                <a href="jpg-compress.html" class="related-card">
+                    <div class="related-icon">
+                        <i class="bi bi-image"></i>
+                    </div>
+                    <div class="related-info">
+                        <h4>JPG图片压缩</h4>
+                        <p>在线图片压缩工具</p>
+                    </div>
+                </a>
+                <a href="jpg-to-webp.html" class="related-card">
+                    <div class="related-icon">
+                        <i class="bi bi-file-image"></i>
+                    </div>
+                    <div class="related-info">
+                        <h4>JPG转WebP</h4>
+                        <p>转换为下一代图片格式</p>
+                    </div>
+                </a>
+                <a href="jpg-to-png.html" class="related-card">
+                    <div class="related-icon">
+                        <i class="bi bi-image-alt"></i>
+                    </div>
+                    <div class="related-info">
+                        <h4>JPG转PNG</h4>
+                        <p>在线格式转换</p>
+                    </div>
+                </a>
+                <a href="png-to-jpg.html" class="related-card">
+                    <div class="related-icon">
+                        <i class="bi bi-image"></i>
+                    </div>
+                    <div class="related-info">
+                        <h4>PNG转JPG</h4>
+                        <p>在线格式转换</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <div id="footer-placeholder"></div>
+
+    <script src="assets/tools-data.js"></script>
+<script src="assets/site.js"></script>
+    <script src="assets/gif-compress.js"></script>
+<div id="toast" class="toast"></div>
+</body>
+</html>

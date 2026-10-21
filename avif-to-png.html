@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AVIF转PNG在线转换器 - 免费图片格式转换工具 - 易工具网</title>
+    <meta name="description" content="免费在线AVIF转PNG工具，将AVIF图片转换为PNG格式，支持透明背景，无损输出。无需安装软件，浏览器内直接转换，批量处理，兼容所有设备，完全免费使用。">
+    <meta name="keywords" content="avif转png,avif转换png,avif怎么转png,在线avif转png,avif转png工具,图片格式转换,png转换器,avif格式">
+    <link rel="canonical" href="avif-to-png.html">
+    <link rel="alternate" hreflang="zh-Hans" href="avif-to-png.html" />
+    <link rel="alternate" hreflang="en" href="en/avif-to-png.html" />
+    <link rel="alternate" hreflang="x-default" href="en/avif-to-png.html" />
+    <link rel="stylesheet" href="assets/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="icon" href="assets/favicon.ico">
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "AVIF转PNG在线转换器",
+        "description": "免费在线AVIF转PNG工具，支持透明背景，无损输出，批量处理",
+        "applicationCategory": "UtilityApplication",
+        "featureList": ["avif转png", "avif转换png", "在线avif转png", "avif转png工具", "批量avif转png", "免费avif转png"],
+        "operatingSystem": "All",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "CNY"
+        },
+        "url": "avif-to-png.html"
+    }
+    </script>
+    <meta property="og:title" content="AVIF转PNG在线转换器 - 免费图片格式转换工具">
+    <meta property="og:description" content="免费在线AVIF转PNG工具，将AVIF图片转换为PNG格式，支持透明背景，无损输出，完全免费！">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="avif-to-png.html">
+    <style>
+        .page-header {
+            margin-bottom: 0.5rem !important;
+            padding-bottom: 0 !important;
+        }
+        
+        .page-title {
+            font-size: 1.75rem !important;
+            margin-bottom: 0.5rem !important;
+        }
+        
+        .page-subtitle {
+            font-size: 0.95rem !important;
+            margin-bottom: 0 !important;
+        }
+        
+        .tool-page {
+            padding-top: 0 !important;
+        }
+        
+        .tool-card {
+            margin-bottom: 0.75rem;
+            padding: 1rem 1.25rem !important;
+        }
+        
+        .upload-section {
+            margin-bottom: 0.75rem;
+        }
+        
+        .upload-area {
+            border: 2px dashed var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: var(--bg-light);
+        }
+        
+        .upload-area:hover,
+        .upload-area.dragover {
+            border-color: var(--primary-color);
+            background: var(--primary-light);
+        }
+        
+        .upload-icon {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 0.75rem;
+        }
+        
+        .upload-area h3 {
+            margin-bottom: 0.25rem;
+            font-size: 1rem;
+            color: var(--text-primary);
+        }
+        
+        .upload-area p {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+        
+        .upload-hint {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+        
+        .file-info-display {
+            display: flex;
+            gap: 1rem;
+            margin-top: 0.75rem;
+            padding: 0.75rem;
+            background: var(--bg-white);
+            border-radius: var(--radius-md);
+            border: 2px solid var(--primary-color);
+            flex-wrap: wrap;
+        }
+        
+        .file-info-item {
+            display: flex;
+            align-items: center;
+            gap: 0.375rem;
+            font-size: 0.85rem;
+            color: var(--text-primary);
+        }
+        
+        .file-info-item i {
+            color: var(--primary-color);
+            font-size: 1rem;
+        }
+        
+        .file-info-item strong {
+            color: var(--primary-color);
+        }
+        
+        .files-list {
+            margin-bottom: 0.75rem;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        
+        .file-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.5rem;
+            background: var(--bg-light);
+            border-radius: var(--radius-md);
+            margin-bottom: 0.375rem;
+        }
+        
+        .file-preview {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border-color);
+        }
+        
+        .file-details {
+            flex: 1;
+            min-width: 0;
+        }
+        
+        .file-name {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-primary);
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        
+        .file-size {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+        
+        .file-remove {
+            padding: 0.375rem;
+            cursor: pointer;
+            color: var(--text-secondary);
+            transition: color 0.2s;
+        }
+        
+        .file-remove:hover {
+            color: #e74c3c;
+        }
+        
+        .settings-section {
+            margin-bottom: 0.75rem;
+            padding: 0.75rem;
+            background: var(--bg-light);
+            border-radius: var(--radius-lg);
+        }
+        
+        .settings-title {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.95rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+        
+        .settings-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 0.75rem;
+        }
+        
+        .setting-item {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+        
+        .setting-item label {
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+        
+        .setting-item select,
+        .setting-item input {
+            padding: 0.375rem 0.5rem;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            background: var(--bg-white);
+            font-size: 0.85rem;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 0.5rem;
+            justify-content: flex-end;
+            margin-bottom: 0.75rem;
+        }
+        
+        .btn {
+            display: flex;
+            align-items: center;
+            gap: 0.375rem;
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.2s;
+            border: none;
+        }
+        
+        .btn-primary {
+            background: var(--primary-color);
+            color: white;
+        }
+        
+        .btn-primary:hover:not(:disabled) {
+            background: var(--primary-hover);
+        }
+        
+        .btn-secondary {
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+        }
+        
+        .btn-secondary:hover {
+            background: var(--bg-light);
+        }
+        
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .progress-container {
+            margin-bottom: 0.75rem;
+            padding: 0.5rem;
+            background: var(--bg-light);
+            border-radius: var(--radius-lg);
+        }
+        
+        .progress-bar {
+            height: 8px;
+            background: var(--bg-white);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 0.25rem;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: var(--primary-color);
+            border-radius: 4px;
+            transition: width 0.3s;
+            width: 0%;
+        }
+        
+        .progress-text {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            text-align: center;
+        }
+        
+        .result-section {
+            margin-top: 0.75rem;
+            padding: 0.75rem;
+            background: #d4edda;
+            border-radius: var(--radius-lg);
+            border: 1px solid #c3e6cb;
+        }
+        
+        .result-title {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #155724;
+            margin-bottom: 0.5rem;
+        }
+        
+        .result-title i {
+            color: #28a745;
+        }
+        
+        .result-info {
+            font-size: 0.9rem;
+            color: #155724;
+        }
+        
+        .result-info p {
+            margin-bottom: 0.25rem;
+        }
+        
+        .result-files {
+            margin-top: 0.5rem;
+            display: flex;
+            flex-wrap: gap: 0.5rem;
+            flex-direction: column;
+        }
+        
+        .result-file-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.375rem;
+            background: rgba(255,255,255,0.5);
+            border-radius: var(--radius-sm);
+        }
+        
+        .result-file-name {
+            flex: 1;
+            font-size: 0.85rem;
+        }
+        
+        .download-link {
+            color: #155724;
+            text-decoration: underline;
+            font-size: 0.85rem;
+        }
+        
+        .feature-card {
+            margin-bottom: 1rem;
+        }
+        
+        .feature-card h2 {
+            margin-bottom: 1rem;
+            font-size: 1.25rem;
+        }
+        
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.75rem;
+        }
+        
+        .feature-item {
+            display: flex;
+            gap: 0.75rem;
+            padding: 0.75rem;
+            background: var(--bg-light);
+            border-radius: var(--radius-md);
+            transition: all 0.3s ease;
+        }
+        
+        .feature-item:hover {
+            transform: translateX(5px);
+        }
+        
+        .feature-icon {
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+        
+        .feature-content h3 {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.25rem;
+        }
+        
+        .feature-content p {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+        
+        .tutorial-steps {
+            margin-top: 0.75rem;
+        }
+        
+        .step {
+            display: flex;
+            gap: 1rem;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .step:last-child {
+            border-bottom: none;
+        }
+        
+        .step-number {
+            flex-shrink: 0;
+            width: 2rem;
+            height: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        
+        .step-content h4 {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.25rem;
+        }
+        
+        .step-content p {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+        
+        .faq-item {
+            margin-bottom: 0.75rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .faq-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        
+        .faq-question {
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.25rem;
+            font-size: 0.9rem;
+        }
+        
+        .faq-answer {
+            color: var(--text-secondary);
+            line-height: 1.5;
+            font-size: 0.85rem;
+        }
+        
+        @media (max-width: 768px) {
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .settings-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .action-buttons {
+                justify-content: center;
+            }
+            
+            .tool-card {
+                padding: 0.75rem 1rem !important;
+            }
+            
+            .file-info-display {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .file-item {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+        
+        .info-card {
+            padding: 1rem 1.25rem;
+            margin-bottom: 0.75rem;
+        }
+        
+        .info-card h2 {
+            font-size: 1.15rem;
+            margin-bottom: 0.5rem;
+            padding-bottom: 0.375rem;
+        }
+        
+        .related-tools {
+            padding: 1.5rem 0;
+        }
+        
+        .related-title {
+            font-size: 1rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .quality-slider-container {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .quality-slider-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .quality-slider {
+            flex: 1;
+            -webkit-appearance: none;
+            appearance: none;
+            width: 100%;
+            height: 8px;
+            border-radius: 4px;
+            background: var(--border-color);
+            outline: none;
+        }
+
+        .quality-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            cursor: pointer;
+        }
+
+        .quality-slider::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            cursor: pointer;
+            border: none;
+        }
+
+        .quality-value {
+            min-width: 50px;
+            text-align: center;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+    </style>
+</head>
+<body>
+
+<div id="header-placeholder"></div>
+
+<div class="page-header">
+    <h1 class="page-title">AVIF转PNG在线转换器 - 免费图片格式转换工具</h1>
+    <p class="page-subtitle">将AVIF图片转换为PNG格式，支持透明背景，无损输出，兼容所有设备。无需安装软件，直接在浏览器中完成转换，支持批量处理，完全免费使用。</p>
+</div>
+
+<section class="tool-page">
+    <div class="tool-container">
+        <div class="tool-card">
+            <div class="upload-section">
+                <div class="upload-area" id="uploadArea">
+                    <i class="bi bi-image upload-icon"></i>
+                    <h3>点击或拖拽上传 AVIF 文件进行转换</h3>
+                    <p>支持 .avif 格式，单个文件最大 50MB，最多可同时上传 20 个文件</p>
+                    <input type="file" id="fileInput" accept=".avif,image/avif" multiple hidden>
+                </div>
+                <div class="upload-hint">
+                    <i class="bi bi-info-circle"></i>
+                    <span>上传AVIF文件后，系统将在浏览器本地完成转换，文件不会上传到服务器，确保您的隐私安全</span>
+                </div>
+                
+                <div class="file-info-display" id="fileInfoDisplay" style="display: none;">
+                    <div class="file-info-item">
+                        <i class="bi bi-files"></i>
+                        <span>已选择: <strong id="selectedFileCount">0</strong> 个文件</span>
+                    </div>
+                    <div class="file-info-item">
+                        <i class="bi bi-hdd"></i>
+                        <span>总大小: <strong id="selectedFileSize">0 KB</strong></span>
+                    </div>
+                </div>
+                
+                <div class="files-list" id="filesList" style="display: none;"></div>
+            </div>
+
+            <div class="action-buttons">
+                <button class="btn btn-secondary" id="clearBtn">
+                    <i class="bi bi-trash"></i>
+                    清空文件
+                </button>
+                <button class="btn btn-primary" id="convertBtn" disabled>
+                    <i class="bi bi-image"></i>
+                    开始转换为 PNG
+                </button>
+            </div>
+
+            <div class="progress-container" id="progressContainer" style="display: none;">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                <div class="progress-text" id="progressText">正在转换中...</div>
+            </div>
+
+            <div class="result-section" id="resultSection" style="display: none;">
+                <h3 class="result-title">
+                    <i class="bi bi-check-circle"></i>
+                    转换完成
+                </h3>
+                <div class="result-info" id="resultInfo"></div>
+                <div class="result-files" id="resultFiles"></div>
+            </div>
+        </div>
+
+        <div class="info-card feature-card">
+            <h2>为什么选择我们的AVIF转PNG工具？</h2>
+            <div class="feature-grid">
+                <div class="feature-item">
+                    <div class="feature-icon">🎨</div>
+                    <div class="feature-content">
+                        <h3>完美保留透明通道</h3>
+                        <p>PNG格式完整支持Alpha透明通道，转换后保持原图的透明背景和半透明效果，适合设计编辑场景。</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">✨</div>
+                    <div class="feature-content">
+                        <h3>无损画质保证</h3>
+                        <p>PNG采用无损压缩算法，转换过程中不损失任何图像质量，像素级精确还原原AVIF图片的每一个细节。</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">📦</div>
+                    <div class="feature-content">
+                        <h3>批量高效处理</h3>
+                        <p>一次性支持上传20个AVIF文件进行批量转换，大幅提升工作效率，节省重复操作时间。</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">💰</div>
+                    <div class="feature-content">
+                        <h3>100%免费无限制</h3>
+                        <p>完全免费的在线工具，无需注册登录，没有使用次数限制，没有隐藏收费，随时可用。</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🔒</div>
+                    <div class="feature-content">
+                        <h3>隐私安全保障</h3>
+                        <p>所有转换操作在您的浏览器本地完成，文件不会上传到任何服务器，保护您的数据隐私安全。</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">📱</div>
+                    <div class="feature-content">
+                        <h3>全平台兼容性</h3>
+                        <p>支持Windows、Mac、Linux及手机浏览器，随时随地使用，转换后的PNG可在任何设备和软件中打开。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="info-card">
+            <h2>如何使用AVIF转PNG功能？详细教程</h2>
+            <div class="tutorial-steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h4>选择并上传AVIF文件</h4>
+                        <p>点击上传区域选择AVIF图片文件，或者直接将文件拖拽到指定区域。支持多选，一次最多可上传20个文件，单个文件最大50MB。</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h4>预览与确认文件</h4>
+                        <p>上传完成后自动显示缩略图和文件信息（名称、大小），您可以逐个查看确认是否正确。如有误选，点击删除按钮移除即可。</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h4>开始转换</h4>
+                        <p>确认文件无误后，点击"开始转换为PNG"按钮。由于PNG是无损格式，无需设置质量参数，工具会自动进行最优转换。</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h4>等待处理完成</h4>
+                        <p>进度条会实时显示当前转换状态。转换速度取决于文件数量和大小，通常几秒至几十秒内完成全部处理。</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">5</div>
+                    <div class="step-content">
+                        <h4>下载PNG文件</h4>
+                        <p>转换完成后显示结果统计信息，点击每个文件的下载链接单独下载，或使用批量下载按钮一键获取所有PNG文件。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="info-card">
+            <h2>知识科普：AVIF格式与PNG格式深度解析</h2>
+            
+            <h3 style="font-size: 1rem; font-weight: 600; color: var(--text-primary); margin: 1rem 0 0.5rem;">什么是AVIF格式？</h3>
+            <p style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.6; margin-bottom: 1rem;">AVIF（AV1 Image File Format）是由开放媒体联盟AOMedia开发的现代图片编码格式，基于AV1视频编解码技术。它采用先进的压缩算法，在相同画质下比JPEG小约50%，比WebP小约20%，是目前压缩效率最高的主流图片格式之一。然而，AVIF作为较新的格式，在一些旧版软件和设备上可能存在兼容性问题，特别是在需要广泛支持的Web应用和设计工作流中。</p>
+            
+            <h3 style="font-size: 1rem; font-weight: 600; color: var(--text-primary); margin: 1rem 0 0.5rem;">什么是PNG格式？</h3>
+            <p style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.6; margin-bottom: 1rem;">PNG（Portable Network Graphics）是一种位图图像格式，采用无损数据压缩方式。它最显著的特点是支持24位真彩色和完整的Alpha通道透明度。PNG由国际互联网标准化组织W3C开发，旨在替代GIF格式。由于其无损特性和广泛的软件支持，PNG已成为网页设计、图标制作、UI界面、截图保存等领域的首选格式之一。</p>
+            
+            <h3 style="font-size: 1rem; font-weight: 600; color: var(--text-primary); margin: 1rem 0 0.5rem;">AVIF与PNG的核心差异对比</h3>
+            <table style="width: 100%; border-collapse: collapse; font-size: 0.85rem; margin-bottom: 1rem;">
+                <tr style="background: var(--bg-light);">
+                    <th style="padding: 0.5rem; border: 1px solid var(--border-color); text-align: left; font-weight: 600;">特性</th>
+                    <th style="padding: 0.5rem; border: 1px solid var(--border-color); text-align: left; font-weight: 600;">AVIF</th>
+                    <th style="padding: 0.5rem; border: 1px solid var(--border-color); text-align: left; font-weight: 600;">PNG</th>
+                </tr>
+                <tr><td style="padding: 0.5rem; border: 1px solid var(--border-color);">压缩类型</td><td style="padding: 0.5rem; border: 1px solid var(--border-color);">有损+无损</td><td style="padding: 0.5rem; border: 1px solid var(--border-color);">仅无损</td></tr>
+                <tr style="background: var(--bg-light);"><td style="padding: 0.5rem; border: 1px solid var(--border-color);">透明度支持</td><td style="padding: 0.5rem; border: 1px solid var(--border-color);">支持</td><td style="padding: 0.5rem; border: 1px solid var(--border-color);">完整Alpha通道</td></tr>
+                <tr><td style="padding: 0.5rem; border: 1px solid var(--border-color);">压缩效率</td><td style="padding: 0.5rem; border: 1px solid var(--border-color);">极高</td><td style="padding: 0.5rem; border: 1px solid var(--border-color);">中等</td></tr>
+                <tr style="background: var(--bg-light);"><td style="padding: 0.5rem; border: 1px solid var(--border-color);">兼容性</td><td style="padding: 0.5rem; border: 1px solid var(--border-color);">新浏览器支持</td><td style="padding: 0.5rem; border: 1px solid var(--border-color);">全平台通用</td></tr>
+                <tr><td style="padding: 0.5rem; border: 1px solid var(--border-color);">适用场景</td><td style="padding: 0.5rem; border: 1px solid var(--border-color);">Web展示、存储优化</td><td style="padding: 0.5rem; border: 1px solid var(--border-color);">设计编辑、透明素材</td></tr>
+            </table>
+
+            <h3 style="font-size: 1rem; font-weight: 600; color: var(--text-primary); margin: 1rem 0 0.5rem;">为什么需要AVIF转PNG？</h3>
+            <p style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.6;">虽然AVIF具有出色的压缩性能，但在实际应用中存在诸多限制：许多老旧浏览器、图像编辑软件、打印服务不支持AVIF；PNG的无损特性和透明通道支持使其成为设计和印刷行业的标准格式；当您需要在Photoshop、Illustrator等专业软件中进行二次编辑时，PNG是更可靠的选择；此外，某些CMS系统和电商平台仅接受PNG格式的图片上传。</p>
+        </div>
+
+        <div class="info-card">
+            <h2>常见错误与正确做法指南</h2>
+            
+            <div class="faq-item">
+                <div class="faq-question">❌ 错误做法1：忽略浏览器兼容性直接使用AVIF</div>
+                <div class="faq-answer"><strong>✅ 正确做法：</strong>在进行网站开发或内容发布前，先检测目标用户的浏览器环境。对于需要广泛覆盖的场景，应将AVIF转换为PNG或JPG以确保所有用户都能正常浏览。特别是企业官网、电商页面、政府机构网站等对兼容性要求较高的项目。</div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">❌ 错误做法2：在有损压缩后尝试恢复细节</div>
+                <div class="faq-answer"><strong>✅ 正确做法：</strong>如果原始AVIF是有损压缩版本，转换为PNG无法找回已丢失的信息。建议始终保留原始无损源文件，仅在最终发布时才进行有损压缩。对于需要后期编辑的素材，从一开始就采用PNG等无损格式存储。</div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">❌ 错误做法3：不考虑文件体积差异盲目转换</div>
+                <div class="faq-answer"><strong>✅ 正确做法：</strong>PNG是无损格式，相同画质的文件通常会比AVIF大很多。如果只是用于网页展示而非编辑需求，可以考虑转为JPG以平衡质量和体积；如果确实需要无损和透明支持，则接受PNG较大的文件体积。</div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">❌ 错误做法4：忽视色彩空间差异导致颜色偏差</div>
+                <div class="faq-answer"><strong>✅ 正确做法：</strong>AVIF支持更广的色域（如HDR、10-bit色深），而标准PNG通常为sRGB 8-bit。转换时可能出现色彩精度下降。对于高动态范围或广色域的专业摄影作品，建议使用支持16-bit PNG的工具或在转换前调整色彩配置。</div>
+            </div>
+        </div>
+
+        <div class="info-card">
+            <h2>AVIF转PNG典型应用场景</h2>
+            
+            <div style="margin-bottom: 0.75rem;">
+                <h4 style="font-size: 0.95rem; font-weight: 600; color: var(--text-primary); margin-bottom: 0.25rem;"><i class="bi bi-palette" style="color: var(--primary-color); margin-right: 0.5rem;"></i>UI设计与图标制作</h4>
+                <p style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.5;">设计师从素材库获取的AVIF图片需要导入Sketch、Figma、Adobe XD等设计工具时，PNG是最兼容的格式。特别是带有透明背景的图标、按钮元素，PNG的Alpha通道支持不可或缺。</p>
+            </div>
+            
+            <div style="margin-bottom: 0.75rem;">
+                <h4 style="font-size: 0.95rem; font-weight: 600; color: var(--text-primary); margin-bottom: 0.25rem;"><i class="bi bi-globe" style="color: var(--primary-color); margin-right: 0.5rem;"></i>跨平台内容分发</h4>
+                <p style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.5;">社交媒体平台（微博、微信公众号）、论坛、博客系统等往往不支持或限制AVIF上传。转换为PNG可以确保图片在任何平台都能正常显示，避免出现无法加载或格式错误的尴尬情况。</p>
+            </div>
+            
+            <div style="margin-bottom: 0.75rem;">
+                <h4 style="font-size: 0.95rem; font-weight: 600; color: var(--text-primary); margin-bottom: 0.25rem;"><i class="bi bi-printer" style="color: var(--primary-color); margin-right: 0.5rem;"></i>文档嵌入与印刷出版</h4>
+                <p style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.5;">Word文档、PDF报告、PPT演示文稿等办公文档插入图片时，PNG的兼容性和清晰度优势明显。印刷行业更是普遍要求提供无损格式的图片源文件以保证输出品质。</p>
+            </div>
+            
+            <div style="margin-bottom: 0.75rem;">
+                <h4 style="font-size: 0.95rem; font-weight: 600; color: var(--text-primary); margin-bottom: 0.25rem;"><i class="bi bi-code-slash" style="color: var(--primary-color); margin-right: 0.5rem;"></i>前端开发资源适配</h4>
+                <p style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.5;">Web开发者需要为不同浏览器准备fallback图片资源时，PNG作为最安全的兜底格式被广泛使用。配合CSS的image-set()属性或&lt;picture&gt;标签实现渐进增强式加载策略。</p>
+            </div>
+            
+            <div>
+                <h4 style="font-size: 0.95rem; font-weight: 600; color: var(--text-primary); margin-bottom: 0.25rem;"><i class="bi bi-camera" style="color: var(--primary-color); margin-right: 0.5rem;"></i>照片后期处理工作流</h4>
+                <p style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.5;">摄影师用Lightroom、Capture One等专业软件进行调色修图时，中间过程文件通常保存为TIFF或PNG以避免反复有损压缩导致的画质衰减。AVIF转PNG可作为进入编辑流程的第一步。</p>
+            </div>
+        </div>
+
+        <div class="info-card">
+            <h2>AVIF转PNG常见问题解答 (FAQ)</h2>
+            
+            <div class="faq-item">
+                <div class="faq-question">Q1：AVIF转PNG会导致画质损失吗？</div>
+                <div class="faq-answer">A：<strong>不会产生额外损失。</strong>PNG是无损压缩格式，转换过程中会完整保留原图的所有像素信息。但需要注意：如果原始AVIF本身已经过有损压缩，那么其中丢失的数据无法通过转PNG来恢复。转换只是改变编码格式，不会增加也不会减少已有信息量。</div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">Q2：转换后的PNG文件会变大吗？大概大多少？</div>
+                <div class="faq-answer">A：通常会变大，具体倍数取决于图片内容。对于复杂纹理的照片类图片，PNG可能是AVIF的3-10倍；对于简单色块或线条图形，差距可能较小。这是因为PNG的无损压缩效率不如AVIF的有损算法高，但换来的是像素级精度的保证。</div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">Q3：AVIF中的透明背景转换后会保留吗？</div>
+                <div class="faq-answer">A：<strong>完全可以保留。</strong>PNG原生支持完整的Alpha透明通道，我们的工具会将AVIF的透明信息完整地转移到PNG中。无论是全透明背景还是半透明的渐变边缘效果，都能准确还原，非常适合需要透明素材的设计场景。</div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">Q4：支持批量转换吗？有限制吗？</div>
+                <div class="faq-answer">A：支持批量转换！单次最多可同时上传和处理20个AVIF文件，每个文件最大50MB。批量模式特别适用于需要处理大量产品图片、截图集合、素材包的场景，大大提高工作效率。</div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">Q5：这个工具是免费的吗？有使用次数限制吗？</div>
+                <div class="faq-answer">A：<strong>完全免费且无限次使用。</strong>不需要注册账号，不需要付费订阅，没有任何隐藏费用或每日配额限制。您可以随时使用，无论转换多少次、多少张图片都是免费的。</div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">Q6：转换是在服务器上完成的吗？我的图片会被泄露吗？</div>
+                <div class="faq-answer">A：<strong>绝对不会。</strong>整个转换过程100%在您的浏览器本地执行，利用HTML5 Canvas API完成解码和重编码。文件从未离开您的设备，不上传到任何云端服务器，因此不存在隐私泄露风险。即使在断网状态下也能正常使用本工具。</div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">Q7：手机上可以使用AVIF转PNG功能吗？</div>
+                <div class="faq-answer">A：可以！我们的工具针对移动端进行了优化适配，无论是Android手机的Chrome浏览器还是iPhone的Safari浏览器都能流畅运行。响应式布局确保在小屏幕上也有良好的操作体验，随时随地满足您的转换需求。</div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">Q8：什么情况下应该选择PNG而不是JPG作为目标格式？</div>
+                <div class="faq-answer">A：当您的图片包含以下特征时应优先选择PNG：需要透明背景（如Logo、水印、贴纸）；包含文字、线条等锐利边缘的内容；需要进行后续二次编辑而不想累积压缩损失；对画质有极致要求的印刷品或医疗影像等场景。如果只是普通照片且不需要透明，则JPG可能是更好的选择。</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="related-tools">
+    <div class="container">
+        <h3 class="related-title">相关工具推荐</h3>
+        <div class="related-grid">
+            <a href="avif-to-jpg.html" class="related-item">
+                <i class="bi bi-image related-icon"></i>
+                <div class="related-content">
+                    <h4>AVIF转JPG</h4>
+                    <p>AVIF转换为JPG格式</p>
+                </div>
+            </a>
+            <a href="webp-to-png.html" class="related-item">
+                <i class="bi bi-image related-icon"></i>
+                <div class="related-content">
+                    <h4>WebP转PNG</h4>
+                    <p>WebP转换为PNG格式</p>
+                </div>
+            </a>
+            <a href="jpg-to-png.html" class="related-item">
+                <i class="bi bi-image related-icon"></i>
+                <div class="related-content">
+                    <h4>JPG转PNG</h4>
+                    <p>JPG转换为PNG格式</p>
+                </div>
+            </a>
+            <a href="bmp-to-jpg.html" class="related-item">
+                <i class="bi bi-image related-icon"></i>
+                <div class="related-content">
+                    <h4>BMP转JPG</h4>
+                    <p>BMP转换为JPG格式</p>
+                </div>
+            </a>
+            <a href="target-size-compress.html" class="related-item">
+                <i class="bi bi-compress related-icon"></i>
+                <div class="related-content">
+                    <h4>图片压缩</h4>
+                    <p>压缩图片文件大小</p>
+                </div>
+            </a>
+        </div>
+    </div>
+</section>
+
+<div id="footer-placeholder"></div>
+<div id="toast" class="toast"></div>
+
+<script src="assets/avif-to-png.js"></script>
+<script src="assets/tools-data.js"></script>
+<script src="assets/site.js"></script>
+
+</body>
+</html>

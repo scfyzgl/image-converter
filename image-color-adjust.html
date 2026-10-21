@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>图片调色面板 - 在线图片调色工具</title>
+    <meta name="description" content="免费在线图片调色面板，支持亮度、对比度、饱和度、色相、阴影、高光等多种调色参数，实时预览效果。">
+    <meta name="keywords" content="图片调色,调色面板,亮度调整,对比度调整,饱和度调整,color adjust">
+        <link rel="canonical" href="image-color-adjust.html">
+    <link rel="alternate" hreflang="zh-Hans" href="image-color-adjust.html" />
+    <link rel="alternate" hreflang="en" href="en/image-color-adjust.html" />
+    <link rel="alternate" hreflang="x-default" href="en/image-color-adjust.html" />
+    <link rel="stylesheet" href="assets/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="icon" href="assets/favicon.ico">
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "图片调色面板",
+        "description": "免费在线图片调色面板，支持多种调色参数调整",
+        "applicationCategory": "UtilityApplication",
+        "featureList": ["亮度调整", "对比度调整", "饱和度调整", "实时预览"],
+        "operatingSystem": "All"
+    }
+    </script>
+</head>
+<body>
+    <div id="header-placeholder"></div>
+
+    <div class="page-header">
+        <h1 class="page-title">图片调色面板</h1>
+        <p class="page-subtitle">调整亮度、对比度、饱和度、色相、阴影、高光等参数，实时预览效果</p>
+    </div>
+
+    <section class="tool-page">
+        <div class="tool-container">
+            <div class="tool-card">
+                <div class="upload-section">
+                    <div class="upload-area" id="uploadArea">
+                        <i class="bi bi-palette upload-icon"></i>
+                        <h3>点击或拖拽上传图片</h3>
+                        <p>支持 JPG、JPEG、PNG、GIF、BMP 格式，单张最大 50MB</p>
+                        <input type="file" id="fileInput" accept="image/*" hidden>
+                    </div>
+                </div>
+
+                <div class="adjust-section" id="adjustSection" style="display: none;">
+                    <div class="preview-container">
+                        <img id="previewImage" src="" alt="预览图片">
+                    </div>
+
+                    <div class="settings-section">
+                        <h3 class="settings-title">
+                            <i class="bi bi-sliders"></i>
+                            调色参数
+                        </h3>
+                        
+                        <div class="adjust-row">
+                            <div class="adjust-item">
+                                <label>亮度</label>
+                                <input type="range" id="brightness" value="0" min="-100" max="100">
+                                <span class="adjust-value">0</span>
+                            </div>
+                            <div class="adjust-item">
+                                <label>对比度</label>
+                                <input type="range" id="contrast" value="0" min="-100" max="100">
+                                <span class="adjust-value">0</span>
+                            </div>
+                        </div>
+                        
+                        <div class="adjust-row">
+                            <div class="adjust-item">
+                                <label>饱和度</label>
+                                <input type="range" id="saturation" value="0" min="-100" max="100">
+                                <span class="adjust-value">0</span>
+                            </div>
+                            <div class="adjust-item">
+                                <label>色相</label>
+                                <input type="range" id="hue" value="0" min="-180" max="180">
+                                <span class="adjust-value">0°</span>
+                            </div>
+                        </div>
+                        
+                        <div class="adjust-row">
+                            <div class="adjust-item">
+                                <label>阴影</label>
+                                <input type="range" id="shadows" value="0" min="-100" max="100">
+                                <span class="adjust-value">0</span>
+                            </div>
+                            <div class="adjust-item">
+                                <label>高光</label>
+                                <input type="range" id="highlights" value="0" min="-100" max="100">
+                                <span class="adjust-value">0</span>
+                            </div>
+                        </div>
+                        
+                        <div class="adjust-row">
+                            <div class="adjust-item">
+                                <label>锐化</label>
+                                <input type="range" id="sharpen" value="0" min="0" max="100">
+                                <span class="adjust-value">0</span>
+                            </div>
+                            <div class="adjust-item">
+                                <label>模糊</label>
+                                <input type="range" id="blur" value="0" min="0" max="20">
+                                <span class="adjust-value">0px</span>
+                            </div>
+                        </div>
+
+                        <div class="action-buttons">
+                            <button class="btn btn-secondary" id="resetBtn">
+                                <i class="bi bi-arrow-clockwise"></i>
+                                重置
+                            </button>
+                            <button class="btn btn-primary" id="applyBtn">
+                                <i class="bi bi-check-circle"></i>
+                                应用效果
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="result-section" id="resultSection" style="display: none;">
+                    <h3 class="preview-title">
+                        <i class="bi bi-eye"></i>
+                        调色结果
+                    </h3>
+                    <div class="preview-container">
+                        <img id="resultImage" src="" alt="调色结果">
+                    </div>
+                    <div class="image-info">
+                        <span id="resultSize"></span>
+                    </div>
+                    <div class="action-buttons">
+                        <button class="btn btn-secondary" id="backBtn">
+                            <i class="bi bi-arrow-left"></i>
+                            返回调整
+                        </button>
+                        <button class="btn btn-primary" id="downloadBtn">
+                            <i class="bi bi-download"></i>
+                            下载图片
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-card">
+                <h2>为什么选择我们的调色面板？</h2>
+                <div class="feature-grid">
+                    <div class="feature-item">
+                        <div class="feature-icon">🎨</div>
+                        <div class="feature-content">
+                            <h3>丰富参数</h3>
+                            <p>亮度、对比度、饱和度等多种调色参数</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">👁️</div>
+                        <div class="feature-content">
+                            <h3>实时预览</h3>
+                            <p>调整参数时实时预览效果</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🔄</div>
+                        <div class="feature-content">
+                            <h3>一键重置</h3>
+                            <p>快速恢复原始图片</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🔒</div>
+                        <div class="feature-content">
+                            <h3>隐私安全</h3>
+                            <p>所有操作在浏览器本地完成</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-card">
+                <h2>使用说明</h2>
+                <div class="tutorial-steps">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h4>上传图片</h4>
+                            <p>点击上传区域或拖拽图片到页面</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h4>调整参数</h4>
+                            <p>滑动滑块调整各调色参数，实时预览效果</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h4>应用效果</h4>
+                            <p>点击应用效果按钮，查看最终结果</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <h4>下载图片</h4>
+                            <p>满意后点击下载按钮保存图片</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-card">
+                <h2>常见问题</h2>
+                <div class="error-item">
+                    <div class="error-question">
+                        <i class="bi bi-exclamation-circle error-icon"></i>
+                        调整后图片质量下降？
+                    </div>
+                    <p class="error-cause">过度调整参数可能导致图片细节丢失。</p>
+                    <p class="error-solution">建议适度调整参数，避免极端值。</p>
+                </div>
+                <div class="error-item">
+                    <div class="error-question">
+                        <i class="bi bi-exclamation-circle error-icon"></i>
+                        如何恢复原始图片？
+                    </div>
+                    <p class="error-cause">调整参数后可以随时重置。</p>
+                    <p class="error-solution">点击"重置"按钮即可恢复原始图片状态。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="related-tools">
+        <div class="container">
+            <h3 class="related-title">相关工具推荐</h3>
+            <div class="related-grid">
+                <a href="image-mosaic-blur.html" class="related-item">
+                    <i class="bi bi-grid-3x3 related-icon"></i>
+                    <div class="related-content">
+                        <h4>图片马赛克模糊</h4>
+                        <p>添加马赛克效果</p>
+                    </div>
+                </a>
+                <a href="image-border-shadow.html" class="related-item">
+                    <i class="bi bi-frame related-icon"></i>
+                    <div class="related-content">
+                        <h4>图片边框阴影</h4>
+                        <p>添加边框和阴影</p>
+                    </div>
+                </a>
+                <a href="photo-sketch.html" class="related-item">
+                    <i class="bi bi-pencil related-icon"></i>
+                    <div class="related-content">
+                        <h4>照片转手绘</h4>
+                        <p>素描滤镜效果</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <div id="footer-placeholder"></div>
+    <div id="toast" class="toast"></div>
+
+    <script src="assets/image-color-adjust.js"></script>
+    <script src="assets/tools-data.js"></script>
+<script src="assets/site.js"></script>
+
+    <style>
+        .preview-container {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto;
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            background: #000;
+        }
+        
+        .preview-container img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: filter var(--transition-fast);
+        }
+        
+        .adjust-row {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .adjust-item {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        
+        .adjust-item label {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .adjust-item input[type="range"] {
+            width: 100%;
+            height: 6px;
+            border-radius: 3px;
+            background: var(--bg-light);
+            outline: none;
+            -webkit-appearance: none;
+        }
+        
+        .adjust-item input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            cursor: pointer;
+        }
+        
+        .adjust-item input[type="range"]::-moz-range-thumb {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            cursor: pointer;
+            border: none;
+        }
+        
+        .adjust-value {
+            font-size: 0.8rem;
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+        
+        .image-info {
+            text-align: center;
+            margin-top: 0.75rem;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+    </style>
+</body>
+</html>

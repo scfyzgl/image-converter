@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GIF 动图编辑工具 - 在线 GIF 编辑器</title>
+    <meta name="description" content="免费在线 GIF 动图编辑工具，支持帧编辑、添加文字、调整速度、裁剪等功能。">
+    <meta name="keywords" content="GIF编辑器,GIF编辑,GIF制作,gif editor">
+        <link rel="canonical" href="gif-editor.html">
+    <link rel="alternate" hreflang="zh-Hans" href="gif-editor.html" />
+    <link rel="alternate" hreflang="en" href="en/gif-editor.html" />
+    <link rel="alternate" hreflang="x-default" href="en/gif-editor.html" />
+    <link rel="stylesheet" href="assets/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="icon" href="assets/favicon.ico">
+    <script src="https://cdn.jsdelivr.net/npm/gifenc@1.0.3/dist/gifenc.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gif.js@0.2.0/dist/gif.js"></script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "GIF 动图编辑工具",
+        "description": "免费在线 GIF 动图编辑工具",
+        "applicationCategory": "UtilityApplication",
+        "featureList": ["帧编辑", "添加文字", "调整速度", "裁剪", "重新合成"],
+        "operatingSystem": "All"
+    }
+    </script>
+</head>
+<body>
+    <div id="header-placeholder"></div>
+
+    <div class="page-header">
+        <h1 class="page-title">GIF 动图编辑工具</h1>
+        <p class="page-subtitle">编辑 GIF 动图，支持帧操作、文字添加、速度调整等功能</p>
+    </div>
+
+    <section class="tool-page">
+        <div class="tool-container">
+            <div class="tool-card">
+                <div class="upload-section">
+                    <div class="upload-area" id="uploadArea">
+                        <i class="bi bi-images upload-icon"></i>
+                        <h3>点击或拖拽上传 GIF</h3>
+                        <p>支持 GIF 格式，最大 50MB</p>
+                        <input type="file" id="fileInput" accept="image/gif" hidden>
+                    </div>
+                </div>
+
+                <div class="editor-section" id="editorSection" style="display: none;">
+                    <div class="gif-preview">
+                        <h3 class="preview-title">
+                            <i class="bi bi-play-circle"></i>
+                            预览
+                        </h3>
+                        <div class="preview-container" id="previewContainer">
+                            <img id="previewImage" src="" alt="预览图片">
+                            <div class="canvas-overlay">
+                                <canvas id="editCanvas"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="frame-controls">
+                        <h3 class="preview-title">
+                            <i class="bi bi-grid-3x3"></i>
+                            帧列表
+                        </h3>
+                        <div class="frames-grid" id="framesGrid"></div>
+                    </div>
+
+                    <div class="controls-panel">
+                        <h3 class="preview-title">
+                            <i class="bi bi-sliders"></i>
+                            编辑控制
+                        </h3>
+
+                        <div class="control-group">
+                            <label>当前帧延迟 (ms)</label>
+                            <input type="number" id="frameDelay" min="10" max="5000" value="100" class="input-control">
+                        </div>
+
+                        <div class="control-group">
+                            <label>全局帧延迟 (ms)</label>
+                            <input type="number" id="globalDelay" min="10" max="5000" value="100" class="input-control">
+                            <button class="btn btn-sm btn-secondary" id="applyGlobalDelay">应用到所有帧</button>
+                        </div>
+
+                        <div class="control-group">
+                            <label>循环次数</label>
+                            <select id="loopCount" class="input-control">
+                                <option value="0">无限循环</option>
+                                <option value="1">播放 1 次</option>
+                                <option value="2">播放 2 次</option>
+                                <option value="3">播放 3 次</option>
+                                <option value="5">播放 5 次</option>
+                                <option value="10">播放 10 次</option>
+                            </select>
+                        </div>
+
+                        <div class="control-group">
+                            <label>添加文字</label>
+                            <input type="text" id="textInput" placeholder="输入文字" class="input-control">
+                            <input type="color" id="textColor" value="#ffffff" class="input-control">
+                            <input type="number" id="textSize" min="10" max="100" value="30" class="input-control">
+                            <button class="btn btn-sm btn-secondary" id="addTextBtn">添加到当前帧</button>
+                        </div>
+
+                        <div class="frame-actions">
+                            <button class="btn btn-sm btn-danger" id="deleteFrame">
+                                <i class="bi bi-trash"></i> 删除当前帧
+                            </button>
+                            <button class="btn btn-sm btn-secondary" id="duplicateFrame">
+                                <i class="bi bi-copy"></i> 复制当前帧
+                            </button>
+                            <button class="btn btn-sm btn-secondary" id="moveUp">
+                                <i class="bi bi-arrow-up"></i> 上移
+                            </button>
+                            <button class="btn btn-sm btn-secondary" id="moveDown">
+                                <i class="bi bi-arrow-down"></i> 下移
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="action-buttons">
+                        <button class="btn btn-secondary" id="backBtn">
+                            <i class="bi bi-arrow-left"></i> 返回上传
+                        </button>
+                        <button class="btn btn-primary" id="saveBtn">
+                            <i class="bi bi-save"></i> 保存 GIF
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-card">
+                <h2>为什么选择我们的 GIF 编辑器？</h2>
+                <div class="feature-grid">
+                    <div class="feature-item">
+                        <div class="feature-icon">🎬</div>
+                        <div class="feature-content">
+                            <h3>帧编辑</h3>
+                            <p>支持帧的添加、删除、排序</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">📝</div>
+                        <div class="feature-content">
+                            <h3>文字添加</h3>
+                            <p>在 GIF 上添加自定义文字</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">⚡</div>
+                        <div class="feature-content">
+                            <h3>速度调整</h3>
+                            <p>调整帧延迟控制播放速度</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🔒</div>
+                        <div class="feature-content">
+                            <h3>隐私安全</h3>
+                            <p>所有操作在浏览器本地完成</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-card">
+                <h2>使用说明</h2>
+                <div class="tutorial-steps">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h4>上传 GIF</h4>
+                            <p>点击上传区域或拖拽 GIF 文件到页面</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h4>编辑帧</h4>
+                            <p>选择帧进行删除、复制、排序等操作</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h4>添加文字</h4>
+                            <p>输入文字并选择颜色添加到当前帧</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <h4>保存 GIF</h4>
+                            <p>点击保存按钮生成并下载新 GIF</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-card">
+                <h2>常见问题</h2>
+                <div class="error-item">
+                    <div class="error-question">
+                        <i class="bi bi-exclamation-circle error-icon"></i>
+                        编辑后的 GIF 体积变大？
+                    </div>
+                    <p class="error-cause">重新合成 GIF 会重新编码，可能导致体积变化。</p>
+                    <p class="error-solution">可以尝试调整帧延迟或减少帧数来减小体积。</p>
+                </div>
+                <div class="error-item">
+                    <div class="error-question">
+                        <i class="bi bi-exclamation-circle error-icon"></i>
+                        保存速度慢？
+                    </div>
+                    <p class="error-cause">GIF 编码需要处理每一帧，帧数越多越慢。</p>
+                    <p class="error-solution">耐心等待，编码完成后会自动下载。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="related-tools">
+        <div class="container">
+            <h3 class="related-title">相关工具推荐</h3>
+            <div class="related-grid">
+                <a href="gif-frame-extractor.html" class="related-item">
+                    <i class="bi bi-images related-icon"></i>
+                    <div class="related-content">
+                        <h4>GIF 帧拆分</h4>
+                        <p>拆分 GIF 为单帧</p>
+                    </div>
+                </a>
+                <a href="video-to-gif.html" class="related-item">
+                    <i class="bi bi-film related-icon"></i>
+                    <div class="related-content">
+                        <h4>视频转 GIF</h4>
+                        <p>视频转换为动图</p>
+                    </div>
+                </a>
+                <a href="jpg-to-gif.html" class="related-item">
+                    <i class="bi bi-image related-icon"></i>
+                    <div class="related-content">
+                        <h4>图片转 GIF</h4>
+                        <p>图片序列转 GIF</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <div id="footer-placeholder"></div>
+    <div id="toast" class="toast"></div>
+
+    <script src="assets/gif-editor.js"></script>
+    <script src="assets/tools-data.js"></script>
+<script src="assets/site.js"></script>
+
+    <style>
+        .preview-container {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto;
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            background: #000;
+        }
+        
+        .preview-container img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        .canvas-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+        
+        .canvas-overlay canvas {
+            width: 100%;
+            height: 100%;
+        }
+        
+        .frames-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+            gap: 0.5rem;
+            max-height: 200px;
+            overflow-y: auto;
+            padding: 0.5rem;
+        }
+        
+        .frame-item {
+            position: relative;
+            border-radius: var(--radius-sm);
+            overflow: hidden;
+            cursor: pointer;
+            aspect-ratio: 1;
+            border: 2px solid var(--border-color);
+            transition: all var(--transition-fast);
+        }
+        
+        .frame-item:hover {
+            border-color: var(--primary-color);
+            transform: scale(1.05);
+        }
+        
+        .frame-item.selected {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+        }
+        
+        .frame-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .frame-item .frame-number {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.7);
+            color: #fff;
+            font-size: 0.75rem;
+            text-align: center;
+            padding: 0.25rem;
+        }
+        
+        .control-group {
+            margin-bottom: 1rem;
+        }
+        
+        .control-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+        
+        .control-group .input-control {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            margin-bottom: 0.5rem;
+        }
+        
+        .frame-actions {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .frame-actions .btn {
+            flex: 1;
+            min-width: 80px;
+        }
+    </style>
+</body>
+</html>

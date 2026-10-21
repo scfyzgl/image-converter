@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>图片自由裁剪器 - 在线图片裁剪工具</title>
+    <meta name="description" content="免费在线图片自由裁剪器，支持拖拽裁剪框、自定义尺寸、预设比例，实时预览裁剪效果。">
+    <meta name="keywords" content="图片裁剪器,在线裁剪工具,自由裁剪,图片裁剪,裁剪图片">
+        <link rel="canonical" href="image-cropper.html">
+    <link rel="alternate" hreflang="zh-Hans" href="image-cropper.html" />
+    <link rel="alternate" hreflang="en" href="en/image-cropper.html" />
+    <link rel="alternate" hreflang="x-default" href="en/image-cropper.html" />
+    <link rel="stylesheet" href="assets/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="icon" href="assets/favicon.ico">
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "图片自由裁剪器",
+        "description": "免费在线图片自由裁剪器，支持拖拽裁剪框、自定义尺寸、预设比例",
+        "applicationCategory": "UtilityApplication",
+        "featureList": ["自由裁剪", "预设比例", "实时预览", "精确尺寸"],
+        "operatingSystem": "All"
+    }
+    </script>
+</head>
+<body>
+    <div id="header-placeholder"></div>
+
+    <div class="page-header">
+        <h1 class="page-title">图片自由裁剪器</h1>
+        <p class="page-subtitle">拖拽裁剪框自由调整区域，支持多种预设比例，精确控制裁剪尺寸</p>
+    </div>
+
+    <section class="tool-page">
+        <div class="tool-container">
+            <div class="tool-card">
+                <div class="upload-section">
+                    <div class="upload-area" id="uploadArea">
+                        <i class="bi bi-image upload-icon"></i>
+                        <h3>点击或拖拽上传图片</h3>
+                        <p>支持 JPG、JPEG、PNG、GIF、BMP 格式，单张最大 50MB</p>
+                        <input type="file" id="fileInput" accept="image/*" hidden>
+                    </div>
+                </div>
+
+                <div class="cropper-section" id="cropperSection" style="display: none;">
+                    <div class="cropper-container">
+                        <div class="cropper-wrapper" id="cropperWrapper">
+                            <img id="cropperImage" src="" alt="裁剪图片">
+                            <div class="cropper-overlay">
+                                <div class="cropper-rect" id="cropperRect"></div>
+                                <div class="resize-handle top-left"></div>
+                                <div class="resize-handle top-right"></div>
+                                <div class="resize-handle bottom-left"></div>
+                                <div class="resize-handle bottom-right"></div>
+                                <div class="resize-handle top"></div>
+                                <div class="resize-handle bottom"></div>
+                                <div class="resize-handle left"></div>
+                                <div class="resize-handle right"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="settings-section">
+                        <h3 class="settings-title">
+                            <i class="bi bi-sliders"></i>
+                            裁剪设置
+                        </h3>
+                        <div class="config-row">
+                            <div class="config-item">
+                                <label>预设比例</label>
+                                <select id="aspectRatio">
+                                    <option value="0">自由比例</option>
+                                    <option value="1">1:1 正方形</option>
+                                    <option value="1.33">4:3</option>
+                                    <option value="1.78">16:9</option>
+                                    <option value="0.56">9:16</option>
+                                    <option value="1.5">3:2</option>
+                                    <option value="0.67">2:3</option>
+                                </select>
+                            </div>
+                            <div class="config-item">
+                                <label>输出格式</label>
+                                <select id="outputFormat">
+                                    <option value="jpg">JPEG</option>
+                                    <option value="png">PNG</option>
+                                    <option value="webp">WebP</option>
+                                    <option value="original">保持原格式</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="config-row">
+                            <div class="config-item">
+                                <label>裁剪宽度（像素）</label>
+                                <input type="number" id="cropWidth" value="0" placeholder="自动">
+                            </div>
+                            <div class="config-item">
+                                <label>裁剪高度（像素）</label>
+                                <input type="number" id="cropHeight" value="0" placeholder="自动">
+                            </div>
+                        </div>
+                        <div class="action-buttons">
+                            <button class="btn btn-secondary" id="resetBtn">
+                                <i class="bi bi-arrow-clockwise"></i>
+                                重置
+                            </button>
+                            <button class="btn btn-primary" id="cropBtn">
+                                <i class="bi bi-scissors"></i>
+                                确认裁剪
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="preview-section" id="previewSection" style="display: none;">
+                    <h3 class="preview-title">
+                        <i class="bi bi-eye"></i>
+                        裁剪预览
+                    </h3>
+                    <div class="preview-container">
+                        <img id="previewImage" src="" alt="裁剪结果">
+                    </div>
+                    <div class="image-info">
+                        <span id="resultSize"></span>
+                    </div>
+                    <div class="action-buttons">
+                        <button class="btn btn-secondary" id="backBtn">
+                            <i class="bi bi-arrow-left"></i>
+                            返回重新裁剪
+                        </button>
+                        <button class="btn btn-primary" id="downloadBtn">
+                            <i class="bi bi-download"></i>
+                            下载图片
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-card">
+                <h2>为什么选择我们的图片裁剪工具？</h2>
+                <div class="feature-grid">
+                    <div class="feature-item">
+                        <div class="feature-icon">✂️</div>
+                        <div class="feature-content">
+                            <h3>自由裁剪</h3>
+                            <p>拖拽裁剪框，自由调整裁剪区域</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">📐</div>
+                        <div class="feature-content">
+                            <h3>预设比例</h3>
+                            <p>支持多种常见比例，一键切换</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🎯</div>
+                        <div class="feature-content">
+                            <h3>精确控制</h3>
+                            <p>自定义裁剪尺寸，精确到像素</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🔒</div>
+                        <div class="feature-content">
+                            <h3>隐私安全</h3>
+                            <p>所有操作在浏览器本地完成</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-card">
+                <h2>使用说明</h2>
+                <div class="tutorial-steps">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h4>上传图片</h4>
+                            <p>点击上传区域或拖拽图片到页面</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h4>选择比例</h4>
+                            <p>从下拉菜单选择预设比例或自由比例</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h4>调整裁剪框</h4>
+                            <p>拖拽裁剪框移动位置，拖动边角调整大小</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <h4>确认裁剪</h4>
+                            <p>点击确认裁剪按钮，预览并下载结果</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-card">
+                <h2>常见问题</h2>
+                <div class="error-item">
+                    <div class="error-question">
+                        <i class="bi bi-exclamation-circle error-icon"></i>
+                        裁剪框太小无法调整怎么办？
+                    </div>
+                    <p class="error-cause">裁剪框有最小尺寸限制，避免裁剪区域过小。</p>
+                    <p class="error-solution">尝试放大图片或选择更大的裁剪区域。</p>
+                </div>
+                <div class="error-item">
+                    <div class="error-question">
+                        <i class="bi bi-exclamation-circle error-icon"></i>
+                        如何保持图片比例？
+                    </div>
+                    <p class="error-cause">选择自由比例时，裁剪框可以任意调整大小。</p>
+                    <p class="error-solution">从预设比例中选择所需的比例，裁剪框将保持该比例。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="related-tools">
+        <div class="container">
+            <h3 class="related-title">相关工具推荐</h3>
+            <div class="related-grid">
+                <a href="image-resize.html" class="related-item">
+                    <i class="bi bi-image-alt related-icon"></i>
+                    <div class="related-content">
+                        <h4>图片批量缩放</h4>
+                        <p>调整图片尺寸</p>
+                    </div>
+                </a>
+                <a href="image-rotate-flip.html" class="related-item">
+                    <i class="bi bi-rotate related-icon"></i>
+                    <div class="related-content">
+                        <h4>图片旋转翻转</h4>
+                        <p>旋转和翻转图片</p>
+                    </div>
+                </a>
+                <a href="custom-shape-crop.html" class="related-item">
+                    <i class="bi bi-shape related-icon"></i>
+                    <div class="related-content">
+                        <h4>自定义形状裁剪</h4>
+                        <p>圆形心形等裁剪</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <div id="footer-placeholder"></div>
+    <div id="toast" class="toast"></div>
+
+    <script src="assets/image-cropper.js"></script>
+    <script src="assets/tools-data.js"></script>
+<script src="assets/site.js"></script>
+
+    <style>
+        .cropper-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            background: #000;
+            border-radius: var(--radius-md);
+            overflow: hidden;
+        }
+        
+        .cropper-wrapper {
+            position: relative;
+            width: 100%;
+            height: 400px;
+            overflow: hidden;
+            background: #1a1a1a;
+        }
+        
+        .cropper-wrapper img {
+            position: absolute;
+            max-width: 100%;
+            max-height: 100%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            user-select: none;
+        }
+        
+        .cropper-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            cursor: crosshair;
+        }
+        
+        .cropper-rect {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px dashed rgba(255, 255, 255, 0.8);
+            cursor: move;
+        }
+        
+        .cropper-rect::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+        }
+        
+        .resize-handle {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background: white;
+            border: 2px solid #333;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+        
+        .resize-handle.top-left { top: -6px; left: -6px; cursor: nw-resize; }
+        .resize-handle.top-right { top: -6px; right: -6px; cursor: ne-resize; }
+        .resize-handle.bottom-left { bottom: -6px; left: -6px; cursor: sw-resize; }
+        .resize-handle.bottom-right { bottom: -6px; right: -6px; cursor: se-resize; }
+        .resize-handle.top { top: -6px; left: 50%; transform: translateX(-50%); cursor: n-resize; }
+        .resize-handle.bottom { bottom: -6px; left: 50%; transform: translateX(-50%); cursor: s-resize; }
+        .resize-handle.left { left: -6px; top: 50%; transform: translateY(-50%); cursor: w-resize; }
+        .resize-handle.right { right: -6px; top: 50%; transform: translateY(-50%); cursor: e-resize; }
+        
+        .preview-container {
+            position: relative;
+            width: 100%;
+            max-width: 400px;
+            margin: 0 auto;
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            background: #1a1a1a;
+        }
+        
+        .preview-container img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        .image-info {
+            text-align: center;
+            margin-top: 0.75rem;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+    </style>
+</body>
+</html>

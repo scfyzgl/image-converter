@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>图片取色器 - 在线图片取色工具</title>
+    <meta name="description" content="免费在线图片取色器，点击图片任意位置提取颜色值，支持HEX/RGB/RGBA格式，生成配色方案。">
+    <meta name="keywords" content="图片取色器,取色工具,颜色提取,HEX颜色,RGB颜色,取色器">
+        <link rel="canonical" href="image-color-picker.html">
+    <link rel="alternate" hreflang="zh-Hans" href="image-color-picker.html" />
+    <link rel="alternate" hreflang="en" href="en/image-color-picker.html" />
+    <link rel="alternate" hreflang="x-default" href="en/image-color-picker.html" />
+    <link rel="stylesheet" href="assets/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="icon" href="assets/favicon.ico">
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "图片取色器",
+        "description": "免费在线图片取色器，点击提取颜色值，生成配色方案",
+        "applicationCategory": "UtilityApplication",
+        "featureList": ["点击取色", "HEX格式", "RGB格式", "配色方案", "一键复制"],
+        "operatingSystem": "All"
+    }
+    </script>
+</head>
+<body>
+    <div id="header-placeholder"></div>
+
+    <div class="page-header">
+        <h1 class="page-title">图片取色器</h1>
+        <p class="page-subtitle">点击图片任意位置提取颜色值，支持HEX/RGB/RGBA格式，自动生成配色方案</p>
+    </div>
+
+    <section class="tool-page">
+        <div class="tool-container">
+            <div class="tool-card">
+                <div class="upload-section">
+                    <div class="upload-area" id="uploadArea">
+                        <i class="bi bi-image upload-icon"></i>
+                        <h3>点击或拖拽上传图片</h3>
+                        <p>支持 JPG、JPEG、PNG、GIF、BMP 格式，单张最大 50MB</p>
+                        <input type="file" id="fileInput" accept="image/*" hidden>
+                    </div>
+                </div>
+
+                <div class="preview-section" id="previewSection" style="display: none;">
+                    <div class="preview-title">
+                        <i class="bi bi-eye"></i>
+                        点击图片取色
+                    </div>
+                    <div class="preview-container" id="previewContainer">
+                        <canvas id="previewCanvas"></canvas>
+                        <div class="color-crosshair" id="colorCrosshair" style="display: none;"></div>
+                    </div>
+                </div>
+
+                <div class="result-section" id="resultSection" style="display: none;">
+                    <h3 class="preview-title">
+                        <i class="bi bi-palette"></i>
+                        提取的颜色
+                    </h3>
+                    <div class="color-display">
+                        <div class="color-preview" id="colorPreview"></div>
+                        <div class="color-values">
+                            <div class="color-item">
+                                <span class="color-label">HEX</span>
+                                <span class="color-value" id="hexValue"></span>
+                                <button class="copy-btn" data-target="hexValue"><i class="bi bi-copy"></i></button>
+                            </div>
+                            <div class="color-item">
+                                <span class="color-label">RGB</span>
+                                <span class="color-value" id="rgbValue"></span>
+                                <button class="copy-btn" data-target="rgbValue"><i class="bi bi-copy"></i></button>
+                            </div>
+                            <div class="color-item">
+                                <span class="color-label">RGBA</span>
+                                <span class="color-value" id="rgbaValue"></span>
+                                <button class="copy-btn" data-target="rgbaValue"><i class="bi bi-copy"></i></button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="palette-section">
+                        <h3 class="preview-title">
+                            <i class="bi bi-colors"></i>
+                            配色方案
+                        </h3>
+                        <div class="palette-grid">
+                            <div class="palette-item">
+                                <div class="palette-color" id="complementary"></div>
+                                <span class="palette-label">互补色</span>
+                                <span class="palette-value" id="complementaryValue"></span>
+                            </div>
+                            <div class="palette-item">
+                                <div class="palette-color" id="analogous1"></div>
+                                <span class="palette-label">类似色1</span>
+                                <span class="palette-value" id="analogous1Value"></span>
+                            </div>
+                            <div class="palette-item">
+                                <div class="palette-color" id="analogous2"></div>
+                                <span class="palette-label">类似色2</span>
+                                <span class="palette-value" id="analogous2Value"></span>
+                            </div>
+                            <div class="palette-item">
+                                <div class="palette-color" id="triadic1"></div>
+                                <span class="palette-label">三角色1</span>
+                                <span class="palette-value" id="triadic1Value"></span>
+                            </div>
+                            <div class="palette-item">
+                                <div class="palette-color" id="triadic2"></div>
+                                <span class="palette-label">三角色2</span>
+                                <span class="palette-value" id="triadic2Value"></span>
+                            </div>
+                            <div class="palette-item">
+                                <div class="palette-color" id="monochromatic"></div>
+                                <span class="palette-label">单色变体</span>
+                                <span class="palette-value" id="monochromaticValue"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-card">
+                <h2>为什么选择我们的图片取色器？</h2>
+                <div class="feature-grid">
+                    <div class="feature-item">
+                        <div class="feature-icon">🖱️</div>
+                        <div class="feature-content">
+                            <h3>点击取色</h3>
+                            <p>鼠标点击图片任意位置即可提取颜色</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🎨</div>
+                        <div class="feature-content">
+                            <h3>多格式支持</h3>
+                            <p>支持HEX、RGB、RGBA多种颜色格式</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">📋</div>
+                        <div class="feature-content">
+                            <h3>一键复制</h3>
+                            <p>点击复制按钮快速复制色值</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🌈</div>
+                        <div class="feature-content">
+                            <h3>配色方案</h3>
+                            <p>自动生成互补色、类似色等配色方案</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-card">
+                <h2>颜色格式说明</h2>
+                <div class="glossary-item">
+                    <h3>HEX 格式</h3>
+                    <p>十六进制颜色代码，以#开头，如 #FF5733。前两位是红色，中间两位是绿色，最后两位是蓝色。</p>
+                    <div class="glossary-example">#FF5733 (RGB: 255, 87, 51)</div>
+                </div>
+                <div class="glossary-item">
+                    <h3>RGB 格式</h3>
+                    <p>红绿蓝三原色值，每个颜色范围0-255。如 rgb(255, 87, 51)。</p>
+                    <div class="glossary-example">rgb(255, 87, 51)</div>
+                </div>
+                <div class="glossary-item">
+                    <h3>RGBA 格式</h3>
+                    <p>在RGB基础上增加透明度通道，alpha值范围0-1。如 rgba(255, 87, 51, 0.8)。</p>
+                    <div class="glossary-example">rgba(255, 87, 51, 0.8)</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="related-tools">
+        <div class="container">
+            <h3 class="related-title">相关工具推荐</h3>
+            <div class="related-grid">
+                <a href="image-base64-converter.html" class="related-item">
+                    <i class="bi bi-code related-icon"></i>
+                    <div class="related-content">
+                        <h4>图片Base64互转</h4>
+                        <p>图片与Base64编码互转</p>
+                    </div>
+                </a>
+                <a href="image-color-adjust.html" class="related-item">
+                    <i class="bi bi-sliders related-icon"></i>
+                    <div class="related-content">
+                        <h4>图片调色面板</h4>
+                        <p>调整亮度对比度等</p>
+                    </div>
+                </a>
+                <a href="placeholder-generator.html" class="related-item">
+                    <i class="bi bi-image-plus related-icon"></i>
+                    <div class="related-content">
+                        <h4>占位图生成器</h4>
+                        <p>自定义占位图生成</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <div id="footer-placeholder"></div>
+    <div id="toast" class="toast"></div>
+
+    <script src="assets/image-color-picker.js"></script>
+    <script src="assets/tools-data.js"></script>
+<script src="assets/site.js"></script>
+
+    <style>
+        .preview-container {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #f8f9fa;
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            min-height: 200px;
+            cursor: crosshair;
+        }
+        
+        #previewCanvas {
+            max-width: 100%;
+            max-height: 400px;
+            border-radius: var(--radius-sm);
+        }
+        
+        .color-crosshair {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border: 2px solid white;
+            border-radius: 50%;
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 0 0 2px rgba(0,0,0,0.3);
+        }
+        
+        .color-display {
+            display: flex;
+            align-items: flex-start;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background: var(--bg-light);
+            border-radius: var(--radius-md);
+        }
+        
+        .color-preview {
+            width: 80px;
+            height: 80px;
+            border-radius: var(--radius-md);
+            border: 2px solid var(--border-color);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .color-values {
+            flex: 1;
+        }
+        
+        .color-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .color-item:last-child {
+            margin-bottom: 0;
+        }
+        
+        .color-label {
+            font-weight: 600;
+            color: var(--text-primary);
+            font-size: 0.9rem;
+            min-width: 50px;
+        }
+        
+        .color-value {
+            flex: 1;
+            font-family: 'Courier New', monospace;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            background: var(--bg-white);
+            padding: 0.375rem 0.75rem;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border-color);
+        }
+        
+        .copy-btn {
+            padding: 0.375rem 0.75rem;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            transition: var(--transition-fast);
+        }
+        
+        .copy-btn:hover {
+            background: var(--primary-hover);
+        }
+        
+        .palette-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 1rem;
+        }
+        
+        .palette-item {
+            text-align: center;
+            padding: 0.75rem;
+            background: var(--bg-light);
+            border-radius: var(--radius-md);
+            transition: var(--transition-fast);
+        }
+        
+        .palette-item:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .palette-color {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 0.5rem;
+            border-radius: var(--radius-md);
+            border: 2px solid var(--border-color);
+        }
+        
+        .palette-label {
+            display: block;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.25rem;
+        }
+        
+        .palette-value {
+            display: block;
+            font-family: 'Courier New', monospace;
+            font-size: 0.75rem;
+            color: var(--text-primary);
+            background: var(--bg-white);
+            padding: 0.25rem 0.5rem;
+            border-radius: var(--radius-sm);
+        }
+    </style>
+</body>
+</html>

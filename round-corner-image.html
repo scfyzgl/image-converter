@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>免费圆角图片生成器 - 图片圆角处理在线 - 易工具网</title>
+    <meta name="description" content="免费圆角图片生成器，在线图片圆角处理工具。支持自定义圆角半径，拖拽定义圆角角度，实时预览效果，本地处理保护隐私，一键下载处理后的圆角图片。">
+    <meta name="keywords" content="圆角图片,图片圆角处理在线,免费图片圆角处理,在线圆角图片生成器,图片圆角制作,图片圆角生成,图片圆角工具">
+    <link rel="canonical" href="round-corner-image.html">
+    <link rel="alternate" hreflang="zh-Hans" href="round-corner-image.html" />
+    <link rel="alternate" hreflang="en" href="en/round-corner-image.html" />
+    <link rel="alternate" hreflang="x-default" href="en/round-corner-image.html" />
+    <link rel="stylesheet" href="assets/style.css">
+    <link rel="stylesheet" href="assets/round-corner-image.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="icon" href="assets/favicon.ico">
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "免费圆角图片生成器",
+        "description": "免费圆角图片生成器，在线图片圆角处理工具。支持自定义圆角半径，拖拽定义圆角角度，实时预览效果，本地处理保护隐私，一键下载处理后的圆角图片。",
+        "url": "round-corner-image.html",
+        "applicationCategory": "UtilityApplication",
+        "operatingSystem": "Web",
+        "features": [
+            "自定义圆角半径设置",
+            "拖拽定义圆角角度",
+            "实时预览圆角效果",
+            "支持多种图片格式",
+            "批量处理多张图片",
+            "本地浏览器处理保护隐私",
+            "一键下载处理结果"
+        ],
+        "keywords": ["圆角图片", "图片圆角处理在线", "免费图片圆角处理", "在线圆角图片生成器", "图片圆角工具"]
+    }
+    </script>
+</head>
+<body>
+    <div id="header-placeholder"></div>
+
+    <!-- 页面标题 -->
+    <div class="page-header">
+        <h1 class="page-title">免费圆角图片生成器</h1>
+        <p class="page-subtitle">在线图片圆角处理工具，支持自定义圆角半径，拖拽定义圆角角度，实时预览效果。本地浏览器处理保护隐私，一键下载圆角图片。</p>
+    </div>
+
+    <!-- 工具主体 -->
+    <section class="tool-page">
+        <div class="tool-container">
+            <div class="tool-card">
+                <!-- 上传区域 -->
+                <div class="upload-area" id="uploadArea">
+                    <div class="upload-icon">
+                        <i class="bi bi-image"></i>
+                    </div>
+                    <h3>点击或拖拽图片至此处</h3>
+                    <p>支持 .jpg, .jpeg, .png, .webp 格式 | 单个文件最大支持 50MB</p>
+                    <input type="file" id="fileInput" accept="image/jpeg,image/jpg,image/png,image/webp" multiple hidden>
+                    <button class="upload-btn" id="browseBtn">
+                        <i class="bi bi-folder2-open"></i>
+                        选择本地图片文件
+                    </button>
+                </div>
+
+                <!-- 文件列表 -->
+                <div class="files-section">
+                    <div class="files-header">
+                        <h3 class="section-subtitle">
+                            <i class="bi bi-list-ul"></i>
+                            圆角处理文件列表
+                            <span class="file-count" id="fileCount">(0)</span>
+                        </h3>
+                    </div>
+                    <div id="filesList" class="files-list">
+                        <div class="empty-state">
+                            <i class="bi bi-image-off"></i>
+                            <p>暂无待处理的图片，请先上传您的图片</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 圆角参数设置 -->
+                <div class="options-section">
+                    <h3 class="section-subtitle">
+                        <i class="bi bi-gear"></i>
+                        圆角参数设置
+                    </h3>
+                    <div class="options-grid">
+                        <div class="option-item">
+                            <label for="radiusSlider">圆角半径：<span id="radiusValue">20</span>px</label>
+                            <input type="range" id="radiusSlider" min="0" max="200" value="20">
+                            <div class="preset-buttons">
+                                <button class="preset-btn" data-radius="0">直角</button>
+                                <button class="preset-btn" data-radius="10">小圆角</button>
+                                <button class="preset-btn active" data-radius="20">中等圆角</button>
+                                <button class="preset-btn" data-radius="50">大圆角</button>
+                                <button class="preset-btn" data-radius="100">超大圆角</button>
+                                <button class="preset-btn" data-radius="200">椭圆</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 操作按钮 -->
+                <div class="action-buttons">
+                    <button class="btn btn-secondary" id="clearAllBtn" style="display:none;">
+                        <i class="bi bi-trash"></i>
+                        清空列表
+                    </button>
+                    <button class="btn btn-warning" id="convertBtn" style="display:none;">
+                        <i class="bi bi-play"></i>
+                        开始转换
+                    </button>
+                    <button class="btn btn-primary" id="downloadBtn" style="display:none;">
+                        <i class="bi bi-download"></i>
+                        下载圆角图片
+                    </button>
+                    <button class="btn btn-success" id="downloadAllBtn" style="display:none;">
+                        <i class="bi bi-download"></i>
+                        下载全部
+                    </button>
+                </div>
+
+                <!-- 预览区域 -->
+                <div class="preview-section">
+                    <h3 class="section-subtitle">
+                        <i class="bi bi-eye"></i>
+                        圆角效果预览
+                    </h3>
+                    <div class="preview-container" id="previewContainer">
+                        <div class="empty-state">
+                            <i class="bi bi-image-off"></i>
+                            <p>请先上传图片以预览圆角效果</p>
+                        </div>
+                    </div>
+                    <p class="preview-hint">
+                        <i class="bi bi-mouse-pointer"></i>
+                        拖拽图片四角的控制点可自定义圆角角度
+                    </p>
+                </div>
+            </div>
+
+            <!-- 功能特点 -->
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="bi bi-check-circle"></i>
+                    </div>
+                    <h3>免费图片圆角处理</h3>
+                    <p>完全免费使用，无隐藏收费，无使用次数限制</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="bi bi-mouse"></i>
+                    </div>
+                    <h3>拖拽定义圆角角度</h3>
+                    <p>支持拖拽四角控制点自定义圆角形状，更加灵活</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="bi bi-eye"></i>
+                    </div>
+                    <h3>实时预览效果</h3>
+                    <p>调整圆角参数时实时显示效果，所见即所得</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="bi bi-shield-lock"></i>
+                    </div>
+                    <h3>本地安全处理</h3>
+                    <p>所有图片处理在浏览器本地完成，不上传服务器</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="bi bi-images"></i>
+                    </div>
+                    <h3>多格式支持</h3>
+                    <p>支持JPG、PNG、WebP等主流图片格式</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="bi bi-cloud-arrow-down"></i>
+                    </div>
+                    <h3>高品质输出</h3>
+                    <p>保持原始图片质量，无损处理圆角效果</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 使用教程 -->
+    <section class="tutorial-section">
+        <div class="tool-container">
+            <div class="tutorial-card">
+                <h2>圆角图片生成器使用教程</h2>
+                <div class="tutorial-step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h4>上传图片</h4>
+                        <p>点击上传区域或拖拽图片到页面，支持 JPG、PNG、WebP 等格式。</p>
+                    </div>
+                </div>
+                <div class="tutorial-step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h4>调整圆角参数</h4>
+                        <p>拖动滑块调整圆角半径，或点击预设按钮快速选择常用圆角大小。</p>
+                    </div>
+                </div>
+                <div class="tutorial-step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h4>拖拽定义圆角角度</h4>
+                        <p>在预览区域拖拽四个角的控制点，自定义每个角的圆角角度。</p>
+                    </div>
+                </div>
+                <div class="tutorial-step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h4>预览效果</h4>
+                        <p>实时预览圆角效果，调整参数直到满意为止。</p>
+                    </div>
+                </div>
+                <div class="tutorial-step">
+                    <div class="step-number">5</div>
+                    <div class="step-content">
+                        <h4>下载圆角图片</h4>
+                        <p>点击下载按钮，保存处理后的圆角图片到本地。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 科普知识 -->
+    <section class="info-section">
+        <div class="tool-container">
+            <div class="info-card">
+                <h2>圆角图片知识科普</h2>
+                <h3 style="margin-top:0;">圆角图片的应用场景</h3>
+                <p>圆角图片在现代UI设计中非常常见，主要应用场景包括：</p>
+                <ul class="info-list">
+                    <li><strong>用户头像：</strong>社交平台、个人资料页面常用圆形或圆角头像</li>
+                    <li><strong>产品展示：</strong>电商网站产品图片使用圆角更显精致</li>
+                    <li><strong>卡片设计：</strong>卡片式布局配合圆角更具亲和力</li>
+                    <li><strong>按钮图标：</strong>按钮和图标使用圆角提升交互体验</li>
+                </ul>
+                
+                <h3 style="margin-top:1.5rem;">圆角半径的选择建议</h3>
+                <p>不同场景适合不同的圆角半径：</p>
+                <ul class="info-list">
+                    <li><strong>小圆角（0-20px）：</strong>适合需要保持硬朗感的设计，如新闻卡片</li>
+                    <li><strong>中等圆角（20-50px）：</strong>最常用的圆角大小，适用于大多数场景</li>
+                    <li><strong>大圆角（50-100px）：</strong>适合头像、特殊卡片等需要突出的元素</li>
+                    <li><strong>椭圆（100px以上）：</strong>适合圆形头像或特殊装饰元素</li>
+                </ul>
+                
+                <h3 style="margin-top:1.5rem;">图片格式与圆角</h3>
+                <p>不同图片格式对圆角处理有不同影响：</p>
+                <ul class="info-list">
+                    <li><strong>PNG/WebP：</strong>支持透明背景，圆角边缘平滑自然</li>
+                    <li><strong>JPG/JPEG：</strong>不支持透明背景，圆角边缘会有背景色填充</li>
+                </ul>
+                
+                <h3 style="margin-top:1.5rem;">网页中使用圆角图片的技巧</h3>
+                <p>在网页开发中使用圆角图片的最佳实践：</p>
+                <ul class="info-list">
+                    <li><strong>CSS实现：</strong>使用border-radius属性直接在页面上实现圆角效果</li>
+                    <li><strong>图片预处理：</strong>对于不支持CSS圆角的旧浏览器，需要提前处理图片</li>
+                    <li><strong>性能考虑：</strong>圆角处理会增加渲染开销，避免过度使用</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="faq-section">
+        <div class="tool-container">
+            <div class="faq-card">
+                <h2>圆角图片生成器常见问题</h2>
+                <div class="faq-item">
+                    <div class="faq-question">Q: 如何使用拖拽定义圆角角度功能？</div>
+                    <div class="faq-answer">A: 上传图片后，在预览区域会显示四个角的控制点。点击并拖动这些控制点，可以自定义每个角的圆角角度，实时预览效果。</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">Q: 免费图片圆角处理支持哪些图片格式？</div>
+                    <div class="faq-answer">A: 支持JPG、JPEG、PNG、WebP等主流图片格式。其中PNG和WebP格式支持透明背景，处理后的圆角效果更佳。</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">Q: 图片圆角处理在线工具安全吗？</div>
+                    <div class="faq-answer">A: 非常安全！所有图片处理都在您的浏览器本地完成，文件不会上传到任何服务器，完全保护您的隐私。</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">Q: 圆角半径最大支持多少？</div>
+                    <div class="faq-answer">A: 最大支持200px圆角半径，足够创建椭圆或圆形效果。</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">Q: 处理后的图片质量会下降吗？</div>
+                    <div class="faq-answer">A: 不会。圆角处理只是改变图片的形状，不会压缩或降低图片质量。</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">Q: 可以批量处理多张图片吗？</div>
+                    <div class="faq-answer">A: 可以！支持同时上传多张图片，使用相同的圆角参数批量处理。</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 相关工具 -->
+    <section class="related-section">
+        <div class="tool-container">
+            <h2 class="section-title">相关工具推荐</h2>
+            <div class="related-grid">
+                <a href="jpg-compress.html" class="related-card">
+                    <div class="related-icon">
+                        <i class="bi bi-arrow-down-short"></i>
+                    </div>
+                    <div class="related-info">
+                        <h4>图片压缩</h4>
+                        <p>在线压缩图片大小</p>
+                    </div>
+                </a>
+                <a href="jpg-to-png.html" class="related-card">
+                    <div class="related-icon">
+                        <i class="bi bi-image"></i>
+                    </div>
+                    <div class="related-info">
+                        <h4>格式转换</h4>
+                        <p>图片格式互转</p>
+                    </div>
+                </a>
+                <a href="https://easy-utils.com/color-picker.html" class="related-card" target="_blank" rel="noopener">
+                    <div class="related-icon">
+                        <i class="bi bi-palette"></i>
+                    </div>
+                    <div class="related-info">
+                        <h4>颜色选择器</h4>
+                        <p>在线取色工具</p>
+                    </div>
+                </a>
+                <a href="jpg-to-pdf.html" class="related-card">
+                    <div class="related-icon">
+                        <i class="bi bi-file-pdf"></i>
+                    </div>
+                    <div class="related-info">
+                        <h4>图片转PDF</h4>
+                        <p>JPG转PDF文档</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <div id="footer-placeholder"></div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="assets/tools-data.js"></script>
+<script src="assets/site.js"></script>
+    <script src="https://unpkg.com/file-saver@2.0.5/dist/FileSaver.min.js"></script>
+    <script src="assets/round-corner-image.js"></script>
+<div id="toast" class="toast"></div>
+</body>
+</html>

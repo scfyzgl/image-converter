@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GIF 逐帧拆分导出工具 - 在线 GIF 帧提取器</title>
+    <meta name="description" content="免费在线 GIF 逐帧拆分导出工具，将 GIF 动图分解为单帧图片，支持批量下载。">
+    <meta name="keywords" content="GIF帧拆分,GIF分解,GIF提取帧,gif frame extractor">
+        <link rel="canonical" href="gif-frame-extractor.html">
+    <link rel="alternate" hreflang="zh-Hans" href="gif-frame-extractor.html" />
+    <link rel="alternate" hreflang="en" href="en/gif-frame-extractor.html" />
+    <link rel="alternate" hreflang="x-default" href="en/gif-frame-extractor.html" />
+    <link rel="stylesheet" href="assets/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="icon" href="assets/favicon.ico">
+    <script src="https://cdn.jsdelivr.net/npm/gifenc@1.0.3/dist/gifenc.min.js"></script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "GIF 逐帧拆分导出工具",
+        "description": "免费在线 GIF 逐帧拆分导出工具",
+        "applicationCategory": "UtilityApplication",
+        "featureList": ["GIF帧拆分", "批量下载", "帧预览", "自定义格式"],
+        "operatingSystem": "All"
+    }
+    </script>
+</head>
+<body>
+    <div id="header-placeholder"></div>
+
+    <div class="page-header">
+        <h1 class="page-title">GIF 逐帧拆分导出工具</h1>
+        <p class="page-subtitle">将 GIF 动图分解为单帧图片，支持预览和批量下载</p>
+    </div>
+
+    <section class="tool-page">
+        <div class="tool-container">
+            <div class="tool-card">
+                <div class="upload-section">
+                    <div class="upload-area" id="uploadArea">
+                        <i class="bi bi-images upload-icon"></i>
+                        <h3>点击或拖拽上传 GIF</h3>
+                        <p>支持 GIF 格式，最大 50MB</p>
+                        <input type="file" id="fileInput" accept="image/gif" hidden>
+                    </div>
+                </div>
+
+                <div class="result-section" id="resultSection" style="display: none;">
+                    <div class="gif-info">
+                        <div class="info-row">
+                            <span class="info-label">GIF 信息</span>
+                            <span class="info-value" id="gifInfo">-</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">总帧数</span>
+                            <span class="info-value" id="frameCount">-</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">尺寸</span>
+                            <span class="info-value" id="gifSize">-</span>
+                        </div>
+                    </div>
+
+                    <div class="frame-preview">
+                        <h3 class="preview-title">
+                            <i class="bi bi-play-circle"></i>
+                            帧预览
+                        </h3>
+                        <div class="preview-container">
+                            <img id="previewImage" src="" alt="预览图片">
+                        </div>
+                    </div>
+
+                    <div class="frame-list" id="frameList">
+                        <h3 class="preview-title">
+                            <i class="bi bi-grid-3x3"></i>
+                            帧列表
+                        </h3>
+                        <div class="frames-grid" id="framesGrid"></div>
+                    </div>
+
+                    <div class="action-buttons">
+                        <button class="btn btn-secondary" id="backBtn">
+                            <i class="bi bi-arrow-left"></i>
+                            返回上传
+                        </button>
+                        <button class="btn btn-primary" id="downloadBtn">
+                            <i class="bi bi-download"></i>
+                            批量下载所有帧
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-card">
+                <h2>为什么选择我们的 GIF 工具？</h2>
+                <div class="feature-grid">
+                    <div class="feature-item">
+                        <div class="feature-icon">📸</div>
+                        <div class="feature-content">
+                            <h3>逐帧拆分</h3>
+                            <p>完整提取 GIF 每一个帧</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">📥</div>
+                        <div class="feature-content">
+                            <h3>批量下载</h3>
+                            <p>一键下载所有帧图片</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">👁️</div>
+                        <div class="feature-content">
+                            <h3>帧预览</h3>
+                            <p>查看每帧内容</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🔒</div>
+                        <div class="feature-content">
+                            <h3>隐私安全</h3>
+                            <p>所有操作在浏览器本地完成</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-card">
+                <h2>使用说明</h2>
+                <div class="tutorial-steps">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h4>上传 GIF</h4>
+                            <p>点击上传区域或拖拽 GIF 文件到页面</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h4>查看帧</h4>
+                            <p>查看拆分后的所有帧图片</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h4>批量下载</h4>
+                            <p>点击批量下载按钮保存所有帧</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-card">
+                <h2>常见问题</h2>
+                <div class="error-item">
+                    <div class="error-question">
+                        <i class="bi bi-exclamation-circle error-icon"></i>
+                        GIF 拆分后帧数不对？
+                    </div>
+                    <p class="error-cause">部分 GIF 使用优化压缩，帧可能重复。</p>
+                    <p class="error-solution">工具会提取所有原始帧，包含重复帧是正常的。</p>
+                </div>
+                <div class="error-item">
+                    <div class="error-question">
+                        <i class="bi bi-exclamation-circle error-icon"></i>
+                        下载速度慢？
+                    </div>
+                    <p class="error-cause">GIF 帧数较多，打包下载需要时间。</p>
+                    <p class="error-solution">耐心等待，工具会依次下载所有帧。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="related-tools">
+        <div class="container">
+            <h3 class="related-title">相关工具推荐</h3>
+            <div class="related-grid">
+                <a href="gif-editor.html" class="related-item">
+                    <i class="bi bi-pencil-square related-icon"></i>
+                    <div class="related-content">
+                        <h4>GIF 动图编辑</h4>
+                        <p>编辑 GIF 动图</p>
+                    </div>
+                </a>
+                <a href="video-to-gif.html" class="related-item">
+                    <i class="bi bi-film related-icon"></i>
+                    <div class="related-content">
+                        <h4>视频转 GIF</h4>
+                        <p>视频转换为动图</p>
+                    </div>
+                </a>
+                <a href="jpg-to-gif.html" class="related-item">
+                    <i class="bi bi-image related-icon"></i>
+                    <div class="related-content">
+                        <h4>图片转 GIF</h4>
+                        <p>图片序列转 GIF</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <div id="footer-placeholder"></div>
+    <div id="toast" class="toast"></div>
+
+    <script src="assets/gif-frame-extractor.js"></script>
+    <script src="assets/tools-data.js"></script>
+<script src="assets/site.js"></script>
+
+    <style>
+        .preview-container {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto;
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            background: #000;
+        }
+        
+        .preview-container img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        .gif-info {
+            margin-bottom: 1.5rem;
+        }
+        
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .info-label {
+            color: var(--text-secondary);
+        }
+        
+        .info-value {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+        
+        .frames-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            gap: 0.75rem;
+            max-height: 400px;
+            overflow-y: auto;
+            padding: 0.5rem;
+        }
+        
+        .frame-item {
+            position: relative;
+            border-radius: var(--radius-sm);
+            overflow: hidden;
+            cursor: pointer;
+            aspect-ratio: 1;
+            border: 2px solid var(--border-color);
+            transition: all var(--transition-fast);
+        }
+        
+        .frame-item:hover {
+            border-color: var(--primary-color);
+            transform: scale(1.05);
+        }
+        
+        .frame-item.selected {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+        }
+        
+        .frame-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .frame-item .frame-number {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.7);
+            color: #fff;
+            font-size: 0.75rem;
+            text-align: center;
+            padding: 0.25rem;
+        }
+    </style>
+</body>
+</html>

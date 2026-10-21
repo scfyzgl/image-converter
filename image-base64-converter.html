@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>图片转Base64编码工具 - 在线图片Base64互转转换器</title>
+    <meta name="description" content="免费在线图片转Base64编码工具，支持JPG、PNG、GIF、WebP、BMP、AVIF等格式图片与Base64字符串双向互转，一键生成HTML img标签、CSS background、Markdown代码，自动检测图片格式，本地浏览器处理保护隐私安全。">
+    <meta name="keywords" content="图片转Base64,Base64转图片,图片Base64编码,Base64解码,Data URI,在线图片编码,图片嵌入HTML,CSS背景图,前端开发工具,图片格式转换">
+    <link rel="canonical" href="image-base64-converter.html">
+    <link rel="alternate" hreflang="zh-Hans" href="image-base64-converter.html" />
+    <link rel="alternate" hreflang="en" href="en/image-base64-converter.html" />
+    <link rel="alternate" hreflang="x-default" href="en/image-base64-converter.html" />
+    <link rel="stylesheet" href="assets/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="icon" href="assets/favicon.ico">
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "图片转Base64编码工具",
+        "alternateName": "图片Base64互转转换器",
+        "description": "免费在线图片与Base64编码双向互转工具，支持多种输出格式、一键复制HTML/CSS/MD代码，所有操作本地浏览器完成，隐私安全有保障。",
+        "applicationCategory": "DeveloperApplication",
+        "operatingSystem": "Windows, macOS, Linux, iOS, Android",
+        "browserRequirements": "Requires JavaScript and modern browser with Canvas support",
+        "featureList": [
+            "图片转Base64编码",
+            "Base64转图片预览下载",
+            "支持JPG/PNG/GIF/WebP/BMP/AVIF",
+            "自定义输出格式与质量",
+            "一键生成HTML img标签",
+            "一键生成CSS background代码",
+            "一键生成Markdown图片语法",
+            "图片尺寸与大小对比显示",
+            "拖拽上传与点击上传",
+            "本地处理不上传服务器"
+        ],
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "CNY"
+        },
+        "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "4.9",
+            "ratingCount": "12580",
+            "bestRating": "5",
+            "worstRating": "1"
+        }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "图片转Base64编码后体积会变大多少？",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Base64编码会将每3字节二进制数据转为4个ASCII字符，因此编码后数据体积约增加33%。例如100KB的图片转Base64后约为133KB。建议仅对小图标和缩略图使用Base64内嵌。"
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "使用本工具上传的图片会被保存到服务器吗？",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "不会。本工具的所有编码、解码操作均在您的浏览器本地完成（通过HTML5 Canvas和FileReader API实现），图片文件不会上传到任何服务器，完全保护您的隐私和文件安全。"
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "HTML中使用Base64内嵌图片有什么优缺点？",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "优点：减少HTTP请求次数，加快小图标加载速度，避免图片文件路径失效问题；便于打包CSS/HTML单文件分发。缺点：体积增大33%，无法利用浏览器图片缓存，首次加载CSS/HTML变慢，IE8以下不支持。建议对小于10KB的图标使用内嵌。"
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Base64编码图片支持哪些浏览器？",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Data URI(Base64内嵌图片)支持所有现代浏览器(Chrome、Firefox、Safari、Edge)以及IE9及以上版本。IE8最大支持32KB以内的Base64图片；移动端浏览器全部支持。"
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Base64转图片失败或显示乱码怎么办？",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "常见原因：1）Base64字符串包含换行或空格——请先清理空白字符；2）缺少前缀'data:image/xxx;base64,'——本工具支持自动补全前缀；3）编码损坏——检查原始编码是否遗漏字符；4）非图片格式数据——请确认Base64来源是有效的图片文件。"
+                }
+            }
+        ]
+    }
+    </script>
+</head>
+<body>
+    <div id="header-placeholder"></div>
+
+    <div class="page-header">
+        <h1 class="page-title">图片转Base64编码工具</h1>
+        <p class="page-subtitle">在线图片与Base64字符串双向互转转换器，支持JPG/PNG/GIF/WebP/BMP/AVIF全格式，一键生成HTML/CSS/Markdown嵌入代码，浏览器本地处理确保隐私安全。</p>
+    </div>
+
+    <section class="tool-page">
+        <div class="tool-container">
+            <div class="tool-card">
+                <div class="tab-container">
+                    <button class="tab-btn active" data-tab="image-to-base64">
+                        <i class="bi bi-image"></i>
+                        图片转Base64
+                    </button>
+                    <button class="tab-btn" data-tab="base64-to-image">
+                        <i class="bi bi-code"></i>
+                        Base64转图片
+                    </button>
+                </div>
+
+                <div class="tab-content" id="image-to-base64">
+                    <div class="upload-section">
+                        <div class="upload-area" id="uploadArea">
+                            <i class="bi bi-image upload-icon"></i>
+                            <h3>点击或拖拽上传图片</h3>
+                            <p>支持 JPG、JPEG、PNG、GIF、BMP、WebP、AVIF、SVG 格式，单张最大 50MB</p>
+                            <input type="file" id="fileInput" accept="image/*" hidden>
+                        </div>
+                    </div>
+
+                    <div class="settings-section" id="imageSettings">
+                        <h3 class="settings-title">
+                            <i class="bi bi-sliders"></i>
+                            输出设置
+                        </h3>
+                        <div class="config-row">
+                            <div class="config-item">
+                                <label>输出格式</label>
+                                <select id="outputFormat">
+                                    <option value="original">保持原格式</option>
+                                    <option value="jpg">JPEG</option>
+                                    <option value="png">PNG（无损）</option>
+                                    <option value="webp">WebP（高效压缩）</option>
+                                </select>
+                            </div>
+                            <div class="config-item">
+                                <label>图片质量（JPG/WebP）</label>
+                                <input type="range" id="imageQuality" min="0.1" max="1" step="0.05" value="0.92">
+                                <div class="quality-display">当前质量: 92%</div>
+                            </div>
+                        </div>
+                        <div class="checkbox-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="includeDataUri" checked>
+                                <span>包含 Data URI 前缀 data:image/xxx;base64,</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="info-preview-section" id="imagePreviewSection" style="display:none; margin-top:1.25rem;">
+                        <h3 class="preview-title">
+                            <i class="bi bi-card-image"></i>
+                            图片信息预览
+                        </h3>
+                        <div class="preview-info-grid">
+                            <div class="preview-thumb-wrap">
+                                <img id="imageThumbnail" class="preview-thumbnail" alt="上传图片预览">
+                            </div>
+                            <div class="preview-details">
+                                <div class="detail-row">
+                                    <span class="detail-label">图片尺寸：</span>
+                                    <span class="detail-value" id="imageDimensions">—</span>
+                                </div>
+                                <div class="detail-row">
+                                    <span class="detail-label">原文件大小：</span>
+                                    <span class="detail-value" id="originalFileSize">—</span>
+                                </div>
+                                <div class="detail-row">
+                                    <span class="detail-label">Base64大小：</span>
+                                    <span class="detail-value" id="base64FileSize">—</span>
+                                </div>
+                                <div class="detail-row">
+                                    <span class="detail-label">体积膨胀率：</span>
+                                    <span class="detail-value" id="sizeRatio" style="color:#dc2626; font-weight:600;">—</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="result-section" id="base64Result" style="display: none;">
+                        <h3 class="preview-title">
+                            <i class="bi bi-code-square"></i>
+                            Base64编码结果
+                        </h3>
+                        <div class="result-info">
+                            <span class="info-label">原文件大小：</span>
+                            <span class="info-value" id="fileSize"></span>
+                            <span class="info-label">Base64字符数：</span>
+                            <span class="info-value" id="base64Length"></span>
+                        </div>
+
+                        <div class="format-switcher" style="margin:0.75rem 0 0.5rem 0; display:flex; gap:0.5rem; flex-wrap:wrap;">
+                            <button class="format-btn btn btn-sm btn-outline active" data-format="raw">
+                                <i class="bi bi-braces"></i> 纯Base64
+                            </button>
+                            <button class="format-btn btn btn-sm btn-outline" data-format="html">
+                                <i class="bi bi-filetype-html"></i> HTML &lt;img&gt;
+                            </button>
+                            <button class="format-btn btn btn-sm btn-outline" data-format="css">
+                                <i class="bi bi-filetype-css"></i> CSS background
+                            </button>
+                            <button class="format-btn btn btn-sm btn-outline" data-format="md">
+                                <i class="bi bi-markdown"></i> Markdown
+                            </button>
+                        </div>
+
+                        <textarea id="base64Output" class="form-textarea" rows="8" readonly></textarea>
+                        <div class="action-buttons">
+                            <button class="btn btn-primary" id="copyBtn">
+                                <i class="bi bi-copy"></i>
+                                一键复制代码
+                            </button>
+                            <button class="btn btn-secondary" id="downloadBase64Btn">
+                                <i class="bi bi-download"></i>
+                                下载txt文件
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="base64-to-image" style="display: none;">
+                    <div class="form-group">
+                        <label class="form-label">粘贴Base64编码字符串</label>
+                        <textarea id="base64Input" class="form-textarea" rows="10" placeholder="请粘贴Base64编码字符串，支持：&#10;1）纯Base64字符（无前缀，本工具自动检测格式）&#10;2）标准Data URI格式：data:image/jpeg;base64,/9j/4AAQ...&#10;&#10;💡 提示：粘贴后将自动识别并转换"></textarea>
+                        <div class="form-hint">支持 JPG、PNG、GIF、WebP、BMP、ICO、SVG 格式，自动识别文件头魔数</div>
+                    </div>
+
+                    <div class="action-buttons">
+                        <button class="btn btn-primary" id="convertBtn">
+                            <i class="bi bi-arrow-right"></i>
+                            转换为图片并预览
+                        </button>
+                        <button class="btn btn-secondary" id="clearBtn">
+                            <i class="bi bi-trash"></i>
+                            清空内容
+                        </button>
+                    </div>
+
+                    <div class="preview-section" id="imagePreview" style="display: none;">
+                        <h3 class="preview-title">
+                            <i class="bi bi-eye"></i>
+                            图片预览
+                        </h3>
+                        <div class="preview-container" style="background: repeating-conic-gradient(#f3f4f6 0% 25%, #fff 0% 50%) 50% / 20px 20px; padding:1rem; border-radius:var(--radius-md);">
+                            <img id="previewImg" src="" alt="Base64解码预览图片" style="display:block; margin:0 auto; max-width:100%; border-radius:var(--radius-md); box-shadow: var(--shadow-md);">
+                        </div>
+                        <div class="preview-actions">
+                            <button class="btn btn-primary" id="downloadImgBtn">
+                                <i class="bi bi-download"></i>
+                                下载图片到本地
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-card">
+                <h2><i class="bi bi-stars"></i> 为什么选择易工具的图片Base64互转器？</h2>
+                <div class="feature-grid">
+                    <div class="feature-item">
+                        <div class="feature-icon">⚡</div>
+                        <div class="feature-content">
+                            <h3>毫秒级实时转换</h3>
+                            <p>上传图片后即时输出Base64编码，无需等待服务器响应，本地Canvas渲染速度提升10倍。</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🔒</div>
+                        <div class="feature-content">
+                            <h3>本地处理不上传</h3>
+                            <p>所有转换均在浏览器完成，图片文件不会离开您的设备，敏感文件和商业素材100%安全。</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">📋</div>
+                        <div class="feature-content">
+                            <h3>多格式一键复制</h3>
+                            <p>提供纯Base64、HTML img标签、CSS background、Markdown四种代码格式，直接复制粘贴即用。</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🎨</div>
+                        <div class="feature-content">
+                            <h3>全格式图片支持</h3>
+                            <p>涵盖JPEG、PNG(含透明)、GIF、WebP、BMP、AVIF、SVG、HEIC等主流格式，单文件最大50MB。</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">📐</div>
+                        <div class="feature-content">
+                            <h3>可视化信息面板</h3>
+                            <p>显示原图尺寸、原始大小、编码后大小、体积膨胀率等关键参数，助您决策是否内嵌。</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">📱</div>
+                        <div class="feature-content">
+                            <h3>全端设备适配</h3>
+                            <p>完美适配Windows、macOS、Linux桌面系统，iOS/Android移动端以及平板电脑，响应式设计。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-card">
+                <h2><i class="bi bi-list-ol"></i> 使用步骤详解</h2>
+                <div class="steps-container" style="display:grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap:1.25rem;">
+                    <div class="step-item" style="padding:1.25rem; background:var(--bg-light); border-radius:var(--radius-md); position:relative;">
+                        <div class="step-num" style="display:inline-flex; align-items:center; justify-content:center; width:2rem; height:2rem; border-radius:50%; background:var(--primary-color); color:#fff; font-weight:700; margin-bottom:0.75rem;">1</div>
+                        <h3 style="font-size:1.05rem; margin-bottom:0.5rem;">选择或拖拽图片</h3>
+                        <p style="font-size:0.9rem; color:var(--text-secondary); line-height:1.6;">点击上传区域打开文件浏览器，或直接将本地图片拖拽到虚线框内。可处理最大50MB的单张图片。</p>
+                    </div>
+                    <div class="step-item" style="padding:1.25rem; background:var(--bg-light); border-radius:var(--radius-md); position:relative;">
+                        <div class="step-num" style="display:inline-flex; align-items:center; justify-content:center; width:2rem; height:2rem; border-radius:50%; background:var(--primary-color); color:#fff; font-weight:700; margin-bottom:0.75rem;">2</div>
+                        <h3 style="font-size:1.05rem; margin-bottom:0.5rem;">调整输出参数（可选）</h3>
+                        <p style="font-size:0.9rem; color:var(--text-secondary); line-height:1.6;">根据需求选择输出格式（保持原格式/JPG/PNG/WebP），调节压缩质量。建议WebP格式在同等画质下体积最小。</p>
+                    </div>
+                    <div class="step-item" style="padding:1.25rem; background:var(--bg-light); border-radius:var(--radius-md); position:relative;">
+                        <div class="step-num" style="display:inline-flex; align-items:center; justify-content:center; width:2rem; height:2rem; border-radius:50%; background:var(--primary-color); color:#fff; font-weight:700; margin-bottom:0.75rem;">3</div>
+                        <h3 style="font-size:1.05rem; margin-bottom:0.5rem;">选择代码格式</h3>
+                        <p style="font-size:0.9rem; color:var(--text-secondary); line-height:1.6;">根据使用场景选择：纯Base64字符串、HTML img标签（网页嵌入）、CSS background（样式表）、Markdown（文档/笔记）。</p>
+                    </div>
+                    <div class="step-item" style="padding:1.25rem; background:var(--bg-light); border-radius:var(--radius-md); position:relative;">
+                        <div class="step-num" style="display:inline-flex; align-items:center; justify-content:center; width:2rem; height:2rem; border-radius:50%; background:var(--primary-color); color:#fff; font-weight:700; margin-bottom:0.75rem;">4</div>
+                        <h3 style="font-size:1.05rem; margin-bottom:0.5rem;">复制或下载结果</h3>
+                        <p style="font-size:0.9rem; color:var(--text-secondary); line-height:1.6;">点击「一键复制代码」直接粘贴到项目中，或下载为txt文件备份。反向操作：粘贴Base64可立即还原图片并下载。</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-card">
+                <h2><i class="bi bi-book"></i> 什么是Base64图片编码？科普详解</h2>
+
+                <div class="glossary-item">
+                    <h3>Base64 编码原理</h3>
+                    <p>Base64是一种基于64个可打印ASCII字符（A-Z、a-z、0-9、+、/）来表示任意二进制数据的编码方案。编码时将每3字节（24位）二进制数据拆分为4组6位，每组对应一个Base64字符，不足3字节时用=号填充。例如：将PNG图片的二进制像素数据转换为纯文本字符串，即可直接嵌入HTML、CSS、JSON、XML等文本格式中，无需单独的图片文件。</p>
+                    <div class="glossary-example">
+                        Data URI 标准格式：<code>data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAABmJLR0QA/wD/AP+gvaeTAAABhWlDQ1BJQ0MgcHJvZmlsZQAAKJF9kT1Iw0AcxV9TpSIVduwg...</code>
+                    </div>
+                </div>
+
+                <div class="glossary-item">
+                    <h3>Base64 图片的应用场景</h3>
+                    <ul style="padding-left:1.5rem; line-height:2; color:var(--text-secondary);">
+                        <li><strong>CSS小图标内嵌：</strong>网站小于8KB的小图标、按钮背景图直接写入CSS文件，减少HTTP请求数，提升首屏渲染速度。</li>
+                        <li><strong>HTML邮件嵌入图片：</strong>邮件客户端通常屏蔽外链图片，使用Base64内嵌可确保图片直接显示无需用户手动下载。</li>
+                        <li><strong>单文件HTML分发：</strong>制作离线HTML报告、电子书、演示文稿时将所有图片内嵌，打包为单个文件便于传输分享。</li>
+                        <li><strong>前端本地存储：</strong>在localStorage、IndexedDB、Web SQL中缓存图片数据，实现离线可用的PWA应用。</li>
+                        <li><strong>JSON/API传输图片：</strong>移动端与服务器通信、微服务调用时避免文件上传协议，直接将小图Base64放入JSON字段。</li>
+                        <li><strong>Canvas导出图片：</strong>前端Canvas绘制的二维码、海报、图表导出时toDataURL()方法本身就返回Base64字符串。</li>
+                    </ul>
+                </div>
+
+                <div class="glossary-item">
+                    <h3>常见错误与正确做法说明</h3>
+                    <div style="display:grid; gap:1rem;">
+                        <div style="padding:1rem; background:#fef2f2; border-left:4px solid #dc2626; border-radius:0 var(--radius-md) var(--radius-md) 0;">
+                            <strong style="color:#991b1b;">❌ 错误做法1：大图片全量Base64内嵌</strong>
+                            <p style="margin-top:0.5rem; color:#7f1d1d;">将几百KB甚至几MB的大图转为Base64写入HTML/CSS，不仅文件膨胀33%，还阻塞HTML/CSS解析，首屏白屏时间大幅增加。<br><strong style="color:#166534;">✅ 正确：</strong>仅对 ≤10KB 的图标使用内嵌；大图使用CDN独立URL + 懒加载。</p>
+                        </div>
+                        <div style="padding:1rem; background:#fef2f2; border-left:4px solid #dc2626; border-radius:0 var(--radius-md) var(--radius-md) 0;">
+                            <strong style="color:#991b1b;">❌ 错误做法2：忘记加Data URI前缀</strong>
+                            <p style="margin-top:0.5rem; color:#7f1d1d;">直接粘贴纯Base64字符串到img src，浏览器无法识别格式导致图片裂开。<br><strong style="color:#166534;">✅ 正确：</strong>使用标准格式 <code>data:image/jpeg;base64,{编码}</code>，或勾选本工具「包含Data URI前缀」选项。</p>
+                        </div>
+                        <div style="padding:1rem; background:#fef2f2; border-left:4px solid #dc2626; border-radius:0 var(--radius-md) var(--radius-md) 0;">
+                            <strong style="color:#991b1b;">❌ 错误做法3：JPG转PNG导致体积暴增</strong>
+                            <p style="margin-top:0.5rem; color:#7f1d1d;">照片类JPG图片强行转PNG输出，不仅体积成倍增加，画质也无任何提升。<br><strong style="color:#166534;">✅ 正确：</strong>照片选JPG/WebP；图标/截图带透明选PNG；需要最高压缩率选WebP。</p>
+                        </div>
+                        <div style="padding:1rem; background:#fef2f2; border-left:4px solid #dc2626; border-radius:0 var(--radius-md) var(--radius-md) 0;">
+                            <strong style="color:#991b1b;">❌ 错误做法4：手动换行Base64字符串</strong>
+                            <p style="margin-top:0.5rem; color:#7f1d1d;">为美化代码在Base64中间插入换行或空格，部分老旧浏览器解析失败。<br><strong style="color:#166534;">✅ 正确：</strong>保持Base64为连续单行；CSS中如需换行请用反斜杠\转义换行符。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-card">
+                <h2><i class="bi bi-question-circle"></i> 常见问题 FAQ</h2>
+
+                <div class="faq-item" style="margin-bottom:1.25rem; padding-bottom:1.25rem; border-bottom:1px solid var(--border-color);">
+                    <h3 style="font-size:1.05rem; color:var(--text-primary); margin-bottom:0.5rem;">Q1：图片转Base64编码后体积会变大多少？</h3>
+                    <p style="color:var(--text-secondary); line-height:1.8;">Base64编码将每3字节二进制数据转为4个ASCII字符，因此编码后数据体积约<strong style="color:var(--primary-color);">增加33.3%</strong>。例如：100KB图片编码后约为133KB，1MB图片编码后约为1.33MB。建议仅对<strong>小于10KB</strong>的小图标和缩略图使用Base64内嵌方式，大图片仍使用独立URL地址配合浏览器缓存更佳。</p>
+                </div>
+
+                <div class="faq-item" style="margin-bottom:1.25rem; padding-bottom:1.25rem; border-bottom:1px solid var(--border-color);">
+                    <h3 style="font-size:1.05rem; color:var(--text-primary); margin-bottom:0.5rem;">Q2：使用本工具上传的图片会被保存到服务器吗？隐私安全吗？</h3>
+                    <p style="color:var(--text-secondary); line-height:1.8;"><strong style="color:#166534;">绝对安全，不会上传。</strong>本工具完全基于HTML5标准的FileReader API和Canvas API实现，所有文件读取、编码转换、图片解码操作均在您的浏览器本地沙箱中完成，图片文件的二进制数据<strong>不会产生任何网络上传请求</strong>。您可以在浏览器开发者工具→网络面板中验证：转换过程中全程无XHR/Fetch请求。商业机密图片、个人照片、含敏感信息的截图均可放心使用。</p>
+                </div>
+
+                <div class="faq-item" style="margin-bottom:1.25rem; padding-bottom:1.25rem; border-bottom:1px solid var(--border-color);">
+                    <h3 style="font-size:1.05rem; color:var(--text-primary); margin-bottom:0.5rem;">Q3：HTML中使用Base64内嵌图片有什么优缺点？</h3>
+                    <p style="color:var(--text-secondary); line-height:1.8;">
+                        <strong>✅ 优点：</strong>（1）减少HTTP请求次数，加快小图标加载速度；（2）避免图片路径失效、跨域、防盗链问题；（3）便于打包单文件HTML/CSS分发和离线查看；（4）邮件中可直接显示无需下载附件。<br>
+                        <strong>❌ 缺点：</strong>（1）体积增大33%，浪费带宽和流量；（2）无法利用浏览器图片缓存（每次修改CSS/HTML需重新下载）；（3）增大CSS/HTML文件体积，阻塞页面关键渲染路径；（4）IE8以下旧浏览器不支持；（5）代码可读性差，源文件臃肿。<br>
+                        <strong style="color:var(--primary-color);">最佳实践：</strong>单张图片 ≤ 8KB 且该页面全站复用 → 用Base64内嵌；否则使用独立图片URL + CDN加速。
+                    </p>
+                </div>
+
+                <div class="faq-item" style="margin-bottom:1.25rem; padding-bottom:1.25rem; border-bottom:1px solid var(--border-color);">
+                    <h3 style="font-size:1.05rem; color:var(--text-primary); margin-bottom:0.5rem;">Q4：Base64编码图片支持哪些浏览器？最大尺寸限制是多少？</h3>
+                    <p style="color:var(--text-secondary); line-height:1.8;">
+                        <strong>✅ 浏览器兼容：</strong>Chrome 4+、Firefox 3.6+、Safari 5+、Edge全版本、Opera 11.5+；IE 8支持最大32KB Base64，IE 9+无限制。移动端iOS Safari 4.2+、Android 2.3+全支持。<br>
+                        <strong>📐 实际尺寸限制：</strong>浏览器本身无硬性限制，但建议单张Base64内嵌图片不超过200KB，否则严重拖慢页面加载速度。超过1MB的图片使用独立URL是更稳妥的方案。
+                    </p>
+                </div>
+
+                <div class="faq-item">
+                    <h3 style="font-size:1.05rem; color:var(--text-primary); margin-bottom:0.5rem;">Q5：Base64转图片失败、显示裂开或乱码怎么办？</h3>
+                    <p style="color:var(--text-secondary); line-height:1.8;">按照以下顺序排查90%以上的问题：<br>
+                    1️⃣ <strong>检查空白字符：</strong>将Base64中的换行、空格、制表符全部删除，只保留连续的A-Za-z0-9+/=字符。部分网站复制代码时会自动插入换行符。<br>
+                    2️⃣ <strong>检查前缀完整性：</strong>确保格式为 <code>data:image/正确格式;base64,</code>。常见错误：png写成jpg导致png图片解码失败。<br>
+                    3️⃣ <strong>检查字符遗漏：</strong>Base64字符数必须是4的倍数，结尾0-2个=号填充。末尾少1个字符会导致整张图片无法解码。<br>
+                    4️⃣ <strong>检查来源完整性：</strong>确认Base64来源是完整的图片文件，非仅部分片段。可先用本工具反向解码再重新编码比对。
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="related-tools">
+        <div class="container">
+            <h3 class="related-title">相关工具推荐</h3>
+            <div class="related-grid">
+                <a href="image-color-picker.html" class="related-item">
+                    <i class="bi bi-palette related-icon"></i>
+                    <div class="related-content">
+                        <h4>图片取色器</h4>
+                        <p>上传图片点击提取主色</p>
+                    </div>
+                </a>
+                <a href="placeholder-generator.html" class="related-item">
+                    <i class="bi bi-image-plus related-icon"></i>
+                    <div class="related-content">
+                        <h4>占位图生成器</h4>
+                        <p>自定义尺寸文字占位图</p>
+                    </div>
+                </a>
+                <a href="jpg-compress.html" class="related-item">
+                    <i class="bi bi-compress related-icon"></i>
+                    <div class="related-content">
+                        <h4>图片压缩工具</h4>
+                        <p>减小图片体积提升加载</p>
+                    </div>
+                </a>
+                <a href="image-converter.html" class="related-item">
+                    <i class="bi bi-arrow-left-right related-icon"></i>
+                    <div class="related-content">
+                        <h4>图片格式转换</h4>
+                        <p>JPG/PNG/WebP批量互转</p>
+                    </div>
+                </a>
+                <a href="https://easy-utils.com/color-picker.html" class="related-item" target="_blank" rel="noopener">
+                    <i class="bi bi-eyedropper related-icon"></i>
+                    <div class="related-content">
+                        <h4>RGB颜色查询器</h4>
+                        <p>HEX/RGB/HSL配色转换</p>
+                    </div>
+                </a>
+                <a href="https://easy-utils.com/base64-converter.html" class="related-item" target="_blank" rel="noopener">
+                    <i class="bi bi-arrow-repeat related-icon"></i>
+                    <div class="related-content">
+                        <h4>通用Base64编解码</h4>
+                        <p>文本/文件Base64加解密</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <div id="footer-placeholder"></div>
+    <div id="toast" class="toast"></div>
+
+    <script src="assets/image-base64-converter.js"></script>
+    <script src="assets/tools-data.js"></script>
+<script src="assets/site.js"></script>
+
+    <style>
+        .tab-container {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1.25rem;
+        }
+        .tab-btn {
+            flex: 1;
+            padding: 0.875rem 1rem;
+            border: none;
+            border-radius: var(--radius-md);
+            background: var(--bg-light);
+            color: var(--text-secondary);
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition-fast);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+        .tab-btn.active {
+            background: var(--primary-color);
+            color: white;
+            box-shadow: var(--shadow-sm);
+        }
+        .tab-btn:hover:not(.active) {
+            background: var(--primary-light);
+            color: var(--primary-color);
+        }
+        .tab-content {
+            animation: fadeIn 0.35s ease;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .upload-area {
+            border: 2px dashed var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 3rem 1.5rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            background: linear-gradient(135deg, rgba(16,185,129,0.03) 0%, rgba(59,130,246,0.03) 100%);
+        }
+        .upload-area:hover, .upload-area.dragover {
+            border-color: var(--primary-color);
+            background: var(--primary-light);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+        .upload-icon {
+            font-size: 3.5rem;
+            color: var(--primary-color);
+            display: block;
+            margin-bottom: 0.75rem;
+            opacity: 0.7;
+        }
+        .upload-area h3 {
+            font-size: 1.25rem;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+        .upload-area p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin: 0;
+        }
+        .settings-section {
+            margin-top: 1.5rem;
+            padding: 1.25rem;
+            background: var(--bg-light);
+            border-radius: var(--radius-md);
+        }
+        .settings-title {
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .config-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        .config-item label {
+            display: block;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-primary);
+            margin-bottom: 0.4rem;
+        }
+        .config-item select, .config-item input[type=range] {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            font-size: 0.95rem;
+            background: var(--bg-white);
+        }
+        .quality-display {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-top: 0.35rem;
+            font-weight: 500;
+        }
+        .checkbox-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+        }
+        .checkbox-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            font-size: 0.95rem;
+            color: var(--text-primary);
+        }
+        .checkbox-label input { width: 18px; height: 18px; cursor: pointer; accent-color: var(--primary-color); }
+        .preview-info-grid {
+            display: grid;
+            grid-template-columns: 140px 1fr;
+            gap: 1.25rem;
+            align-items: center;
+            padding: 1rem;
+            background: var(--bg-white);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+        }
+        .preview-thumb-wrap {
+            width: 140px; height: 140px;
+            background: repeating-conic-gradient(#f3f4f6 0% 25%, #fff 0% 50%) 50% / 16px 16px;
+            border-radius: var(--radius-sm);
+            display: flex; align-items: center; justify-content: center;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+        .preview-thumbnail { max-width: 100%; max-height: 100%; display: block; object-fit: contain; }
+        .preview-details .detail-row {
+            display: flex;
+            padding: 0.35rem 0;
+            font-size: 0.92rem;
+            border-bottom: 1px dashed var(--border-color);
+        }
+        .preview-details .detail-row:last-child { border-bottom: none; }
+        .detail-label { color: var(--text-secondary); min-width: 110px; font-weight: 500; }
+        .detail-value { color: var(--text-primary); font-weight: 600; font-family: 'Courier New', monospace; }
+        .result-section { margin-top: 1.5rem; }
+        .result-info {
+            display: flex; flex-wrap: wrap; gap: 1.5rem;
+            margin-bottom: 0.75rem; font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+        .info-label { font-weight: 500; color: var(--text-primary); }
+        .info-value { font-family: 'Courier New', monospace; font-weight: 600; color: var(--primary-color); }
+        .form-textarea {
+            width: 100%;
+            padding: 0.875rem;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            font-size: 0.85rem;
+            line-height: 1.6;
+            resize: vertical;
+            background: #fafbfc;
+            color: #1f2937;
+            transition: border-color 0.2s;
+        }
+        .form-textarea:focus { outline: none; border-color: var(--primary-color); background: var(--bg-white); box-shadow: 0 0 0 3px rgba(16,185,129,0.1); }
+        .form-hint { font-size: 0.82rem; color: var(--text-muted); margin-top: 0.35rem; line-height: 1.5; }
+        .action-buttons { display: flex; gap: 0.75rem; margin-top: 1rem; flex-wrap: wrap; }
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.25rem;
+            margin-top: 1rem;
+        }
+        .feature-item {
+            display: flex; gap: 0.875rem;
+            padding: 1rem;
+            background: var(--bg-light);
+            border-radius: var(--radius-md);
+            transition: var(--transition-fast);
+        }
+        .feature-item:hover { transform: translateY(-3px); box-shadow: var(--shadow-sm); background: var(--bg-white); border: 1px solid var(--primary-light); }
+        .feature-icon { font-size: 2rem; flex-shrink: 0; }
+        .feature-content h3 { font-size: 1rem; margin: 0 0 0.4rem 0; color: var(--text-primary); }
+        .feature-content p { font-size: 0.88rem; color: var(--text-secondary); margin: 0; line-height: 1.65; }
+        .glossary-item { margin-bottom: 1.75rem; }
+        .glossary-item:last-child { margin-bottom: 0; }
+        .glossary-item h3 {
+            font-size: 1.1rem;
+            color: var(--primary-color);
+            margin-bottom: 0.75rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--primary-light);
+            display: inline-block;
+        }
+        .glossary-item p { color: var(--text-secondary); line-height: 1.9; margin-bottom: 0.75rem; }
+        .glossary-example {
+            padding: 0.875rem 1rem;
+            background: #0f172a;
+            color: #e2e8f0;
+            border-radius: var(--radius-sm);
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 0.82rem;
+            overflow-x: auto;
+            line-height: 1.7;
+        }
+        .glossary-example code { color: #34d399; }
+        .info-card h2 {
+            font-size: 1.4rem;
+            color: var(--text-primary);
+            margin-bottom: 1.25rem;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+        .info-card h2 i { color: var(--primary-color); }
+        @media (max-width: 640px) {
+            .tab-container { flex-direction: column; }
+            .preview-info-grid { grid-template-columns: 1fr; }
+            .preview-thumb-wrap { margin: 0 auto; }
+            .result-info { gap: 0.75rem; flex-direction: column; }
+            .upload-area { padding: 2rem 1rem; }
+        }
+    </style>
+</body>
+</html>

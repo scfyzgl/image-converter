@@ -1,0 +1,931 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BMP转JPG在线转换器 - 免费图片格式转换工具 - 易工具网</title>
+    <meta name="description" content="免费在线BMP转JPG工具，将BMP图片转换为JPG格式，大幅减小文件体积，保持高清画质。无需安装软件，浏览器内直接转换，支持批量处理和质量调节，完全免费使用。">
+    <meta name="keywords" content="bmp转jpg,bmp转换jpg,bmp怎么转jpg,在线bmp转jpg,bmp转jpg工具,图片格式转换,jpg转换器,bmp格式压缩">
+    <link rel="canonical" href="bmp-to-jpg.html">
+    <link rel="alternate" hreflang="zh-Hans" href="bmp-to-jpg.html" />
+    <link rel="alternate" hreflang="en" href="en/bmp-to-jpg.html" />
+    <link rel="alternate" hreflang="x-default" href="en/bmp-to-jpg.html" />
+    <link rel="stylesheet" href="assets/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="icon" href="assets/favicon.ico">
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "BMP转JPG在线转换器",
+        "description": "免费在线BMP转JPG工具，大幅减小文件体积，保持高清画质，支持批量处理和质量调节",
+        "applicationCategory": "UtilityApplication",
+        "featureList": ["bmp转jpg", "bmp转换jpg", "在线bmp转jpg", "bmp转jpg工具", "批量bmp转jpg", "免费bmp转jpg"],
+        "operatingSystem": "All",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "CNY"
+        },
+        "url": "bmp-to-jpg.html"
+    }
+    </script>
+    <meta property="og:title" content="BMP转JPG在线转换器 - 免费图片格式转换工具">
+    <meta property="og:description" content="免费在线BMP转JPG工具，大幅减小文件体积，保持高清画质，完全免费！">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="bmp-to-jpg.html">
+    <style>
+        .page-header {
+            margin-bottom: 0.5rem !important;
+            padding-bottom: 0 !important;
+        }
+        
+        .page-title {
+            font-size: 1.75rem !important;
+            margin-bottom: 0.5rem !important;
+        }
+        
+        .page-subtitle {
+            font-size: 0.95rem !important;
+            margin-bottom: 0 !important;
+        }
+        
+        .tool-page {
+            padding-top: 0 !important;
+        }
+        
+        .tool-card {
+            margin-bottom: 0.75rem;
+            padding: 1rem 1.25rem !important;
+        }
+        
+        .upload-section {
+            margin-bottom: 0.75rem;
+        }
+        
+        .upload-area {
+            border: 2px dashed var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: var(--bg-light);
+        }
+        
+        .upload-area:hover,
+        .upload-area.dragover {
+            border-color: var(--primary-color);
+            background: var(--primary-light);
+        }
+        
+        .upload-icon {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 0.75rem;
+        }
+        
+        .upload-area h3 {
+            margin-bottom: 0.25rem;
+            font-size: 1rem;
+            color: var(--text-primary);
+        }
+        
+        .upload-area p {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+        
+        .upload-hint {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+        
+        .file-info-display {
+            display: flex;
+            gap: 1rem;
+            margin-top: 0.75rem;
+            padding: 0.75rem;
+            background: var(--bg-white);
+            border-radius: var(--radius-md);
+            border: 2px solid var(--primary-color);
+            flex-wrap: wrap;
+        }
+        
+        .file-info-item {
+            display: flex;
+            align-items: center;
+            gap: 0.375rem;
+            font-size: 0.85rem;
+            color: var(--text-primary);
+        }
+        
+        .file-info-item i {
+            color: var(--primary-color);
+            font-size: 1rem;
+        }
+        
+        .file-info-item strong {
+            color: var(--primary-color);
+        }
+        
+        .files-list {
+            margin-bottom: 0.75rem;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        
+        .file-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.5rem;
+            background: var(--bg-light);
+            border-radius: var(--radius-md);
+            margin-bottom: 0.375rem;
+        }
+        
+        .file-preview {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border-color);
+        }
+        
+        .file-details {
+            flex: 1;
+            min-width: 0;
+        }
+        
+        .file-name {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-primary);
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        
+        .file-size {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+        
+        .file-remove {
+            padding: 0.375rem;
+            cursor: pointer;
+            color: var(--text-secondary);
+            transition: color 0.2s;
+        }
+        
+        .file-remove:hover {
+            color: #e74c3c;
+        }
+        
+        .settings-section {
+            margin-bottom: 0.75rem;
+            padding: 0.75rem;
+            background: var(--bg-light);
+            border-radius: var(--radius-lg);
+        }
+        
+        .settings-title {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.95rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+        
+        .settings-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 0.75rem;
+        }
+        
+        .setting-item {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+        
+        .setting-item label {
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+        
+        .setting-item select,
+        .setting-item input[type="range"] {
+            padding: 0.375rem 0.5rem;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            background: var(--bg-white);
+            font-size: 0.85rem;
+        }
+        
+        .quality-slider-container {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .quality-slider-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .quality-slider {
+            flex: 1;
+            -webkit-appearance: none;
+            appearance: none;
+            width: 100%;
+            height: 8px;
+            border-radius: 4px;
+            background: var(--border-color);
+            outline: none;
+        }
+
+        .quality-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            cursor: pointer;
+        }
+
+        .quality-slider::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            cursor: pointer;
+            border: none;
+        }
+
+        .quality-value {
+            min-width: 50px;
+            text-align: center;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 0.5rem;
+            justify-content: flex-end;
+            margin-bottom: 0.75rem;
+        }
+        
+        .btn {
+            display: flex;
+            align-items: center;
+            gap: 0.375rem;
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.2s;
+            border: none;
+        }
+        
+        .btn-primary {
+            background: var(--primary-color);
+            color: white;
+        }
+        
+        .btn-primary:hover:not(:disabled) {
+            background: var(--primary-hover);
+        }
+        
+        .btn-secondary {
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+        }
+        
+        .btn-secondary:hover {
+            background: var(--bg-light);
+        }
+        
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .progress-container {
+            margin-bottom: 0.75rem;
+            padding: 0.5rem;
+            background: var(--bg-light);
+            border-radius: var(--radius-lg);
+        }
+        
+        .progress-bar {
+            height: 8px;
+            background: var(--bg-white);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 0.25rem;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: var(--primary-color);
+            border-radius: 4px;
+            transition: width 0.3s;
+            width: 0%;
+        }
+        
+        .progress-text {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            text-align: center;
+        }
+        
+        .result-section {
+            margin-top: 0.75rem;
+            padding: 0.75rem;
+            background: #d4edda;
+            border-radius: var(--radius-lg);
+            border: 1px solid #c3e6cb;
+        }
+        
+        .result-title {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #155724;
+            margin-bottom: 0.5rem;
+        }
+        
+        .result-title i {
+            color: #28a745;
+        }
+        
+        .result-info {
+            font-size: 0.9rem;
+            color: #155724;
+        }
+        
+        .result-info p {
+            margin-bottom: 0.25rem;
+        }
+        
+        .result-files {
+            margin-top: 0.5rem;
+            display: flex;
+            flex-wrap: gap: 0.5rem;
+            flex-direction: column;
+        }
+        
+        .result-file-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.375rem;
+            background: rgba(255,255,255,0.5);
+            border-radius: var(--radius-sm);
+        }
+        
+        .result-file-name {
+            flex: 1;
+            font-size: 0.85rem;
+        }
+        
+        .download-link {
+            color: #155724;
+            text-decoration: underline;
+            font-size: 0.85rem;
+        }
+        
+        .feature-card {
+            margin-bottom: 1rem;
+        }
+        
+        .feature-card h2 {
+            margin-bottom: 1rem;
+            font-size: 1.25rem;
+        }
+        
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.75rem;
+        }
+        
+        .feature-item {
+            display: flex;
+            gap: 0.75rem;
+            padding: 0.75rem;
+            background: var(--bg-light);
+            border-radius: var(--radius-md);
+            transition: all 0.3s ease;
+        }
+        
+        .feature-item:hover {
+            transform: translateX(5px);
+        }
+        
+        .feature-icon {
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+        
+        .feature-content h3 {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.25rem;
+        }
+        
+        .feature-content p {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+        
+        .tutorial-steps {
+            margin-top: 0.75rem;
+        }
+        
+        .step {
+            display: flex;
+            gap: 1rem;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .step:last-child {
+            border-bottom: none;
+        }
+        
+        .step-number {
+            flex-shrink: 0;
+            width: 2rem;
+            height: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        
+        .step-content h4 {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.25rem;
+        }
+        
+        .step-content p {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+        
+        .faq-item {
+            margin-bottom: 0.75rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .faq-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        
+        .faq-question {
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.25rem;
+            font-size: 0.9rem;
+        }
+        
+        .faq-answer {
+            color: var(--text-secondary);
+            line-height: 1.5;
+            font-size: 0.85rem;
+        }
+        
+        @media (max-width: 768px) {
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .settings-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .action-buttons {
+                justify-content: center;
+            }
+            
+            .tool-card {
+                padding: 0.75rem 1rem !important;
+            }
+            
+            .file-info-display {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .file-item {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+        
+        .info-card {
+            padding: 1rem 1.25rem;
+            margin-bottom: 0.75rem;
+        }
+        
+        .info-card h2 {
+            font-size: 1.15rem;
+            margin-bottom: 0.5rem;
+            padding-bottom: 0.375rem;
+        }
+        
+        .related-tools {
+            padding: 1.5rem 0;
+        }
+        
+        .related-title {
+            font-size: 1rem;
+            margin-bottom: 0.75rem;
+        }
+    </style>
+</head>
+<body>
+
+<div id="header-placeholder"></div>
+
+<div class="page-header">
+    <h1 class="page-title">BMP转JPG在线转换器 - 免费图片格式转换工具</h1>
+    <p class="page-subtitle">将BMP图片转换为JPG格式，大幅减小文件体积，保持高清画质。无需安装软件，直接在浏览器中完成转换，支持自定义质量参数调节，完全免费使用。</p>
+</div>
+
+<section class="tool-page">
+    <div class="tool-container">
+        <div class="tool-card">
+            <div class="upload-section">
+                <div class="upload-area" id="uploadArea">
+                    <i class="bi bi-image upload-icon"></i>
+                    <h3>点击或拖拽上传 BMP 文件进行转换</h3>
+                    <p>支持 .bmp 格式，单个文件最大 50MB，最多可同时上传 20 个文件</p>
+                    <input type="file" id="fileInput" accept=".bmp,image/bmp,image/x-bmp" multiple hidden>
+                </div>
+                <div class="upload-hint">
+                    <i class="bi bi-info-circle"></i>
+                    <span>上传BMP文件后，系统将在浏览器本地完成转换，文件不会上传到服务器。可自由调节JPG输出质量以获得最佳体积与画质平衡。</span>
+                </div>
+                
+                <div class="file-info-display" id="fileInfoDisplay" style="display: none;">
+                    <div class="file-info-item">
+                        <i class="bi bi-files"></i>
+                        <span>已选择: <strong id="selectedFileCount">0</strong> 个文件</span>
+                    </div>
+                    <div class="file-info-item">
+                        <i class="bi bi-hdd"></i>
+                        <span>总大小: <strong id="selectedFileSize">0 KB</strong></span>
+                    </div>
+                </div>
+                
+                <div class="files-list" id="filesList" style="display: none;"></div>
+            </div>
+
+            <div class="settings-section" id="settingsSection" style="display: none;">
+                <h3 class="settings-title">
+                    <i class="bi bi-sliders"></i>
+                    BMP转JPG设置 - 自定义转换选项
+                </h3>
+                <div class="settings-grid">
+                    <div class="setting-item">
+                        <label for="imageQuality">图片质量调节</label>
+                        <div class="quality-slider-container">
+                            <div class="quality-slider-wrapper">
+                                <input type="range" class="quality-slider" id="imageQuality" min="0.1" max="1.0" step="0.05" value="0.85">
+                                <span class="quality-value" id="qualityValue">0.85</span>
+                            </div>
+                            <div style="font-size: 0.8rem; color: var(--text-secondary);">
+                                <span>低质量 (0.1)</span>
+                                <span style="float: right;">最高质量 (1.0)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="action-buttons">
+                <button class="btn btn-secondary" id="clearBtn">
+                    <i class="bi bi-trash"></i>
+                    清空文件
+                </button>
+                <button class="btn btn-primary" id="convertBtn" disabled>
+                    <i class="bi bi-image"></i>
+                    开始转换为 JPG
+                </button>
+            </div>
+
+            <div class="progress-container" id="progressContainer" style="display: none;">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                <div class="progress-text" id="progressText">正在转换中...</div>
+            </div>
+
+            <div class="result-section" id="resultSection" style="display: none;">
+                <h3 class="result-title">
+                    <i class="bi bi-check-circle"></i>
+                    转换完成
+                </h3>
+                <div class="result-info" id="resultInfo"></div>
+                <div class="result-files" id="resultFiles"></div>
+            </div>
+        </div>
+
+        <div class="info-card feature-card">
+            <h2>为什么选择我们的BMP转JPG工具？</h2>
+            <div class="feature-grid">
+                <div class="feature-item">
+                    <div class="feature-icon">🗜️</div>
+                    <div class="feature-content">
+                        <h3>极致压缩效率</h3>
+                        <p>BMP是未经压缩的原始格式，文件体积巨大。转换为JPG后可实现10:1甚至更高的压缩比，显著节省存储空间和传输带宽。</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🎚️</div>
+                    <div class="feature-content">
+                        <h3>灵活质量控制</h3>
+                        <p>提供0.1到1.0的质量滑块，可根据用途精细调节。高质量模式适合印刷存档，低质量模式适合网络分享，灵活满足各种场景需求。</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">📊</div>
+                    <div class="feature-content">
+                        <h3>实时压缩效果预览</h3>
+                        <p>转换完成后直观展示原始大小与压缩后大小的对比，帮助用户找到体积与画质的最佳平衡点，做出明智的选择。</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">💰</div>
+                    <div class="feature-content">
+                        <h3>100%免费无限制</h3>
+                        <p>完全免费的在线工具，无需注册登录，没有使用次数限制，没有隐藏收费。相比付费软件，为您节省成本的同时提供同等专业的效果。</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">⚡</div>
+                    <div class="feature-content">
+                        <h3>极速批量处理</h3>
+                        <p>支持一次转换20个BMP文件，利用浏览器GPU加速，即使是大尺寸高清图片也能快速完成转换，工作效率提升数倍。</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🔒</div>
+                    <div class="feature-content">
+                        <h3>隐私绝对安全</h3>
+                        <p>所有转换操作在浏览器本地执行，BMP文件不会离开您的设备。即使是敏感的企业内部图片、个人照片也能放心使用。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="info-card">
+            <h2>如何使用BMP转JPG功能？详细教程</h2>
+            <div class="tutorial-steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h4>选择并上传BMP文件</h4>
+                        <p>点击上传区域选择BMP图片文件（支持.bmp扩展名），或将文件直接拖拽到页面上。可同时选择多个文件进行批量处理，上限20个，单个不超过50MB。</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h4>预览文件并设置质量</h4>
+                        <p>上传成功后显示缩略图和原始文件大小。此时会出现质量调节滑块，默认值为0.85（85%），这是兼顾画质与体积的最佳推荐值。根据实际需求左右拖动滑块调整。</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h4>启动批量转换</h4>
+                        <p>确认文件和质量参数无误后，点击"开始转换为JPG"按钮。工具会依次处理每个BMP文件，进度条实时显示处理进度和当前正在转换的文件名。</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h4>查看压缩效果统计</h4>
+                        <p>转换完成后展示汇总统计：总文件数、原始总大小、压缩后总大小、平均压缩比例等信息。您可以根据这些数据评估压缩效果是否符合预期。</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">5</div>
+                    <div class="step-content">
+                        <h4>逐个或批量下载</h4>
+                        <p>结果区列出每个转换后的JPG文件，显示各自的原始大小→压缩后大小。点击单个文件下载，或使用"批量下载"按钮一次性获取全部JPG文件。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="info-card">
+            <h2>知识科普：BMP格式与JPG格式深度解析</h2>
+            
+            <h3 style="font-size: 1rem; font-weight: 600; color: var(--text-primary); margin: 1rem 0 0.5rem;">什么是BMP格式？</h3>
+            <p style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.6; margin-bottom: 1rem;">BMP（Bitmap File Format）是微软公司开发的位图图像文件格式，也称为Device Independent Bitmap（DIB）。它的核心特点是<strong>完全不使用压缩</strong>——每一个像素的颜色值都以原始数据形式存储，因此能够100%保留画面细节，没有任何质量损失。但也正因如此，BMP文件体积极其庞大。一张1920×1080分辨率、24位色深的BMP图片约为6MB，而同质量的JPG可能只有几百KB。BMP广泛应用于Windows系统的壁纸、屏幕截图、早期游戏资源等领域，但由于其臃肿的文件体积在现代互联网环境下逐渐被淘汰。</p>
+            
+            <h3 style="font-size: 1rem; font-weight: 600; color: var(--text-primary); margin: 1rem 0 0.5rem;">什么是JPG/JPEG格式？</h3>
+            <p style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.6; margin-bottom: 1rem;">JPEG（Joint Photographic Experts Group）是一种广泛使用的有损压缩图像格式，由ISO/IEC联合专家组于1992年制定标准。它采用离散余弦变换（DCT）算法去除人眼不易察觉的高频细节信息，从而在视觉质量几乎不变的前提下大幅缩小文件体积。JPG支持多种压缩级别，从极高质量（接近无损）到高度压缩（明显可见伪影），用户可以根据需求灵活选择。它是目前互联网上最流行的图片格式之一，支撑着绝大多数网站、社交媒体、电子商务平台的图片展示。</p>
+            
+            <h3 style="font-size: 1rem; font-weight: 600; color: var(--text-primary); margin: 1rem 0 0.5rem;">BMP与JPG核心差异对比</h3>
+            <table style="width: 100%; border-collapse: collapse; font-size: 0.85rem; margin-bottom: 1rem;">
+                <tr style="background: var(--bg-light);">
+                    <th style="padding: 0.5rem; border: 1px solid var(--border-color); text-align: left; font-weight: 600;">特性维度</th>
+                    <th style="padding: 0.5rem; border: 1px solid var(--border-color); text-align: left; font-weight: 600;">BMP</th>
+                    <th style="padding: 0.5rem; border: 1px solid var(--border-color); text-align: left; font-weight: 600;">JPG/JPEG</th>
+                </tr>
+                <tr><td style="padding: 0.5rem; border: 1px solid var(--border-color);">压缩方式</td><td style="padding: 0.5rem; border: 1px solid var(--border-color);">无压缩（Raw Data）</td><td style="padding: 0.5rem; border: 1px solid var(--border-color);">有损DCT压缩（可调质量）</td></tr>
+                <tr style="background: var(--bg-light);"><td style="padding: 0.5rem; border: 1px solid var(--border-color);">典型压缩比</td><td style="padding: 0.5rem; border: 1px solid var(--border-color);">1:1（基准）</td><td style="padding: 0.5rem; border: 1px solid var(--border-color);">10:1 ~ 100:1（可调）</td></tr>
+                <tr><td style="padding: 0.5rem; border: 1px solid var(--border-color);">文件体积示例<br>(1920×1080)</td><td style="padding: 0.5rem; border: 1px solid var(--border-color);">~6.2 MB</td><td style="padding: 0.5rem; border: 1px solid var(--border-color);">~200KB - 800KB</td></tr>
+                <tr style="background: var(--bg-light);"><td style="padding: 0.5rem; border: 1px solid var(--border-color);">透明度支持</td><td style="padding: 0.5rem; border: 1px solid var(--border-color);">不支持</td><td style="padding: 0.5rem; border: 1px solid var(--border-color);">不支持</td></tr>
+                <tr><td style="padding: 0.5rem; border: 1px solid var(--border-color);">适用场景</td><td style="padding: 0.5rem; border: 1px solid var(--border-color);">Windows原生、医学影像、<br>需要零损失的归档场景</td><td style="padding: 0.5rem; border: 1px solid var(--border-color);">网页展示、社交分享、<br>邮件附件、云存储</td></tr>
+            </table>
+
+            <h3 style="font-size: 1rem; font-weight: 600; color: var(--text-primary); margin: 1rem 0 0.5rem;">为什么必须把BMP转换为JPG？</h3>
+            <p style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.6;">在实际应用中，BMP的"零压缩"特性反而成为了致命弱点：<strong>存储浪费严重</strong>——一张普通的数码照片以BMP格式存储可能占用数十兆空间，而硬盘容量和云存储空间都是宝贵资源；<strong>传输效率低下</strong>——发送带BMP附件的邮件可能导致对方邮箱爆满，网页加载BMP图片会让用户等待数分钟；<strong>兼容性局限</strong>——大多数现代浏览器、移动端App、社交媒体平台都不推荐或不支持直接使用BMP；<strong>缺乏元数据支持</strong>——BMP无法携带EXIF拍摄参数、版权信息等有用数据。因此，除非有特殊的专业需求，否则将BMP转换为JPG几乎是必然选择。</p>
+        </div>
+
+        <div class="info-card">
+            <h2>常见错误与正确做法指南</h2>
+            
+            <div class="faq-item">
+                <div class="faq-question">❌ 错误做法1：对所有图片都使用相同的压缩质量</div>
+                <div class="faq-answer"><strong>✅ 正确做法：</strong>根据图片内容和用途分别设定质量参数。<strong>风景照片</strong>（色彩丰富、细节复杂）：建议0.80-0.90，充分利用JPG对人眼感知优化的特点；<strong>文字/图表/截图</strong>（大面积纯色、锐利边缘）：建议0.90-1.0，避免文字边缘出现锯齿状伪影；<strong>头像/证件照</strong>（人脸区域敏感）：建议不低于0.85，防止面部细节模糊；<strong>临时预览草稿</strong>（只需大致看清内容）：可降至0.5-0.7以最大化压缩率。</div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">❌ 错误做法2：认为质量设为1.0就能得到无损效果</div>
+                <div class="faq-answer"><strong>✅ 正确做法：</strong>JPG本质上就是有损格式，即使质量设置为1.0（100%）仍然会有轻微的量化误差，只是肉眼难以察觉而已。如果确实需要真正的无损保存，应该选择PNG或TIFF等无损格式。对于大多数日常用途（网页、微信朋友圈、邮件），0.85左右的设置已经能提供非常出色的视觉效果，没必要执着于1.0。</div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">❌ 错误做法3：反复打开保存同一张JPG导致质量持续下降</div>
+                <div class="faq-answer"><strong>✅ 正确做法：</strong>每次对JPG进行"另存为"操作都会引入新一轮的有损压缩误差，多次迭代后会产生明显的"代际退化"现象（Generation Loss）。正确的做法是：始终保留一份原始BMP或PNG作为<strong>母版文件</strong>（Master Copy），只在最终输出环节生成JPG副本；如果需要对已有的JPG进行编辑，尽量使用支持"无损JPG旋转/裁剪"的工具，或将其转为PNG后再处理。</div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">❌ 错误做法4：忽略BMP的特殊变体格式导致转换失败</div>
+                <div class="faq-answer"><strong>✅ 正确做法：</strong>BMP并非单一格式，而是包含了多种子变体：<strong>标准BMP</strong>（24位RGB，最常见）；<strong>RLE压缩BMP</strong>（使用了行程长度编码，虽罕见但确实存在）；<strong>32位ARGB BMP</strong>（带Alpha通道，某些绘图软件导出）；<strong>OS/2 BMP</strong>（IBM操作系统遗留）。我们的工具已全面支持上述常见变体。如果遇到罕见的特殊BMP文件转换失败，建议先用Paint、IrfanView等工具重新导出为标准24位BMP后再进行转换。</div>
+            </div>
+        </div>
+
+        <div class="info-card">
+            <h2>BMP转JPG典型应用场景</h2>
+            
+            <div style="margin-bottom: 0.75rem;">
+                <h4 style="font-size: 0.95rem; font-weight: 600; color: var(--text-primary); margin-bottom: 0.25rem;"><i class="bi bi-camera" style="color: var(--primary-color); margin-right: 0.5rem;"></i>老照片数字化归档</h4>
+                <p style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.5;">扫描仪输出的默认格式通常是BMP或TIFF，每张照片动辄几十兆。家庭相册数字化、族谱整理、历史文献保存等项目会产生海量BMP文件。批量转换为JPG后，可将总体积缩减90%以上，便于在电脑、手机、云端同步管理，方便随时翻看和分享给亲友。</p>
+            </div>
+            
+            <div style="margin-bottom: 0.75rem;">
+                <h4 style="font-size: 0.95rem; font-weight: 600; color: var(--text-primary); margin-bottom: 0.25rem;"><i class="bi bi-envelope" style="color: var(--primary-color); margin-right: 0.5rem;"></i>邮件附件与即时通讯</h4>
+                <p style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.5;">企业办公中经常需要通过Outlook、钉钉、企业微信发送产品图片、合同扫描件、设计稿等。BMP的大文件体积不仅占用收件人邮箱空间，还可能触发垃圾邮件过滤机制。转换为JPG后，一个5MB的BMP截图可压缩至200KB左右，发送接收都更加流畅高效。</p>
+            </div>
+            
+            <div style="margin-bottom: 0.75rem;">
+                <h4 style="font-size: 0.95rem; font-weight: 600; color: var(--text-primary); margin-bottom: 0.25rem;"><i class="bi bi-shop" style="color: var(--primary-color); margin-right: 0.5rem;"></i>电商平台商品图片优化</h4>
+                <p style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.5;">淘宝、京东、亚马逊等电商平台对商品主图的文件大小有严格限制（通常不超过1-3MB），且会影响店铺加载速度评分。摄影师提供的原始商品图往往是BMP或RAW格式，必须经过格式转换和压缩才能符合上架要求。高质量的JPG既能保证商品细节清晰可见，又能快速加载提升用户体验。</p>
+            </div>
+            
+            <div style="margin-bottom: 0.75rem;">
+                <h4 style="font-size: 0.95rem; font-weight: 600; color: var(--text-primary); margin-bottom: 0.25rem;"><i class="bi bi-file-earmark-image" style="color: var(--primary-color); margin-right: 0.5rem;"></i>网站建设与内容管理系统</h4>
+                <p style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.5;">Web开发者从设计师处收到的素材有时是BMP格式（尤其是非设计专业人员制作的图片）。直接在网站上使用BMP会导致页面加载缓慢，影响SEO排名和跳出率。批量转换为优化后的JPG是前端性能优化的基础步骤之一，配合CDN加速可进一步改善访问体验。</p>
+            </div>
+            
+            <div>
+                <h4 style="font-size: 0.95rem; font-weight: 600; color: var(--text-primary); margin-bottom: 0.25rem;"><i class="bi bi-hdd" style="color: var(--primary-color); margin-right: 0.5rem;"></i>存储空间清理与备份优化</h4>
+                <p style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.5;">随着硬盘使用年限增长和照片数量累积，很多人发现电脑C盘或NAS存储空间告急。检查后发现大量BMP文件占用了不必要的空间（例如Windows自带的画图工具默认保存为BMP，截图工具也可能输出BMP）。将这些文件批量转为JPG可立即释放大量空间，且不影响日常查看和使用。</p>
+            </div>
+        </div>
+
+        <div class="info-card">
+            <h2>BMP转JPG常见问题解答 (FAQ)</h2>
+            
+            <div class="faq-item">
+                <div class="faq-question">Q1：BMP转JPG后文件能缩小多少？压缩比大概是多少？</div>
+                <div class="faq-answer">A：这取决于图片内容和所选质量参数。对于典型的彩色照片，在质量设置为0.85的情况下，<strong>压缩比可达10:1到30:1</strong>，即原本10MB的BMP文件可变为几百KB的JPG。对于简单的截图或图表（大面积纯色），压缩比甚至更高，可达50:1以上。但对于已经包含很多噪点或复杂纹理的图片，压缩比相对较低，大约5:1到8:1。</div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">Q2：转换后画质会有明显下降吗？我应该选什么质量值？</div>
+                <div class="faq-answer">A：在合理范围内几乎看不出差别。<strong>推荐的默认值是0.85（85%质量）</strong>，这是一个经大量实践验证的"甜点位"，在肉眼下与原图几乎一致，同时获得了显著的体积缩减。如果您追求极致画质（比如印刷用途），可提高到0.90-0.95；如果纯粹为了快速传输或预览，降到0.70-0.80也是可接受的。低于0.6则可能开始出现可见的块状伪影。</div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">Q3：BMP转JPG支持批量处理吗？一次能转多少个文件？</div>
+                <div class="faq-answer">A：<strong>完全支持批量转换！</strong>我们的工具允许单次上传和处理多达20个BMP文件，每个文件最大50MB。这对于需要整理数百张扫描照片、产品图片库、截图合集的用户来说极为便利。批量模式下，每个文件会按顺序逐一处理，进度条实时更新，最后统一展示所有结果的下载入口。</div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">Q4：转换过程需要联网吗？我的图片会上传到服务器吗？</div>
+                <div class="faq-answer">A：<strong>不需要联网，也不会上传。</strong>整个BMP到JPG的转换过程100%在您的浏览器本地完成，使用的是JavaScript Canvas API和内置的图像编解码能力。这意味着即使在断网状态下也能正常使用本工具。您的BMP文件从未离开您的计算机/手机，不存在隐私泄露的风险，即使是涉密的商业图纸也可以安心使用。</div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">Q5：BMP和PNG都是无损格式，为什么不转PNG而要转JPG？</div>
+                <div class="faq-answer">A：好问题！关键区别在于<strong>文件体积</strong>。虽然PNG和BMP一样是无损格式，但PNG采用了高效的Deflate压缩算法，体积远小于BMP。然而，<strong>PNG仍然比JPG大得多</strong>——对于照片类图片，PNG通常是JPG的3-5倍大小。如果您的主要目标是<strong>大幅减小体积以便存储、传输、网页使用</strong>，那么JPG是更合适的选择；只有当您需要保留透明背景或进行二次编辑时，才优先考虑PNG。</div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">Q6：这个工具是免费的吗？有没有文件数量或大小的隐藏限制？</div>
+                <div class="faq-answer">A：<strong>100%免费，无任何隐藏限制。</strong>不需要注册账号，不需要关注公众号，不需要付费解锁高级功能。单次20个文件、单个50MB的限制已经是相当宽松的标准，足以应对99%的日常使用场景。如果您的需求超出此范围（比如需要处理上百个超大文件），建议分批操作或考虑使用桌面端专业软件。</div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">Q7：手机上可以使用这个BMP转JPG工具吗？</div>
+                <div class="faq-answer">A：<strong>当然可以！</strong>我们的网页工具采用了响应式设计，完美适配iOS Safari、Android Chrome等移动端浏览器。操作流程与PC端一致：点击上传（或从相册选择BMP文件）→调节质量→转换→下载到手机相册或文件管理器。特别适合在外出时紧急处理图片、转发给客户的场景。</div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">Q8：转换后的JPG文件能否保留原始BMP的色彩信息？</div>
+                <div class="faq-answer">A：<strong>基本可以，但有细微差别。</strong>标准BMP通常使用sRGB色彩空间（24位RGB），这与JPG的默认色彩空间是一致的，因此转换过程中色彩信息得以完好保留。但如果原始BMP是特殊的色彩配置（比如某些专业扫描仪输出的CMYK模式BMP，或32位ARGB带透明通道的BMP），转换时可能会发生色彩空间的映射转换，导致轻微的色偏。对于绝大多数普通用户的常规BMP文件而言，这种影响可以忽略不计。</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="related-tools">
+    <div class="container">
+        <h3 class="related-title">相关工具推荐</h3>
+        <div class="related-grid">
+            <a href="avif-to-jpg.html" class="related-item">
+                <i class="bi bi-image related-icon"></i>
+                <div class="related-content">
+                    <h4>AVIF转JPG</h4>
+                    <p>AVIF转换为JPG格式</p>
+                </div>
+            </a>
+            <a href="png-to-jpg.html" class="related-item">
+                <i class="bi bi-image related-icon"></i>
+                <div class="related-content">
+                    <h4>PNG转JPG</h4>
+                    <p>PNG转换为JPG格式</p>
+                </div>
+            </a>
+            <a href="webp-to-jpg.html" class="related-item">
+                <i class="bi bi-image related-icon"></i>
+                <div class="related-content">
+                    <h4>WebP转JPG</h4>
+                    <p>WebP转换为JPG格式</p>
+                </div>
+            </a>
+            <a href="avif-to-png.html" class="related-item">
+                <i class="bi bi-image related-icon"></i>
+                <div class="related-content">
+                    <h4>AVIF转PNG</h4>
+                    <p>AVIF转换为PNG格式</p>
+                </div>
+            </a>
+            <a href="target-size-compress.html" class="related-item">
+                <i class="bi bi-compress related-icon"></i>
+                <div class="related-content">
+                    <h4>图片压缩</h4>
+                    <p>压缩图片文件大小</p>
+                </div>
+            </a>
+        </div>
+    </div>
+</section>
+
+<div id="footer-placeholder"></div>
+<div id="toast" class="toast"></div>
+
+<script src="assets/bmp-to-jpg.js"></script>
+<script src="assets/tools-data.js"></script>
+<script src="assets/site.js"></script>
+
+</body>
+</html>

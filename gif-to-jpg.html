@@ -1,0 +1,1069 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GIF转JPG在线转换器 - 免费图片格式转换工具 - 易工具网</title>
+    <meta name="description" content="免费在线GIF转JPG工具，无需安装软件，直接在浏览器中将GIF图片转换为JPG格式。提取首帧画面，大幅减小文件体积，支持批量转换，完全免费！">
+    <meta name="keywords" content="gif转jpg,gif转换成jpg,gif怎么转换成jpg,在线gif转jpg,gif转jpg工具,gif转图片,gif格式转换,gif转jpeg,gif提取首帧,gif转jpg免费">
+    <link rel="canonical" href="gif-to-jpg.html">
+    <link rel="alternate" hreflang="zh-Hans" href="gif-to-jpg.html" />
+    <link rel="alternate" hreflang="en" href="en/gif-to-jpg.html" />
+    <link rel="alternate" hreflang="x-default" href="en/gif-to-jpg.html" />
+    <link rel="stylesheet" href="assets/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="icon" href="assets/favicon.ico">
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "GIF转JPG在线转换工具",
+        "description": "免费在线GIF转JPG工具，提取首帧画面，大幅减小文件体积，支持批量转换",
+        "applicationCategory": "UtilityApplication",
+        "featureList": ["gif转jpg", "gif转换成jpg", "在线gif转jpg", "gif转jpg工具", "批量gif转jpg", "免费gif转jpg"],
+        "operatingSystem": "All",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "CNY"
+        },
+        "url": "gif-to-jpg.html"
+    }
+    </script>
+    <meta property="og:title" content="GIF转JPG在线转换器 - 免费图片格式转换工具">
+    <meta property="og:description" content="免费在线GIF转JPG工具，提取首帧画面，大幅减小文件体积，支持批量转换，完全免费！">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="gif-to-jpg.html">
+    <style>
+        .page-header {
+            margin-bottom: 0.5rem !important;
+            padding-bottom: 0 !important;
+        }
+
+        .page-title {
+            font-size: 1.75rem !important;
+            margin-bottom: 0.5rem !important;
+        }
+
+        .page-subtitle {
+            font-size: 0.95rem !important;
+            margin-bottom: 0 !important;
+        }
+
+        .tool-page {
+            padding-top: 0 !important;
+        }
+
+        .tool-card {
+            margin-bottom: 0.75rem;
+            padding: 1rem 1.25rem !important;
+        }
+
+        .upload-section {
+            margin-bottom: 0.75rem;
+        }
+
+        .upload-area {
+            border: 2px dashed var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: var(--bg-light);
+        }
+
+        .upload-area:hover,
+        .upload-area.dragover {
+            border-color: var(--primary-color);
+            background: var(--primary-light);
+        }
+
+        .upload-icon {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 0.75rem;
+        }
+
+        .upload-area h3 {
+            margin-bottom: 0.25rem;
+            font-size: 1rem;
+            color: var(--text-primary);
+        }
+
+        .upload-area p {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .upload-hint {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .file-info-display {
+            display: flex;
+            gap: 1rem;
+            margin-top: 0.75rem;
+            padding: 0.75rem;
+            background: var(--bg-white);
+            border-radius: var(--radius-md);
+            border: 2px solid var(--primary-color);
+            flex-wrap: wrap;
+        }
+
+        .file-info-item {
+            display: flex;
+            align-items: center;
+            gap: 0.375rem;
+            font-size: 0.85rem;
+            color: var(--text-primary);
+        }
+
+        .file-info-item i {
+            color: var(--primary-color);
+            font-size: 1rem;
+        }
+
+        .file-info-item strong {
+            color: var(--primary-color);
+        }
+
+        .files-list {
+            margin-bottom: 0.75rem;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .file-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.5rem;
+            background: var(--bg-light);
+            border-radius: var(--radius-md);
+            margin-bottom: 0.375rem;
+        }
+
+        .file-preview {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border-color);
+        }
+
+        .file-details {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .file-name {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-primary);
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .file-size {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        .file-remove {
+            padding: 0.375rem;
+            cursor: pointer;
+            color: var(--text-secondary);
+            transition: color 0.2s;
+        }
+
+        .file-remove:hover {
+            color: #e74c3c;
+        }
+
+        .settings-section {
+            margin-bottom: 0.75rem;
+            padding: 0.75rem;
+            background: var(--bg-light);
+            border-radius: var(--radius-lg);
+        }
+
+        .settings-title {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.95rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .settings-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 0.75rem;
+        }
+
+        .setting-item {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .setting-item label {
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        .setting-item select,
+        .setting-item input {
+            padding: 0.375rem 0.5rem;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            background: var(--bg-white);
+            font-size: 0.85rem;
+        }
+
+        .quality-slider-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .quality-slider-wrapper input[type="range"] {
+            flex: 1;
+            padding: 0;
+            border: none;
+            height: 6px;
+            -webkit-appearance: none;
+            appearance: none;
+            background: var(--border-color);
+            border-radius: 3px;
+            outline: none;
+        }
+
+        .quality-slider-wrapper input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            cursor: pointer;
+        }
+
+        .quality-slider-wrapper input[type="range"]::-moz-range-thumb {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            cursor: pointer;
+            border: none;
+        }
+
+        .quality-value {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            min-width: 2.5rem;
+            text-align: center;
+        }
+
+        .important-notice {
+            margin-bottom: 0.75rem;
+            padding: 0.75rem;
+            background: #fff3cd;
+            border-radius: var(--radius-lg);
+            border: 1px solid #ffc107;
+        }
+
+        .important-notice-title {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #856404;
+            margin-bottom: 0.375rem;
+        }
+
+        .important-notice-title i {
+            color: #ffc107;
+        }
+
+        .important-notice p {
+            font-size: 0.85rem;
+            color: #856404;
+            line-height: 1.5;
+            margin-bottom: 0;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 0.5rem;
+            justify-content: flex-end;
+            margin-bottom: 0.75rem;
+        }
+
+        .btn {
+            display: flex;
+            align-items: center;
+            gap: 0.375rem;
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.2s;
+            border: none;
+        }
+
+        .btn-primary {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .btn-primary:hover:not(:disabled) {
+            background: var(--primary-hover);
+        }
+
+        .btn-secondary {
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+        }
+
+        .btn-secondary:hover {
+            background: var(--bg-light);
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .progress-container {
+            margin-bottom: 0.75rem;
+            padding: 0.5rem;
+            background: var(--bg-light);
+            border-radius: var(--radius-lg);
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: var(--bg-white);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 0.25rem;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--primary-color);
+            border-radius: 4px;
+            transition: width 0.3s;
+            width: 0%;
+        }
+
+        .progress-text {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            text-align: center;
+        }
+
+        .result-section {
+            margin-top: 0.75rem;
+            padding: 0.75rem;
+            background: #d4edda;
+            border-radius: var(--radius-lg);
+            border: 1px solid #c3e6cb;
+        }
+
+        .result-title {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #155724;
+            margin-bottom: 0.5rem;
+        }
+
+        .result-title i {
+            color: #28a745;
+        }
+
+        .result-info {
+            font-size: 0.9rem;
+            color: #155724;
+        }
+
+        .result-info p {
+            margin-bottom: 0.25rem;
+        }
+
+        .result-files {
+            margin-top: 0.5rem;
+            display: flex;
+            flex-wrap: gap: 0.5rem;
+            flex-direction: column;
+        }
+
+        .result-file-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.375rem;
+            background: rgba(255,255,255,0.5);
+            border-radius: var(--radius-sm);
+        }
+
+        .result-file-name {
+            flex: 1;
+            font-size: 0.85rem;
+        }
+
+        .download-link {
+            color: #155724;
+            text-decoration: underline;
+            font-size: 0.85rem;
+        }
+
+        .feature-card {
+            margin-bottom: 1rem;
+        }
+
+        .feature-card h2 {
+            margin-bottom: 1rem;
+            font-size: 1.25rem;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.75rem;
+        }
+
+        .feature-item {
+            display: flex;
+            gap: 0.75rem;
+            padding: 0.75rem;
+            background: var(--bg-light);
+            border-radius: var(--radius-md);
+            transition: all 0.3s ease;
+        }
+
+        .feature-item:hover {
+            transform: translateX(5px);
+        }
+
+        .feature-icon {
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .feature-content h3 {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.25rem;
+        }
+
+        .feature-content p {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        .tutorial-steps {
+            margin-top: 0.75rem;
+        }
+
+        .step {
+            display: flex;
+            gap: 1rem;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .step:last-child {
+            border-bottom: none;
+        }
+
+        .step-number {
+            flex-shrink: 0;
+            width: 2rem;
+            height: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .step-content h4 {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.25rem;
+        }
+
+        .step-content p {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        .knowledge-content {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        .knowledge-content h3 {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin: 0.75rem 0 0.375rem;
+        }
+
+        .knowledge-content h3:first-child {
+            margin-top: 0;
+        }
+
+        .knowledge-content p {
+            margin-bottom: 0.375rem;
+        }
+
+        .knowledge-content ul {
+            padding-left: 1.25rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .knowledge-content li {
+            margin-bottom: 0.25rem;
+        }
+
+        .mistake-item {
+            padding: 0.75rem;
+            background: var(--bg-light);
+            border-radius: var(--radius-md);
+            margin-bottom: 0.5rem;
+        }
+
+        .mistake-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .mistake-wrong {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #dc3545;
+            margin-bottom: 0.25rem;
+        }
+
+        .mistake-right {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.85rem;
+            color: #28a745;
+            font-weight: 500;
+        }
+
+        .scenario-item {
+            padding: 0.75rem;
+            background: var(--bg-light);
+            border-radius: var(--radius-md);
+            margin-bottom: 0.5rem;
+        }
+
+        .scenario-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .scenario-item h3 {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.25rem;
+        }
+
+        .scenario-item p {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        .faq-item {
+            margin-bottom: 0.75rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .faq-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .faq-question {
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.25rem;
+            font-size: 0.9rem;
+        }
+
+        .faq-answer {
+            color: var(--text-secondary);
+            line-height: 1.5;
+            font-size: 0.85rem;
+        }
+
+        @media (max-width: 768px) {
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .settings-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .action-buttons {
+                justify-content: center;
+            }
+
+            .tool-card {
+                padding: 0.75rem 1rem !important;
+            }
+
+            .file-info-display {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .file-item {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+
+        .info-card {
+            padding: 1rem 1.25rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .info-card h2 {
+            font-size: 1.15rem;
+            margin-bottom: 0.5rem;
+            padding-bottom: 0.375rem;
+        }
+
+        .related-tools {
+            padding: 1.5rem 0;
+        }
+
+        .related-title {
+            font-size: 1rem;
+            margin-bottom: 0.75rem;
+        }
+    </style>
+</head>
+<body>
+
+<div id="header-placeholder"></div>
+
+<div class="page-header">
+    <h1 class="page-title">GIF转JPG在线转换器 - 免费图片格式转换工具</h1>
+    <p class="page-subtitle">将GIF图片转换为JPG格式，提取首帧画面，大幅减小文件体积。无需安装软件，直接在浏览器中完成转换，支持批量处理，完全免费！</p>
+</div>
+
+<section class="tool-page">
+    <div class="tool-container">
+        <div class="tool-card">
+            <div class="upload-section">
+                <div class="upload-area" id="uploadArea">
+                    <i class="bi bi-image upload-icon"></i>
+                    <h3>点击或拖拽上传 GIF 文件进行gif转jpg操作</h3>
+                    <p>支持 .gif 格式，单个文件最大 50MB，最多 20 个文件</p>
+                    <input type="file" id="fileInput" accept=".gif,image/gif" multiple hidden>
+                </div>
+                <div class="upload-hint">
+                    <i class="bi bi-info-circle"></i>
+                    <span>上传GIF文件后，可预览图片并设置转换选项，所有gif转jpg操作在浏览器本地完成，文件不会上传到服务器</span>
+                </div>
+
+                <div class="file-info-display" id="fileInfoDisplay" style="display: none;">
+                    <div class="file-info-item">
+                        <i class="bi bi-files"></i>
+                        <span>已选择: <strong id="selectedFileCount">0</strong> 个文件</span>
+                    </div>
+                    <div class="file-info-item">
+                        <i class="bi bi-hdd"></i>
+                        <span>总大小: <strong id="selectedFileSize">0 KB</strong></span>
+                    </div>
+                </div>
+
+                <div class="files-list" id="filesList" style="display: none;"></div>
+            </div>
+
+            <div class="settings-section" id="settingsSection" style="display: none;">
+                <h3 class="settings-title">
+                    <i class="bi bi-sliders"></i>
+                    GIF转JPG设置 - 选择转换选项
+                </h3>
+                <div class="settings-grid">
+                    <div class="setting-item">
+                        <label for="imageQuality">图片质量</label>
+                        <div class="quality-slider-wrapper">
+                            <input type="range" id="imageQuality" min="0.1" max="1.0" step="0.05" value="0.85">
+                            <span class="quality-value" id="qualityValue">85%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="important-notice" id="importantNotice" style="display: none;">
+                <div class="important-notice-title">
+                    <i class="bi bi-exclamation-triangle"></i>
+                    重要提示
+                </div>
+                <p>GIF动画仅提取首帧转换为JPG（Canvas API限制），JPG不支持动画。如果您需要保留动画效果，请使用GIF转WebP工具。转换时透明区域将填充为白色背景。</p>
+            </div>
+
+            <div class="action-buttons">
+                <button class="btn btn-secondary" id="clearBtn">
+                    <i class="bi bi-trash"></i>
+                    清空文件
+                </button>
+                <button class="btn btn-primary" id="convertBtn" disabled>
+                    <i class="bi bi-image"></i>
+                    开始转换（gif转jpg）
+                </button>
+            </div>
+
+            <div class="progress-container" id="progressContainer" style="display: none;">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                <div class="progress-text" id="progressText">正在转换中...</div>
+            </div>
+
+            <div class="result-section" id="resultSection" style="display: none;">
+                <h3 class="result-title">
+                    <i class="bi bi-check-circle"></i>
+                    GIF转JPG转换完成
+                </h3>
+                <div class="result-info" id="resultInfo"></div>
+                <div class="result-files" id="resultFiles"></div>
+            </div>
+        </div>
+
+        <div class="info-card feature-card">
+            <h2>为什么选择我们的GIF转JPG工具？</h2>
+            <div class="feature-grid">
+                <div class="feature-item">
+                    <div class="feature-icon">⚡</div>
+                    <div class="feature-content">
+                        <h3>快速转换效率高</h3>
+                        <p>只需几秒即可完成gif转jpg操作，无需等待上传下载，本地浏览器直接转换，速度极快。</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">📸</div>
+                    <div class="feature-content">
+                        <h3>高清首帧提取</h3>
+                        <p>精准提取GIF首帧画面，转换为JPG后保持高清画质，自动将透明区域填充为白色背景。</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">📦</div>
+                    <div class="feature-content">
+                        <h3>批量处理支持</h3>
+                        <p>支持一次性转换最多20个GIF文件，满足批量gif转jpg需求，大大提高工作效率。</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">💰</div>
+                    <div class="feature-content">
+                        <h3>完全免费使用</h3>
+                        <p>GIF转JPG工具完全免费，无需注册登录，无隐藏收费，无次数限制，真正的免费工具。</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🔒</div>
+                    <div class="feature-content">
+                        <h3>本地安全处理</h3>
+                        <p>所有gif转jpg操作都在浏览器本地完成，文件不会上传到服务器，完全保护您的隐私安全。</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">📱</div>
+                    <div class="feature-content">
+                        <h3>多平台支持</h3>
+                        <p>完美支持Windows、Mac、Linux系统，以及手机浏览器，随时随地完成gif转jpg转换。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="info-card">
+            <h2>GIF转JPG详细使用教程</h2>
+            <div class="tutorial-steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h4>上传GIF文件</h4>
+                        <p>点击上传区域或拖拽GIF文件（.gif格式），支持一次选择多个文件，单个文件最大50MB。</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h4>预览图片</h4>
+                        <p>上传后系统会自动显示图片缩略图，可查看原图信息（文件名、大小），确认无误后进行下一步。</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h4>设置转换选项</h4>
+                        <p>通过质量滑块调整输出JPG的图片质量（0.1-1.0），质量越高文件越大，建议使用默认0.85即可获得良好效果。</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h4>开始转换</h4>
+                        <p>点击"开始转换"按钮，工具将自动提取GIF首帧并转换为JPG格式，透明区域自动填充白色背景。</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">5</div>
+                    <div class="step-content">
+                        <h4>下载JPG</h4>
+                        <p>转换完成后点击下载链接保存JPG文件，支持单个下载或批量下载所有转换结果。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="info-card">
+            <h2>知识科普 - GIF与JPG的区别</h2>
+            <div class="knowledge-content">
+                <h3>GIF格式特点</h3>
+                <p>GIF（Graphics Interchange Format）是一种经典的位图格式，具有以下特点：</p>
+                <ul>
+                    <li><strong>色彩限制：</strong>GIF仅支持256种颜色（8位色深），无法呈现丰富的色彩过渡，不适合照片类图片。</li>
+                    <li><strong>动画支持：</strong>GIF是主流格式中少数支持动画的格式，通过逐帧播放实现动态效果。</li>
+                    <li><strong>透明度：</strong>支持1位透明度（全透明或全不透明），不支持半透明效果。</li>
+                    <li><strong>无损压缩：</strong>采用LZW无损压缩算法，但受限于256色，照片类图片文件体积往往很大。</li>
+                </ul>
+
+                <h3>JPG格式特点</h3>
+                <p>JPG/JPEG（Joint Photographic Experts Group）是最广泛使用的图片格式之一：</p>
+                <ul>
+                    <li><strong>丰富色彩：</strong>支持1677万种颜色（24位色深），完美呈现照片的色彩和细节。</li>
+                    <li><strong>有损压缩：</strong>采用有损压缩算法，可在保持视觉质量的同时大幅减小文件体积。</li>
+                    <li><strong>不支持透明：</strong>JPG不支持透明度，所有透明区域将显示为纯色背景。</li>
+                    <li><strong>不支持动画：</strong>JPG是静态图片格式，无法包含动画效果。</li>
+                </ul>
+
+                <h3>为什么将GIF转为JPG？</h3>
+                <p>对于不需要动画的GIF图片，转为JPG有以下优势：</p>
+                <ul>
+                    <li>色彩从256色提升到1677万色，画面更细腻真实。</li>
+                    <li>照片类图片文件体积通常大幅减小。</li>
+                    <li>JPG兼容性极强，所有设备和软件均支持。</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="info-card">
+            <h2>常见错误与正确做法</h2>
+
+            <div class="mistake-item">
+                <div class="mistake-wrong">
+                    <i class="bi bi-x-circle"></i>
+                    错误：期望GIF动画转JPG后仍能播放动画
+                </div>
+                <div class="mistake-right">
+                    <i class="bi bi-check-circle"></i>
+                    正确：JPG是静态图片格式，不支持动画。GIF转JPG仅提取首帧画面，如需动画请使用GIF转WebP。
+                </div>
+            </div>
+
+            <div class="mistake-item">
+                <div class="mistake-wrong">
+                    <i class="bi bi-x-circle"></i>
+                    错误：忽略GIF透明区域，导致转换后出现黑色背景
+                </div>
+                <div class="mistake-right">
+                    <i class="bi bi-check-circle"></i>
+                    正确：本工具会自动将GIF透明区域填充为白色背景，确保JPG图片显示正常，无需手动处理。
+                </div>
+            </div>
+
+            <div class="mistake-item">
+                <div class="mistake-wrong">
+                    <i class="bi bi-x-circle"></i>
+                    错误：将色彩丰富的照片存为GIF再转JPG，期望恢复色彩
+                </div>
+                <div class="mistake-right">
+                    <i class="bi bi-check-circle"></i>
+                    正确：GIF仅支持256色，色彩信息已在存储为GIF时丢失，转JPG无法恢复原始色彩。应直接使用原始照片。
+                </div>
+            </div>
+
+            <div class="mistake-item">
+                <div class="mistake-wrong">
+                    <i class="bi bi-x-circle"></i>
+                    错误：将质量设为1.0期望获得最高画质
+                </div>
+                <div class="mistake-right">
+                    <i class="bi bi-check-circle"></i>
+                    正确：质量1.0会显著增大文件体积但视觉提升有限，建议使用0.85即可获得优质输出，体积更合理。
+                </div>
+            </div>
+        </div>
+
+        <div class="info-card">
+            <h2>应用场景</h2>
+
+            <div class="scenario-item">
+                <h3>📎 表情包转静态图</h3>
+                <p>将聊天中常用的GIF表情包提取首帧转为JPG，用于文档插图、PPT展示或社交媒体发布等不支持动画的场景。</p>
+            </div>
+
+            <div class="scenario-item">
+                <h3>🖼️ 网页素材优化</h3>
+                <p>网页中使用的静态GIF图标或装饰图，转为JPG后可减小文件体积、提升加载速度，同时色彩表现更佳。</p>
+            </div>
+
+            <div class="scenario-item">
+                <h3>📱 社交媒体发布</h3>
+                <p>某些社交平台对GIF支持有限或不支持动画播放，将GIF首帧提取为JPG可确保图片正常显示。</p>
+            </div>
+
+            <div class="scenario-item">
+                <h3>🖨️ 打印输出</h3>
+                <p>GIF的256色限制导致打印效果不佳，转为JPG后色彩更丰富，打印输出效果更接近真实色彩。</p>
+            </div>
+
+            <div class="scenario-item">
+                <h3>📋 文档嵌入</h3>
+                <p>Word、PDF等文档格式对GIF支持不完善，转为JPG后可完美嵌入文档，确保跨平台兼容性。</p>
+            </div>
+        </div>
+
+        <div class="info-card">
+            <h2>GIF转JPG常见问题解答 (FAQ)</h2>
+
+            <div class="faq-item">
+                <div class="faq-question">Q1：为什么GIF转换后只有一帧？</div>
+                <div class="faq-answer">A：这是因为JPG是静态图片格式，不支持动画。本工具使用浏览器Canvas API进行转换，只能提取GIF的首帧画面。如果您需要保留动画效果，建议使用我们的GIF转WebP工具。</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">Q2：GIF动画能转换吗？</div>
+                <div class="faq-answer">A：GIF动画可以转换，但仅会提取首帧画面生成静态JPG图片。JPG格式本身不支持动画，这是格式特性决定的。如需保留动画，请使用GIF转WebP格式。</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">Q3：GIF转JPG后图片质量会下降吗？</div>
+                <div class="faq-answer">A：实际上对于照片类内容，转换后画质通常会提升，因为JPG支持1677万色而GIF仅支持256色。但由于JPG使用有损压缩，建议使用0.85以上的质量设置以获得最佳效果。</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">Q4：GIF的透明背景会怎样处理？</div>
+                <div class="faq-answer">A：JPG不支持透明度，本工具会自动将GIF中的透明区域填充为白色背景，确保转换后的JPG图片显示正常，不会出现黑色或异常背景。</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">Q5：支持批量GIF转JPG吗？</div>
+                <div class="faq-answer">A：支持！可以同时上传最多20个GIF文件进行批量转换，大大提高工作效率，适合需要处理大量文件的用户。</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">Q6：文件大小有限制吗？</div>
+                <div class="faq-answer">A：单个GIF文件最大支持50MB，一次最多可上传20个文件。超过限制的建议先压缩后再进行gif转jpg操作。</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">Q7：GIF转JPG是免费的吗？</div>
+                <div class="faq-answer">A：完全免费！我们的GIF转JPG工具提供免费服务，无需注册登录，无隐藏收费，无次数限制。</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">Q8：转换过程安全吗？文件会被上传吗？</div>
+                <div class="faq-answer">A：<strong>非常安全！</strong>所有gif转jpg操作都在您的浏览器本地完成，文件不会上传到任何服务器，完全保护您的隐私和数据安全。</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="related-tools">
+    <div class="container">
+        <h3 class="related-title">GIF转JPG相关工具推荐</h3>
+        <div class="related-grid">
+            <a href="gif-to-webp.html" class="related-item">
+                <i class="bi bi-image related-icon"></i>
+                <div class="related-content">
+                    <h4>GIF转WebP</h4>
+                    <p>GIF转换为WebP格式，保留动画</p>
+                </div>
+            </a>
+            <a href="png-to-jpg.html" class="related-item">
+                <i class="bi bi-image related-icon"></i>
+                <div class="related-content">
+                    <h4>PNG转JPG</h4>
+                    <p>PNG转换为JPG格式</p>
+                </div>
+            </a>
+            <a href="webp-to-jpg.html" class="related-item">
+                <i class="bi bi-image related-icon"></i>
+                <div class="related-content">
+                    <h4>WebP转JPG</h4>
+                    <p>WebP转换为JPG格式</p>
+                </div>
+            </a>
+            <a href="gif-compress.html" class="related-item">
+                <i class="bi bi-compress related-icon"></i>
+                <div class="related-content">
+                    <h4>GIF压缩</h4>
+                    <p>压缩GIF文件大小</p>
+                </div>
+            </a>
+            <a href="target-size-compress.html" class="related-item">
+                <i class="bi bi-compress related-icon"></i>
+                <div class="related-content">
+                    <h4>图片压缩</h4>
+                    <p>压缩图片文件大小</p>
+                </div>
+            </a>
+        </div>
+    </div>
+</section>
+
+<div id="footer-placeholder"></div>
+<div id="toast" class="toast"></div>
+
+<script src="assets/gif-to-jpg.js"></script>
+<script src="assets/tools-data.js"></script>
+<script src="assets/site.js"></script>
+
+</body>
+</html>

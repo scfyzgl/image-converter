@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>占位图生成器 - 在线占位图生成工具</title>
+    <meta name="description" content="免费在线占位图生成器，自定义宽高、背景色、文字内容，生成网页占位图。">
+    <meta name="keywords" content="占位图生成器,placeholder,占位图,图片生成器,自定义占位图">
+        <link rel="canonical" href="placeholder-generator.html">
+    <link rel="alternate" hreflang="zh-Hans" href="placeholder-generator.html" />
+    <link rel="alternate" hreflang="en" href="en/placeholder-generator.html" />
+    <link rel="alternate" hreflang="x-default" href="en/placeholder-generator.html" />
+    <link rel="stylesheet" href="assets/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="icon" href="assets/favicon.ico">
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "占位图生成器",
+        "description": "免费在线占位图生成器，自定义宽高、背景色、文字内容",
+        "applicationCategory": "UtilityApplication",
+        "featureList": ["自定义尺寸", "自定义颜色", "自定义文字", "多种格式"],
+        "operatingSystem": "All"
+    }
+    </script>
+</head>
+<body>
+    <div id="header-placeholder"></div>
+
+    <div class="page-header">
+        <h1 class="page-title">占位图生成器</h1>
+        <p class="page-subtitle">自定义宽高、背景色、文字内容，快速生成网页占位图</p>
+    </div>
+
+    <section class="tool-page">
+        <div class="tool-container">
+            <div class="tool-card">
+                <div class="settings-section">
+                    <h3 class="settings-title">
+                        <i class="bi bi-sliders"></i>
+                        设置参数
+                    </h3>
+                    <div class="config-row">
+                        <div class="config-item">
+                            <label>宽度（像素）</label>
+                            <input type="number" id="width" value="400" min="10" max="4000">
+                        </div>
+                        <div class="config-item">
+                            <label>高度（像素）</label>
+                            <input type="number" id="height" value="300" min="10" max="4000">
+                        </div>
+                    </div>
+                    <div class="config-row">
+                        <div class="config-item">
+                            <label>背景色</label>
+                            <input type="color" id="bgColor" value="#f0f0f0">
+                            <div class="color-value-display" id="bgColorValue">#f0f0f0</div>
+                        </div>
+                        <div class="config-item">
+                            <label>文字颜色</label>
+                            <input type="color" id="textColor" value="#666666">
+                            <div class="color-value-display" id="textColorValue">#666666</div>
+                        </div>
+                    </div>
+                    <div class="config-group">
+                        <label>文字内容</label>
+                        <input type="text" id="textContent" placeholder="留空显示尺寸" value="">
+                    </div>
+                    <div class="config-row">
+                        <div class="config-item">
+                            <label>文字大小</label>
+                            <input type="range" id="fontSize" min="10" max="100" value="24">
+                            <div class="color-value-display">当前大小: <span id="fontSizeValue">24</span>px</div>
+                        </div>
+                        <div class="config-item">
+                            <label>输出格式</label>
+                            <select id="outputFormat">
+                                <option value="png">PNG</option>
+                                <option value="jpg">JPEG</option>
+                                <option value="webp">WebP</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="checkbox-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="showBorder" checked>
+                            <span>显示边框</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="showGrid">
+                            <span>显示网格线</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="preview-section">
+                    <div class="preview-title">
+                        <i class="bi bi-eye"></i>
+                        预览效果
+                    </div>
+                    <div class="preview-container" id="previewContainer">
+                        <canvas id="previewCanvas"></canvas>
+                    </div>
+                    <div class="preview-actions">
+                        <button class="btn btn-primary" id="downloadBtn">
+                            <i class="bi bi-download"></i>
+                            下载图片
+                        </button>
+                        <button class="btn btn-secondary" id="copyBtn">
+                            <i class="bi bi-copy"></i>
+                            复制图片
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-card">
+                <h2>为什么选择我们的占位图生成器？</h2>
+                <div class="feature-grid">
+                    <div class="feature-item">
+                        <div class="feature-icon">📐</div>
+                        <div class="feature-content">
+                            <h3>自定义尺寸</h3>
+                            <p>任意宽高像素，最大支持4000px</p>
+                        </div>
+                    </div>
+                    <div class="feature-icon">🎨</div>
+                    <div class="feature-content">
+                        <h3>自定义颜色</h3>
+                        <p>背景色、文字色自由搭配</p>
+                    </div>
+                    <div class="feature-icon">✏️</div>
+                    <div class="feature-content">
+                        <h3>自定义文字</h3>
+                        <p>支持自定义文字内容</p>
+                    </div>
+                    <div class="feature-icon">⚡</div>
+                    <div class="feature-content">
+                        <h3>实时预览</h3>
+                        <p>参数修改即时更新预览</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-card">
+                <h2>常用尺寸参考</h2>
+                <div class="size-presets">
+                    <button class="preset-btn" data-width="1920" data-height="1080">1920×1080 (16:9)</button>
+                    <button class="preset-btn" data-width="1280" data-height="720">1280×720 (16:9)</button>
+                    <button class="preset-btn" data-width="1024" data-height="768">1024×768 (4:3)</button>
+                    <button class="preset-btn" data-width="800" data-height="600">800×600 (4:3)</button>
+                    <button class="preset-btn" data-width="500" data-height="500">500×500 (1:1)</button>
+                    <button class="preset-btn" data-width="400" data-height="300">400×300 (4:3)</button>
+                    <button class="preset-btn" data-width="300" data-height="250">300×250</button>
+                    <button class="preset-btn" data-width="120" data-height="120">120×120 (头像)</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="related-tools">
+        <div class="container">
+            <h3 class="related-title">相关工具推荐</h3>
+            <div class="related-grid">
+                <a href="image-color-picker.html" class="related-item">
+                    <i class="bi bi-palette related-icon"></i>
+                    <div class="related-content">
+                        <h4>图片取色器</h4>
+                        <p>点击提取颜色值</p>
+                    </div>
+                </a>
+                <a href="image-color-adjust.html" class="related-item">
+                    <i class="bi bi-sliders related-icon"></i>
+                    <div class="related-content">
+                        <h4>图片调色面板</h4>
+                        <p>调整亮度对比度等</p>
+                    </div>
+                </a>
+                <a href="image-border-shadow.html" class="related-item">
+                    <i class="bi bi-image related-icon"></i>
+                    <div class="related-content">
+                        <h4>边框阴影生成</h4>
+                        <p>添加边框阴影效果</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <div id="footer-placeholder"></div>
+    <div id="toast" class="toast"></div>
+
+    <script src="assets/placeholder-generator.js"></script>
+    <script src="assets/tools-data.js"></script>
+<script src="assets/site.js"></script>
+
+    <style>
+        .preview-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #f8f9fa;
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            min-height: 200px;
+        }
+        
+        #previewCanvas {
+            max-width: 100%;
+            max-height: 400px;
+            border-radius: var(--radius-sm);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .color-value-display {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            margin-top: 0.25rem;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .size-presets {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        
+        .preset-btn {
+            padding: 0.5rem 1rem;
+            background: var(--bg-light);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: var(--transition-fast);
+        }
+        
+        .preset-btn:hover {
+            background: var(--primary-light);
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+        }
+    </style>
+</body>
+</html>

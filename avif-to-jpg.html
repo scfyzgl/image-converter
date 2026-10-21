@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AVIF转JPG在线转换 - avif转换成jpg免费工具 - 易工具网</title>
+    <meta name="description" content="免费在线AVIF转JPG工具，无需安装软件，直接在浏览器中将AVIF图片转换为JPG格式。支持批量转换，保持高质量，是avif转换成jpg最简单的方法。支持多种图片质量设置，转换速度快，完全免费！">
+    <meta name="keywords" content="avif转jpg,avif转换成jpg,avif怎么转换成jpg,在线avif转jpg,avif转jpg工具,avif转图片,jpg转换器avif,avif格式转换,jpeg转换avif,avif转jpeg免费">
+    <link rel="canonical" href="avif-to-jpg.html">
+    <link rel="alternate" hreflang="zh-Hans" href="avif-to-jpg.html" />
+    <link rel="alternate" hreflang="en" href="en/avif-to-jpg.html" />
+    <link rel="alternate" hreflang="x-default" href="en/avif-to-jpg.html" />
+    <link rel="stylesheet" href="assets/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="icon" href="assets/favicon.ico">
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "AVIF转JPG在线转换工具",
+        "description": "免费在线avif转换成jpg工具，支持批量转换，解决avif怎么转换成jpg的问题",
+        "applicationCategory": "UtilityApplication",
+        "featureList": ["avif转jpg", "avif转换成jpg", "在线avif转jpg", "avif转jpg工具", "批量avif转jpg", "免费avif转jpg"],
+        "operatingSystem": "All",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "CNY"
+        },
+        "url": "avif-to-jpg.html"
+    }
+    </script>
+    <meta property="og:title" content="AVIF转JPG在线转换 - avif转换成jpg免费工具">
+    <meta property="og:description" content="免费在线AVIF转JPG工具，无需安装软件，直接在浏览器中将AVIF图片转换为JPG格式。支持批量转换，保持高质量。">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="avif-to-jpg.html">
+    <style>
+        .page-header {
+            margin-bottom: 0.5rem !important;
+            padding-bottom: 0 !important;
+        }
+        
+        .page-title {
+            font-size: 1.75rem !important;
+            margin-bottom: 0.5rem !important;
+        }
+        
+        .page-subtitle {
+            font-size: 0.95rem !important;
+            margin-bottom: 0 !important;
+        }
+        
+        .tool-page {
+            padding-top: 0 !important;
+        }
+        
+        .tool-card {
+            margin-bottom: 0.75rem;
+            padding: 1rem 1.25rem !important;
+        }
+        
+        .upload-section {
+            margin-bottom: 0.75rem;
+        }
+        
+        .upload-area {
+            border: 2px dashed var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: var(--bg-light);
+        }
+        
+        .upload-area:hover,
+        .upload-area.dragover {
+            border-color: var(--primary-color);
+            background: var(--primary-light);
+        }
+        
+        .upload-icon {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 0.75rem;
+        }
+        
+        .upload-area h3 {
+            margin-bottom: 0.25rem;
+            font-size: 1rem;
+            color: var(--text-primary);
+        }
+        
+        .upload-area p {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+        
+        .upload-hint {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+        
+        .file-info-display {
+            display: flex;
+            gap: 1rem;
+            margin-top: 0.75rem;
+            padding: 0.75rem;
+            background: var(--bg-white);
+            border-radius: var(--radius-md);
+            border: 2px solid var(--primary-color);
+            flex-wrap: wrap;
+        }
+        
+        .file-info-item {
+            display: flex;
+            align-items: center;
+            gap: 0.375rem;
+            font-size: 0.85rem;
+            color: var(--text-primary);
+        }
+        
+        .file-info-item i {
+            color: var(--primary-color);
+            font-size: 1rem;
+        }
+        
+        .file-info-item strong {
+            color: var(--primary-color);
+        }
+        
+        .files-list {
+            margin-bottom: 0.75rem;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        
+        .file-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.5rem;
+            background: var(--bg-light);
+            border-radius: var(--radius-md);
+            margin-bottom: 0.375rem;
+        }
+        
+        .file-preview {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border-color);
+        }
+        
+        .file-details {
+            flex: 1;
+            min-width: 0;
+        }
+        
+        .file-name {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-primary);
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        
+        .file-size {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+        
+        .file-remove {
+            padding: 0.375rem;
+            cursor: pointer;
+            color: var(--text-secondary);
+            transition: color 0.2s;
+        }
+        
+        .file-remove:hover {
+            color: #e74c3c;
+        }
+        
+        .settings-section {
+            margin-bottom: 0.75rem;
+            padding: 0.75rem;
+            background: var(--bg-light);
+            border-radius: var(--radius-lg);
+        }
+        
+        .settings-title {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.95rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+        
+        .settings-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 0.75rem;
+        }
+        
+        .setting-item {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+        
+        .setting-item label {
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+        
+        .setting-item select,
+        .setting-item input {
+            padding: 0.375rem 0.5rem;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            background: var(--bg-white);
+            font-size: 0.85rem;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 0.5rem;
+            justify-content: flex-end;
+            margin-bottom: 0.75rem;
+        }
+        
+        .btn {
+            display: flex;
+            align-items: center;
+            gap: 0.375rem;
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.2s;
+            border: none;
+        }
+        
+        .btn-primary {
+            background: var(--primary-color);
+            color: white;
+        }
+        
+        .btn-primary:hover:not(:disabled) {
+            background: var(--primary-hover);
+        }
+        
+        .btn-secondary {
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+        }
+        
+        .btn-secondary:hover {
+            background: var(--bg-light);
+        }
+        
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .progress-container {
+            margin-bottom: 0.75rem;
+            padding: 0.5rem;
+            background: var(--bg-light);
+            border-radius: var(--radius-lg);
+        }
+        
+        .progress-bar {
+            height: 8px;
+            background: var(--bg-white);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 0.25rem;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: var(--primary-color);
+            border-radius: 4px;
+            transition: width 0.3s;
+            width: 0%;
+        }
+        
+        .progress-text {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            text-align: center;
+        }
+        
+        .result-section {
+            margin-top: 0.75rem;
+            padding: 0.75rem;
+            background: #d4edda;
+            border-radius: var(--radius-lg);
+            border: 1px solid #c3e6cb;
+        }
+        
+        .result-title {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #155724;
+            margin-bottom: 0.5rem;
+        }
+        
+        .result-title i {
+            color: #28a745;
+        }
+        
+        .result-info {
+            font-size: 0.9rem;
+            color: #155724;
+        }
+        
+        .result-info p {
+            margin-bottom: 0.25rem;
+        }
+        
+        .result-files {
+            margin-top: 0.5rem;
+            display: flex;
+            flex-wrap: gap: 0.5rem;
+            flex-direction: column;
+        }
+        
+        .result-file-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.375rem;
+            background: rgba(255,255,255,0.5);
+            border-radius: var(--radius-sm);
+        }
+        
+        .result-file-name {
+            flex: 1;
+            font-size: 0.85rem;
+        }
+        
+        .download-link {
+            color: #155724;
+            text-decoration: underline;
+            font-size: 0.85rem;
+        }
+        
+        .feature-card {
+            margin-bottom: 1rem;
+        }
+        
+        .feature-card h2 {
+            margin-bottom: 1rem;
+            font-size: 1.25rem;
+        }
+        
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.75rem;
+        }
+        
+        .feature-item {
+            display: flex;
+            gap: 0.75rem;
+            padding: 0.75rem;
+            background: var(--bg-light);
+            border-radius: var(--radius-md);
+            transition: all 0.3s ease;
+        }
+        
+        .feature-item:hover {
+            transform: translateX(5px);
+        }
+        
+        .feature-icon {
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+        
+        .feature-content h3 {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.25rem;
+        }
+        
+        .feature-content p {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+        
+        .tutorial-steps {
+            margin-top: 0.75rem;
+        }
+        
+        .step {
+            display: flex;
+            gap: 1rem;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .step:last-child {
+            border-bottom: none;
+        }
+        
+        .step-number {
+            flex-shrink: 0;
+            width: 2rem;
+            height: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        
+        .step-content h4 {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.25rem;
+        }
+        
+        .step-content p {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+        
+        .faq-item {
+            margin-bottom: 0.75rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .faq-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        
+        .faq-question {
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.25rem;
+            font-size: 0.9rem;
+        }
+        
+        .faq-answer {
+            color: var(--text-secondary);
+            line-height: 1.5;
+            font-size: 0.85rem;
+        }
+        
+        @media (max-width: 768px) {
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .settings-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .action-buttons {
+                justify-content: center;
+            }
+            
+            .tool-card {
+                padding: 0.75rem 1rem !important;
+            }
+            
+            .file-info-display {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .file-item {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+        
+        .info-card {
+            padding: 1rem 1.25rem;
+            margin-bottom: 0.75rem;
+        }
+        
+        .info-card h2 {
+            font-size: 1.15rem;
+            margin-bottom: 0.5rem;
+            padding-bottom: 0.375rem;
+        }
+        
+        .related-tools {
+            padding: 1.5rem 0;
+        }
+        
+        .related-title {
+            font-size: 1rem;
+            margin-bottom: 0.75rem;
+        }
+    </style>
+</head>
+<body>
+
+<div id="header-placeholder"></div>
+
+<div class="page-header">
+    <h1 class="page-title">AVIF转JPG在线转换 - avif转换成jpg免费工具</h1>
+    <p class="page-subtitle">想知道avif怎么转换成jpg？使用我们的在线AVIF转JPG工具，无需安装软件，直接在浏览器中将AVIF图片转换为JPG格式。支持批量转换，保持高质量，是avif转换成jpg最简单的方法，完全免费！</p>
+</div>
+
+<section class="tool-page">
+    <div class="tool-container">
+        <div class="tool-card">
+            <div class="upload-section">
+                <div class="upload-area" id="uploadArea">
+                    <i class="bi bi-image upload-icon"></i>
+                    <h3>点击或拖拽上传 AVIF 文件进行avif转jpg操作</h3>
+                    <p>支持 .avif 格式，最大 20MB，轻松解决avif怎么转换成jpg的问题</p>
+                    <input type="file" id="fileInput" accept=".avif" multiple hidden>
+                </div>
+                <div class="upload-hint">
+                    <i class="bi bi-info-circle"></i>
+                    <span>上传AVIF文件后，可预览图片并设置转换选项，所有avif转jpg操作在浏览器本地完成，文件不会上传到服务器</span>
+                </div>
+                
+                <div class="file-info-display" id="fileInfoDisplay" style="display: none;">
+                    <div class="file-info-item">
+                        <i class="bi bi-files"></i>
+                        <span>已选择: <strong id="selectedFileCount">0</strong> 个文件</span>
+                    </div>
+                    <div class="file-info-item">
+                        <i class="bi bi-hdd"></i>
+                        <span>总大小: <strong id="selectedFileSize">0 KB</strong></span>
+                    </div>
+                </div>
+                
+                <div class="files-list" id="filesList" style="display: none;"></div>
+            </div>
+
+            <div class="settings-section" id="settingsSection" style="display: none;">
+                <h3 class="settings-title">
+                    <i class="bi bi-sliders"></i>
+                    AVIF转JPG设置 - 选择转换选项
+                </h3>
+                <div class="settings-grid">
+                    <div class="setting-item">
+                        <label for="imageQuality">图片质量</label>
+                        <select id="imageQuality">
+                            <option value="high" selected>高质量 (90%)</option>
+                            <option value="medium">中等质量 (70%)</option>
+                            <option value="low">低质量 (50%)</option>
+                        </select>
+                    </div>
+                    <div class="setting-item">
+                        <label for="outputFormat">输出格式</label>
+                        <select id="outputFormat">
+                            <option value="jpg" selected>JPG</option>
+                            <option value="jpeg">JPEG</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="action-buttons">
+                <button class="btn btn-secondary" id="clearBtn">
+                    <i class="bi bi-trash"></i>
+                    清空文件
+                </button>
+                <button class="btn btn-primary" id="convertBtn" disabled>
+                    <i class="bi bi-image"></i>
+                    开始转换（avif转jpg）
+                </button>
+            </div>
+
+            <div class="progress-container" id="progressContainer" style="display: none;">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                <div class="progress-text" id="progressText">正在转换中...</div>
+            </div>
+
+            <div class="result-section" id="resultSection" style="display: none;">
+                <h3 class="result-title">
+                    <i class="bi bi-check-circle"></i>
+                    AVIF转JPG转换完成（成功解决avif怎么转换成jpg的问题）
+                </h3>
+                <div class="result-info" id="resultInfo"></div>
+                <div class="result-files" id="resultFiles"></div>
+            </div>
+        </div>
+
+        <div class="info-card feature-card">
+            <h2>为什么选择我们的avif转换成jpg工具？</h2>
+            <div class="feature-grid">
+                <div class="feature-item">
+                    <div class="feature-icon">⚡</div>
+                    <div class="feature-content">
+                        <h3>快速转换效率高</h3>
+                        <p>只需几秒即可完成avif转jpg操作，无需等待上传下载，是avif转换成jpg最快速的方法。</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">📸</div>
+                    <div class="feature-content">
+                        <h3>高质量输出</h3>
+                        <p>保持图片清晰度和色彩，转换后的JPG与原AVIF文件高度一致，完美解决avif怎么转换成jpg的质量问题。</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">📦</div>
+                    <div class="feature-content">
+                        <h3>批量处理支持</h3>
+                        <p>支持一次性转换多个AVIF文件，满足批量avif转jpg需求，大大提高工作效率。</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">💰</div>
+                    <div class="feature-content">
+                        <h3>完全免费使用</h3>
+                        <p>avif转换jpg工具完全免费，无需注册登录，无隐藏收费，无次数限制，真正的免费工具。</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🔒</div>
+                    <div class="feature-content">
+                        <h3>本地安全处理</h3>
+                        <p>所有avif转jpg操作都在浏览器本地完成，文件不会上传到服务器，完全保护您的隐私安全。</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">📱</div>
+                    <div class="feature-content">
+                        <h3>多平台支持</h3>
+                        <p>完美支持Windows、Mac、Linux系统，以及手机浏览器，随时随地解决avif怎么转换成jpg的问题。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="info-card">
+            <h2>avif怎么转换成jpg？详细使用教程</h2>
+            <div class="tutorial-steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h4>上传AVIF文件</h4>
+                        <p>点击上传区域或拖拽AVIF文件（.avif格式），这是解决avif如何转jpg的第一步操作。</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h4>预览图片</h4>
+                        <p>上传后系统会自动显示图片缩略图，可查看原图信息（尺寸、大小），这是avif转换成jpg前的重要确认步骤。</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h4>设置转换选项</h4>
+                        <p>选择图片质量（高/中/低），设置输出格式，这是avif转jpg的关键设置步骤。</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h4>开始转换</h4>
+                        <p>点击"开始转换"按钮，工具将自动处理AVIF转JPG，这是解决avif怎么转换成jpg的核心步骤。</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">5</div>
+                    <div class="step-content">
+                        <h4>下载JPG</h4>
+                        <p>转换完成后点击下载链接，完美解决avif如何转jpg的问题，获得高质量的JPG文件。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="info-card">
+            <h2>AVIF转JPG常见问题解答 (FAQ)</h2>
+            
+            <div class="faq-item">
+                <div class="faq-question">Q1：avif怎么转换成jpg？</div>
+                <div class="faq-answer">A：使用我们的avif转换成jpg在线工具，上传AVIF文件后，选择图片质量，点击"开始转换"即可完成。是avif怎么转换成jpg最简单的方法，无需安装软件。</div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">Q2：转换后的图片质量会下降吗？</div>
+                <div class="faq-answer">A：我们的工具会尽量保持图片质量，您可以选择高质量模式进行转换，效果非常接近原图。转换后的JPG与原AVIF文件高度一致。</div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">Q3：支持批量avif转jpg吗？</div>
+                <div class="faq-answer">A：支持！可以同时上传多个AVIF文件进行批量转换，大大提高了avif转换成jpg的工作效率，适合需要处理大量文件的用户。</div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">Q4：文件大小有限制吗？</div>
+                <div class="faq-answer">A：单个AVIF文件最大支持20MB。超过限制的建议压缩后再进行avif转jpg操作。</div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">Q5：avif转jpg是免费的吗？</div>
+                <div class="faq-answer">A：完全免费！我们的avif转换jpg工具提供免费服务，无需注册登录，无隐藏收费，无次数限制，是真正的免费avif转jpg在线工具。</div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">Q6：转换后的文件安全吗？</div>
+                <div class="faq-answer">A：<strong>非常安全！</strong>所有avif转jpg操作都在您的浏览器本地完成，文件不会上传到任何服务器，完全保护您的隐私和数据安全。</div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">Q7：手机能用avif转换成jpg吗？</div>
+                <div class="faq-answer">A：可以！我们的avif转jpg工具完美适配手机浏览器，无论Android还是iOS都能轻松使用，解决avif怎么转换成jpg的移动办公需求。</div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">Q8：什么是AVIF格式？</div>
+                <div class="faq-answer">A：AVIF是一种高效的图片压缩格式，比JPG更小但质量更好。我们的工具可以帮助您将AVIF转换为更通用的JPG格式，解决avif怎么转换成jpg的兼容性问题。</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="related-tools">
+    <div class="container">
+        <h3 class="related-title">AVIF转JPG相关工具推荐</h3>
+        <div class="related-grid">
+            <a href="webp-to-jpg.html" class="related-item">
+                <i class="bi bi-image related-icon"></i>
+                <div class="related-content">
+                    <h4>WebP转JPG</h4>
+                    <p>WebP转换为JPG格式</p>
+                </div>
+            </a>
+            <a href="png-to-jpg.html" class="related-item">
+                <i class="bi bi-image related-icon"></i>
+                <div class="related-content">
+                    <h4>PNG转JPG</h4>
+                    <p>PNG转换为JPG格式</p>
+                </div>
+            </a>
+            <a href="jpg-to-webp.html" class="related-item">
+                <i class="bi bi-image related-icon"></i>
+                <div class="related-content">
+                    <h4>JPG转WebP</h4>
+                    <p>JPG转换为WebP格式</p>
+                </div>
+            </a>
+            <a href="target-size-compress.html" class="related-item">
+                <i class="bi bi-compress related-icon"></i>
+                <div class="related-content">
+                    <h4>图片压缩</h4>
+                    <p>压缩图片文件大小</p>
+                </div>
+            </a>
+        </div>
+    </div>
+</section>
+
+<div id="footer-placeholder"></div>
+<div id="toast" class="toast"></div>
+
+<script src="assets/avif-to-jpg.js"></script>
+<script src="assets/tools-data.js"></script>
+<script src="assets/site.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EXIF 查看/清除工具 - 在线图片元数据工具</title>
+    <meta name="description" content="免费在线 EXIF 查看/清除工具，查看图片元数据信息，一键清除 EXIF 信息保护隐私。">
+    <meta name="keywords" content="EXIF查看器,EXIF清除,图片元数据,照片信息,exif viewer">
+        <link rel="canonical" href="exif-viewer.html">
+    <link rel="alternate" hreflang="zh-Hans" href="exif-viewer.html" />
+    <link rel="alternate" hreflang="en" href="en/exif-viewer.html" />
+    <link rel="alternate" hreflang="x-default" href="en/exif-viewer.html" />
+    <link rel="stylesheet" href="assets/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="icon" href="assets/favicon.ico">
+    <script src="https://cdn.jsdelivr.net/npm/exif-js@2.3.0/exif.js"></script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "EXIF 查看清除工具",
+        "description": "免费在线 EXIF 查看清除工具",
+        "applicationCategory": "UtilityApplication",
+        "featureList": ["查看 EXIF", "清除 EXIF", "批量处理", "隐私保护"],
+        "operatingSystem": "All"
+    }
+    </script>
+</head>
+<body>
+    <div id="header-placeholder"></div>
+
+    <div class="page-header">
+        <h1 class="page-title">EXIF 查看/清除工具</h1>
+        <p class="page-subtitle">查看图片元数据信息，一键清除 EXIF 信息保护隐私安全</p>
+    </div>
+
+    <section class="tool-page">
+        <div class="tool-container">
+            <div class="tool-card">
+                <div class="upload-section">
+                    <div class="upload-area" id="uploadArea">
+                        <i class="bi bi-info-circle upload-icon"></i>
+                        <h3>点击或拖拽上传图片</h3>
+                        <p>支持 JPG、JPEG、PNG、TIFF 格式，单张最大 50MB</p>
+                        <input type="file" id="fileInput" accept="image/*" multiple hidden>
+                    </div>
+                </div>
+
+                <div class="result-section" id="resultSection" style="display: none;">
+                    <div class="exif-header">
+                        <div class="exif-image-preview">
+                            <img id="previewImage" src="" alt="预览图片">
+                        </div>
+                        <div class="exif-info-summary">
+                            <h3>图片信息</h3>
+                            <div class="info-row">
+                                <span class="info-label">文件名</span>
+                                <span class="info-value" id="fileName">-</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-label">文件大小</span>
+                                <span class="info-value" id="fileSize">-</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-label">图片尺寸</span>
+                                <span class="info-value" id="imageSize">-</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-label">EXIF 数据</span>
+                                <span class="info-value" id="exifStatus">-</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="exif-detail" id="exifDetail">
+                        <h3 class="exif-title">
+                            <i class="bi bi-file-text"></i>
+                            EXIF 详细信息
+                        </h3>
+                        <div id="exifTable"></div>
+                    </div>
+
+                    <div class="action-buttons">
+                        <button class="btn btn-secondary" id="backBtn">
+                            <i class="bi bi-arrow-left"></i>
+                            返回上传
+                        </button>
+                        <button class="btn btn-primary" id="clearBtn">
+                            <i class="bi bi-trash"></i>
+                            清除 EXIF
+                        </button>
+                    </div>
+                </div>
+
+                <div class="download-section" id="downloadSection" style="display: none;">
+                    <h3 class="preview-title">
+                        <i class="bi bi-check-circle"></i>
+                        EXIF 已清除
+                    </h3>
+                    <div class="preview-container">
+                        <img id="resultImage" src="" alt="处理结果">
+                    </div>
+                    <div class="image-info">
+                        <span id="resultSize"></span>
+                    </div>
+                    <div class="action-buttons">
+                        <button class="btn btn-secondary" id="backToViewBtn">
+                            <i class="bi bi-arrow-left"></i>
+                            返回查看
+                        </button>
+                        <button class="btn btn-primary" id="downloadBtn">
+                            <i class="bi bi-download"></i>
+                            下载图片
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-card">
+                <h2>为什么选择我们的 EXIF 工具？</h2>
+                <div class="feature-grid">
+                    <div class="feature-item">
+                        <div class="feature-icon">📋</div>
+                        <div class="feature-content">
+                            <h3>详细信息</h3>
+                            <p>完整查看图片 EXIF 元数据</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🗑️</div>
+                        <div class="feature-content">
+                            <h3>一键清除</h3>
+                            <p>快速清除所有 EXIF 信息</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🔒</div>
+                        <div class="feature-content">
+                            <h3>隐私保护</h3>
+                            <p>防止地理位置信息泄露</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">⚡</div>
+                        <div class="feature-content">
+                            <h3>快速处理</h3>
+                            <p>本地处理，无需上传服务器</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-card">
+                <h2>使用说明</h2>
+                <div class="tutorial-steps">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h4>上传图片</h4>
+                            <p>点击上传区域或拖拽图片到页面</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h4>查看信息</h4>
+                            <p>查看图片的 EXIF 元数据信息</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h4>清除 EXIF</h4>
+                            <p>点击清除按钮移除所有元数据</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <h4>下载图片</h4>
+                            <p>下载清除后的图片</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-card">
+                <h2>常见问题</h2>
+                <div class="error-item">
+                    <div class="error-question">
+                        <i class="bi bi-exclamation-circle error-icon"></i>
+                        为什么看不到 EXIF 信息？
+                    </div>
+                    <p class="error-cause">图片可能没有包含 EXIF 信息或已被清除。</p>
+                    <p class="error-solution">只有 JPG、JPEG、TIFF 格式的图片可能包含 EXIF 信息。</p>
+                </div>
+                <div class="error-item">
+                    <div class="error-question">
+                        <i class="bi bi-exclamation-circle error-icon"></i>
+                        清除 EXIF 后图片会变小吗？
+                    </div>
+                    <p class="error-cause">EXIF 数据通常占用很小的文件空间。</p>
+                    <p class="error-solution">清除 EXIF 信息后文件大小变化通常很小。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="related-tools">
+        <div class="container">
+            <h3 class="related-title">相关工具推荐</h3>
+            <div class="related-grid">
+                <a href="image-resize.html" class="related-item">
+                    <i class="bi bi-arrows-expand related-icon"></i>
+                    <div class="related-content">
+                        <h4>图片批量缩放</h4>
+                        <p>调整图片尺寸</p>
+                    </div>
+                </a>
+                <a href="target-size-compress.html" class="related-item">
+                    <i class="bi bi-compress related-icon"></i>
+                    <div class="related-content">
+                        <h4>限定体积压缩</h4>
+                        <p>压缩图片大小</p>
+                    </div>
+                </a>
+                <a href="image-mosaic-blur.html" class="related-item">
+                    <i class="bi bi-grid-3x3 related-icon"></i>
+                    <div class="related-content">
+                        <h4>图片马赛克模糊</h4>
+                        <p>保护隐私信息</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <div id="footer-placeholder"></div>
+    <div id="toast" class="toast"></div>
+
+    <script src="assets/exif-viewer.js"></script>
+    <script src="assets/tools-data.js"></script>
+<script src="assets/site.js"></script>
+
+    <style>
+        .exif-header {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+            align-items: flex-start;
+        }
+        
+        .exif-image-preview {
+            flex-shrink: 0;
+            width: 120px;
+            height: 120px;
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            background: #000;
+        }
+        
+        .exif-image-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .exif-info-summary {
+            flex: 1;
+            min-width: 200px;
+        }
+        
+        .exif-info-summary h3 {
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+            color: var(--text-primary);
+        }
+        
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .info-label {
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+        
+        .info-value {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+        
+        .exif-detail {
+            margin-bottom: 1.5rem;
+        }
+        
+        .exif-title {
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        #exifTable {
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        
+        .exif-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.4rem 0;
+            border-bottom: 1px solid var(--border-color);
+            font-size: 0.9rem;
+        }
+        
+        .exif-label {
+            color: var(--text-secondary);
+            width: 40%;
+        }
+        
+        .exif-value {
+            color: var(--text-primary);
+            width: 60%;
+            text-align: right;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        
+        .preview-container {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto;
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            background: #000;
+        }
+        
+        .preview-container img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        .image-info {
+            text-align: center;
+            margin-top: 0.75rem;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+    </style>
+</body>
+</html>

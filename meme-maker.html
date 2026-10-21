@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>图片加文字表情包制作工具 - 在线表情包生成器</title>
+    <meta name="description" content="免费在线图片加文字表情包制作工具，支持自定义文字、字体、颜色、位置等。">
+    <meta name="keywords" content="表情包制作,图片加文字,meme maker,表情包生成器">
+        <link rel="canonical" href="meme-maker.html">
+    <link rel="alternate" hreflang="zh-Hans" href="meme-maker.html" />
+    <link rel="alternate" hreflang="en" href="en/meme-maker.html" />
+    <link rel="alternate" hreflang="x-default" href="en/meme-maker.html" />
+    <link rel="stylesheet" href="assets/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="icon" href="assets/favicon.ico">
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "图片加文字表情包制作工具",
+        "description": "免费在线图片加文字表情包制作工具",
+        "applicationCategory": "UtilityApplication",
+        "featureList": ["图片加文字", "自定义字体", "文字样式", "表情包制作"],
+        "operatingSystem": "All"
+    }
+    </script>
+</head>
+<body>
+    <div id="header-placeholder"></div>
+
+    <div class="page-header">
+        <h1 class="page-title">图片加文字表情包制作工具</h1>
+        <p class="page-subtitle">上传图片，添加搞笑文字，轻松制作表情包</p>
+    </div>
+
+    <section class="tool-page">
+        <div class="tool-container">
+            <div class="tool-card">
+                <div class="upload-section">
+                    <div class="upload-area" id="uploadArea">
+                        <i class="bi bi-images upload-icon"></i>
+                        <h3>点击或拖拽上传图片</h3>
+                        <p>支持 JPG、PNG、GIF 等格式，最大 50MB</p>
+                        <input type="file" id="fileInput" accept="image/*" hidden>
+                    </div>
+                </div>
+
+                <div class="editor-section" id="editorSection" style="display: none;">
+                    <div class="image-preview">
+                        <h3 class="preview-title">
+                            <i class="bi bi-eye"></i>
+                            预览
+                        </h3>
+                        <div class="preview-container" id="previewContainer">
+                            <canvas id="editCanvas"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="text-controls">
+                        <h3 class="preview-title">
+                            <i class="bi bi-type"></i>
+                            文字设置
+                        </h3>
+
+                        <div class="control-group">
+                            <label>顶部文字</label>
+                            <input type="text" id="topText" placeholder="输入顶部文字" class="input-control">
+                        </div>
+
+                        <div class="control-group">
+                            <label>底部文字</label>
+                            <input type="text" id="bottomText" placeholder="输入底部文字" class="input-control">
+                        </div>
+
+                        <div class="control-group">
+                            <label>文字颜色</label>
+                            <input type="color" id="textColor" value="#ffffff" class="input-control">
+                        </div>
+
+                        <div class="control-group">
+                            <label>描边颜色</label>
+                            <input type="color" id="strokeColor" value="#000000" class="input-control">
+                        </div>
+
+                        <div class="control-group">
+                            <label>描边宽度</label>
+                            <input type="range" id="strokeWidth" min="0" max="10" value="2" class="input-control">
+                            <span id="strokeWidthValue">2</span>
+                        </div>
+
+                        <div class="control-group">
+                            <label>文字大小</label>
+                            <input type="range" id="fontSize" min="10" max="100" value="40" class="input-control">
+                            <span id="fontSizeValue">40</span>
+                        </div>
+
+                        <div class="control-group">
+                            <label>字体</label>
+                            <select id="fontFamily" class="input-control">
+                                <option value="Impact, sans-serif">Impact</option>
+                                <option value="Arial, sans-serif">Arial</option>
+                                <option value="'Microsoft YaHei', sans-serif">微软雅黑</option>
+                                <option value="'SimHei', sans-serif">黑体</option>
+                                <option value="'SimSun', serif">宋体</option>
+                                <option value="'Comic Sans MS', cursive">Comic Sans</option>
+                                <option value="'Courier New', monospace">Courier New</option>
+                            </select>
+                        </div>
+
+                        <div class="control-group">
+                            <label>文字位置</label>
+                            <select id="textPosition" class="input-control">
+                                <option value="top">顶部</option>
+                                <option value="bottom">底部</option>
+                                <option value="both">上下都有</option>
+                                <option value="center">居中</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="action-buttons">
+                        <button class="btn btn-secondary" id="backBtn">
+                            <i class="bi bi-arrow-left"></i> 返回上传
+                        </button>
+                        <button class="btn btn-secondary" id="resetBtn">
+                            <i class="bi bi-rotate-left"></i> 重置文字
+                        </button>
+                        <button class="btn btn-primary" id="downloadBtn">
+                            <i class="bi bi-download"></i> 下载表情包
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-card">
+                <h2>为什么选择我们的表情包制作工具？</h2>
+                <div class="feature-grid">
+                    <div class="feature-item">
+                        <div class="feature-icon">📝</div>
+                        <div class="feature-content">
+                            <h3>自定义文字</h3>
+                            <p>支持顶部、底部、居中多种位置</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🎨</div>
+                        <div class="feature-content">
+                            <h3>丰富样式</h3>
+                            <p>自定义颜色、字体、描边、大小</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">⚡</div>
+                        <div class="feature-content">
+                            <h3>实时预览</h3>
+                            <p>所见即所得的编辑体验</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🔒</div>
+                        <div class="feature-content">
+                            <h3>隐私安全</h3>
+                            <p>所有操作在浏览器本地完成</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-card">
+                <h2>使用说明</h2>
+                <div class="tutorial-steps">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h4>上传图片</h4>
+                            <p>点击上传区域或拖拽图片文件到页面</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h4>输入文字</h4>
+                            <p>输入顶部和底部文字内容</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h4>调整样式</h4>
+                            <p>调整字体、颜色、大小、描边等参数</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <h4>下载保存</h4>
+                            <p>点击下载按钮保存表情包</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-card">
+                <h2>常见问题</h2>
+                <div class="error-item">
+                    <div class="error-question">
+                        <i class="bi bi-exclamation-circle error-icon"></i>
+                        文字显示不完整？
+                    </div>
+                    <p class="error-cause">文字太长超出图片范围。</p>
+                    <p class="error-solution">减少文字内容或调小文字大小。</p>
+                </div>
+                <div class="error-item">
+                    <div class="error-question">
+                        <i class="bi bi-exclamation-circle error-icon"></i>
+                        下载图片模糊？
+                    </div>
+                    <p class="error-cause">上传的原始图片分辨率较低。</p>
+                    <p class="error-solution">使用分辨率较高的图片。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="related-tools">
+        <div class="container">
+            <h3 class="related-title">相关工具推荐</h3>
+            <div class="related-grid">
+                <a href="image-color-adjust.html" class="related-item">
+                    <i class="bi bi-palette related-icon"></i>
+                    <div class="related-content">
+                        <h4>图片调色</h4>
+                        <p>调整图片色彩</p>
+                    </div>
+                </a>
+                <a href="image-border-shadow.html" class="related-item">
+                    <i class="bi bi-border-all related-icon"></i>
+                    <div class="related-content">
+                        <h4>边框阴影</h4>
+                        <p>添加边框和阴影</p>
+                    </div>
+                </a>
+                <a href="photo-sketch.html" class="related-item">
+                    <i class="bi bi-pencil related-icon"></i>
+                    <div class="related-content">
+                        <h4>素描滤镜</h4>
+                        <p>照片转素描效果</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <div id="footer-placeholder"></div>
+    <div id="toast" class="toast"></div>
+
+    <script src="assets/meme-maker.js"></script>
+    <script src="assets/tools-data.js"></script>
+<script src="assets/site.js"></script>
+
+    <style>
+        .preview-container {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto;
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            background: #000;
+        }
+        
+        .preview-container canvas {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        .control-group {
+            margin-bottom: 1rem;
+        }
+        
+        .control-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+        
+        .control-group .input-control {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            margin-bottom: 0.5rem;
+        }
+    </style>
+</body>
+</html>

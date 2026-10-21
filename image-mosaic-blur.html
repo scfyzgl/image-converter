@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>图片马赛克模糊工具 - 在线图片模糊工具</title>
+    <meta name="description" content="免费在线图片马赛克模糊工具，支持自由选择区域添加马赛克效果，保护隐私。">
+    <meta name="keywords" content="图片马赛克,马赛克模糊,隐私保护,图片模糊,mosaic blur">
+        <link rel="canonical" href="image-mosaic-blur.html">
+    <link rel="alternate" hreflang="zh-Hans" href="image-mosaic-blur.html" />
+    <link rel="alternate" hreflang="en" href="en/image-mosaic-blur.html" />
+    <link rel="alternate" hreflang="x-default" href="en/image-mosaic-blur.html" />
+    <link rel="stylesheet" href="assets/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="icon" href="assets/favicon.ico">
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "图片马赛克模糊工具",
+        "description": "免费在线图片马赛克模糊工具，保护隐私",
+        "applicationCategory": "UtilityApplication",
+        "featureList": ["自由选择区域", "自定义马赛克大小", "实时预览", "隐私保护"],
+        "operatingSystem": "All"
+    }
+    </script>
+</head>
+<body>
+    <div id="header-placeholder"></div>
+
+    <div class="page-header">
+        <h1 class="page-title">图片马赛克模糊工具</h1>
+        <p class="page-subtitle">自由选择区域添加马赛克效果，保护图片隐私信息</p>
+    </div>
+
+    <section class="tool-page">
+        <div class="tool-container">
+            <div class="tool-card">
+                <div class="upload-section">
+                    <div class="upload-area" id="uploadArea">
+                        <i class="bi bi-grid-3x3 upload-icon"></i>
+                        <h3>点击或拖拽上传图片</h3>
+                        <p>支持 JPG、JPEG、PNG、GIF、BMP 格式，单张最大 50MB</p>
+                        <input type="file" id="fileInput" accept="image/*" hidden>
+                    </div>
+                </div>
+
+                <div class="edit-section" id="editSection" style="display: none;">
+                    <div class="canvas-container">
+                        <canvas id="editCanvas"></canvas>
+                        <div class="canvas-hint">
+                            <i class="bi bi-hand-pointer"></i>
+                            <span>拖拽选择需要模糊的区域</span>
+                        </div>
+                    </div>
+
+                    <div class="settings-section">
+                        <h3 class="settings-title">
+                            <i class="bi bi-settings"></i>
+                            马赛克设置
+                        </h3>
+                        
+                        <div class="setting-item">
+                            <label>马赛克大小</label>
+                            <div class="slider-row">
+                                <input type="range" id="mosaicSize" value="10" min="2" max="50">
+                                <span class="slider-value" id="mosaicSizeValue">10px</span>
+                            </div>
+                        </div>
+
+                        <div class="setting-item">
+                            <label>模糊方式</label>
+                            <div class="radio-group">
+                                <label class="radio-label">
+                                    <input type="radio" name="blurType" value="mosaic" checked>
+                                    <span>马赛克</span>
+                                </label>
+                                <label class="radio-label">
+                                    <input type="radio" name="blurType" value="blur">
+                                    <span>高斯模糊</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="setting-item">
+                            <label>画笔颜色</label>
+                            <input type="color" id="brushColor" value="#ffffff">
+                        </div>
+
+                        <div class="action-buttons">
+                            <button class="btn btn-secondary" id="undoBtn">
+                                <i class="bi bi-arrow-counterclockwise"></i>
+                                撤销
+                            </button>
+                            <button class="btn btn-secondary" id="resetBtn">
+                                <i class="bi bi-arrow-clockwise"></i>
+                                重置
+                            </button>
+                            <button class="btn btn-primary" id="applyBtn">
+                                <i class="bi bi-check-circle"></i>
+                                应用效果
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="result-section" id="resultSection" style="display: none;">
+                    <h3 class="preview-title">
+                        <i class="bi bi-eye"></i>
+                        处理结果
+                    </h3>
+                    <div class="preview-container">
+                        <img id="resultImage" src="" alt="处理结果">
+                    </div>
+                    <div class="image-info">
+                        <span id="resultSize"></span>
+                    </div>
+                    <div class="action-buttons">
+                        <button class="btn btn-secondary" id="backBtn">
+                            <i class="bi bi-arrow-left"></i>
+                            返回编辑
+                        </button>
+                        <button class="btn btn-primary" id="downloadBtn">
+                            <i class="bi bi-download"></i>
+                            下载图片
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-card">
+                <h2>为什么选择我们的马赛克工具？</h2>
+                <div class="feature-grid">
+                    <div class="feature-item">
+                        <div class="feature-icon">🔲</div>
+                        <div class="feature-content">
+                            <h3>自由选区</h3>
+                            <p>拖拽选择任意区域添加马赛克</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">⚙️</div>
+                        <div class="feature-content">
+                            <h3>可调大小</h3>
+                            <p>自定义马赛克方块大小</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🗑️</div>
+                        <div class="feature-content">
+                            <h3>撤销重置</h3>
+                            <p>支持撤销操作和重置图片</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🔒</div>
+                        <div class="feature-content">
+                            <h3>隐私安全</h3>
+                            <p>所有操作在浏览器本地完成</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-card">
+                <h2>使用说明</h2>
+                <div class="tutorial-steps">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h4>上传图片</h4>
+                            <p>点击上传区域或拖拽图片到页面</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h4>选择区域</h4>
+                            <p>在图片上拖拽选择需要模糊的区域</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h4>调整设置</h4>
+                            <p>调整马赛克大小和模糊方式</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <h4>应用下载</h4>
+                            <p>点击应用效果后下载图片</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-card">
+                <h2>常见问题</h2>
+                <div class="error-item">
+                    <div class="error-question">
+                        <i class="bi bi-exclamation-circle error-icon"></i>
+                        如何精确选择区域？
+                    </div>
+                    <p class="error-cause">拖拽选择区域可能不够精确。</p>
+                    <p class="error-solution">建议先缩小图片，选择大致区域后再调整。</p>
+                </div>
+                <div class="error-item">
+                    <div class="error-question">
+                        <i class="bi bi-exclamation-circle error-icon"></i>
+                        马赛克效果不够明显？
+                    </div>
+                    <p class="error-cause">马赛克方块太小，模糊效果不明显。</p>
+                    <p class="error-solution">增大马赛克大小值，增强模糊效果。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="related-tools">
+        <div class="container">
+            <h3 class="related-title">相关工具推荐</h3>
+            <div class="related-grid">
+                <a href="image-color-adjust.html" class="related-item">
+                    <i class="bi bi-palette related-icon"></i>
+                    <div class="related-content">
+                        <h4>图片调色面板</h4>
+                        <p>调整亮度对比度</p>
+                    </div>
+                </a>
+                <a href="image-border-shadow.html" class="related-item">
+                    <i class="bi bi-frame related-icon"></i>
+                    <div class="related-content">
+                        <h4>图片边框阴影</h4>
+                        <p>添加边框和阴影</p>
+                    </div>
+                </a>
+                <a href="image-cropper.html" class="related-item">
+                    <i class="bi bi-crop related-icon"></i>
+                    <div class="related-content">
+                        <h4>图片自由裁剪</h4>
+                        <p>自由裁剪图片</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <div id="footer-placeholder"></div>
+    <div id="toast" class="toast"></div>
+
+    <script src="assets/image-mosaic-blur.js"></script>
+    <script src="assets/tools-data.js"></script>
+<script src="assets/site.js"></script>
+
+    <style>
+        .canvas-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            background: #000;
+            box-shadow: var(--shadow-md);
+        }
+        
+        #editCanvas {
+            display: block;
+            width: 100%;
+            height: auto;
+            cursor: crosshair;
+        }
+        
+        .canvas-hint {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.7);
+            color: #fff;
+            padding: 8px 16px;
+            border-radius: var(--radius-sm);
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .preview-container {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto;
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            background: #000;
+        }
+        
+        .preview-container img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        .image-info {
+            text-align: center;
+            margin-top: 0.75rem;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+        
+        .radio-group {
+            display: flex;
+            gap: 1.5rem;
+        }
+        
+        .radio-label {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+        
+        .radio-label input[type="radio"] {
+            accent-color: var(--primary-color);
+        }
+    </style>
+</body>
+</html>

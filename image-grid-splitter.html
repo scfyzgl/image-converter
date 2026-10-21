@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>图片九宫格分割器 - 在线分割图片</title>
+    <meta name="description" content="免费在线图片九宫格分割器，将图片分割成3x3、2x2等网格，支持自定义行列数，一键打包下载。">
+    <meta name="keywords" content="九宫格分割,图片分割器,九宫格切图,图片切片,grid splitter">
+        <link rel="canonical" href="image-grid-splitter.html">
+    <link rel="alternate" hreflang="zh-Hans" href="image-grid-splitter.html" />
+    <link rel="alternate" hreflang="en" href="en/image-grid-splitter.html" />
+    <link rel="alternate" hreflang="x-default" href="en/image-grid-splitter.html" />
+    <link rel="stylesheet" href="assets/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="icon" href="assets/favicon.ico">
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "图片九宫格分割器",
+        "description": "免费在线图片九宫格分割器，将图片分割成网格，支持自定义行列数",
+        "applicationCategory": "UtilityApplication",
+        "featureList": ["九宫格", "自定义网格", "实时预览", "打包下载"],
+        "operatingSystem": "All"
+    }
+    </script>
+</head>
+<body>
+    <div id="header-placeholder"></div>
+
+    <div class="page-header">
+        <h1 class="page-title">图片九宫格分割器</h1>
+        <p class="page-subtitle">将图片分割成3×3九宫格、2×2四宫格等网格，自定义行列数，一键打包下载</p>
+    </div>
+
+    <section class="tool-page">
+        <div class="tool-container">
+            <div class="tool-card">
+                <div class="upload-section">
+                    <div class="upload-area" id="uploadArea">
+                        <i class="bi bi-grid-3x3 upload-icon"></i>
+                        <h3>点击或拖拽上传图片</h3>
+                        <p>支持 JPG、JPEG、PNG、GIF、BMP 格式，单张最大 50MB</p>
+                        <input type="file" id="fileInput" accept="image/*" hidden>
+                    </div>
+                </div>
+
+                <div class="splitter-section" id="splitterSection" style="display: none;">
+                    <div class="preview-container">
+                        <img id="previewImage" src="" alt="预览图片">
+                        <div class="grid-overlay" id="gridOverlay"></div>
+                    </div>
+
+                    <div class="settings-section">
+                        <h3 class="settings-title">
+                            <i class="bi bi-sliders"></i>
+                            分割设置
+                        </h3>
+                        <div class="config-row">
+                            <div class="config-item">
+                                <label>预设模式</label>
+                                <select id="presetMode">
+                                    <option value="3x3">3×3 九宫格</option>
+                                    <option value="2x2">2×2 四宫格</option>
+                                    <option value="3x4">3×4 十二宫格</option>
+                                    <option value="4x3">4×3 十二宫格</option>
+                                    <option value="4x4">4×4 十六宫格</option>
+                                    <option value="custom">自定义</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="config-row">
+                            <div class="config-item">
+                                <label>行数</label>
+                                <input type="number" id="rows" value="3" min="2" max="10">
+                            </div>
+                            <div class="config-item">
+                                <label>列数</label>
+                                <input type="number" id="cols" value="3" min="2" max="10">
+                            </div>
+                        </div>
+                        <div class="config-row">
+                            <div class="config-item">
+                                <label>输出格式</label>
+                                <select id="outputFormat">
+                                    <option value="jpg">JPEG</option>
+                                    <option value="png">PNG</option>
+                                    <option value="webp">WebP</option>
+                                    <option value="original">保持原格式</option>
+                                </select>
+                            </div>
+                            <div class="config-item">
+                                <label>显示网格</label>
+                                <input type="checkbox" id="showGrid" checked>
+                            </div>
+                        </div>
+                        <div class="action-buttons">
+                            <button class="btn btn-primary" id="splitBtn">
+                                <i class="bi bi-scissors"></i>
+                                开始分割
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="result-section" id="resultSection" style="display: none;">
+                    <h3 class="preview-title">
+                        <i class="bi bi-check-circle"></i>
+                        分割结果
+                    </h3>
+                    <div id="gridResult"></div>
+                    <div class="action-buttons mt-3">
+                        <button class="btn btn-secondary" id="backBtn">
+                            <i class="bi bi-arrow-left"></i>
+                            返回重新分割
+                        </button>
+                        <button class="btn btn-primary" id="downloadAllBtn">
+                            <i class="bi bi-download"></i>
+                            全部下载
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-card">
+                <h2>为什么选择我们的九宫格分割器？</h2>
+                <div class="feature-grid">
+                    <div class="feature-item">
+                        <div class="feature-icon">📐</div>
+                        <div class="feature-content">
+                            <h3>多种模式</h3>
+                            <p>支持九宫格、四宫格等多种预设模式</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">⚙️</div>
+                        <div class="feature-content">
+                            <h3>自定义网格</h3>
+                            <p>自由设置行数和列数</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">👁️</div>
+                        <div class="feature-content">
+                            <h3>实时预览</h3>
+                            <p>分割前预览网格效果</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🔒</div>
+                        <div class="feature-content">
+                            <h3>隐私安全</h3>
+                            <p>所有操作在浏览器本地完成</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-card">
+                <h2>使用说明</h2>
+                <div class="tutorial-steps">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h4>上传图片</h4>
+                            <p>点击上传区域或拖拽图片到页面</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h4>选择模式</h4>
+                            <p>选择预设模式或自定义行列数</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h4>预览效果</h4>
+                            <p>查看网格预览，调整设置</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <h4>开始分割</h4>
+                            <p>点击开始分割，打包下载所有切片</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-card">
+                <h2>常见问题</h2>
+                <div class="error-item">
+                    <div class="error-question">
+                        <i class="bi bi-exclamation-circle error-icon"></i>
+                        分割后的图片顺序是什么？
+                    </div>
+                    <p class="error-cause">分割后的图片按从左到右、从上到下的顺序排列。</p>
+                    <p class="error-solution">下载后按文件名序号1、2、3...依次发布即可。</p>
+                </div>
+                <div class="error-item">
+                    <div class="error-question">
+                        <i class="bi bi-exclamation-circle error-icon"></i>
+                        图片不是正方形能分割吗？
+                    </div>
+                    <p class="error-cause">可以分割，但建议使用正方形图片以获得最佳效果。</p>
+                    <p class="error-solution">可以先用图片裁剪工具将图片裁剪成正方形。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="related-tools">
+        <div class="container">
+            <h3 class="related-title">相关工具推荐</h3>
+            <div class="related-grid">
+                <a href="image-cropper.html" class="related-item">
+                    <i class="bi bi-crop related-icon"></i>
+                    <div class="related-content">
+                        <h4>图片裁剪器</h4>
+                        <p>裁剪图片尺寸</p>
+                    </div>
+                </a>
+                <a href="image-mosaic.html" class="related-item">
+                    <i class="bi bi-grid-3x3 related-icon"></i>
+                    <div class="related-content">
+                        <h4>图片拼图合成器</h4>
+                        <p>多图拼接合成</p>
+                    </div>
+                </a>
+                <a href="image-resize.html" class="related-item">
+                    <i class="bi bi-image-alt related-icon"></i>
+                    <div class="related-content">
+                        <h4>图片批量缩放</h4>
+                        <p>调整图片尺寸</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <div id="footer-placeholder"></div>
+    <div id="toast" class="toast"></div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="assets/image-grid-splitter.js"></script>
+    <script src="assets/tools-data.js"></script>
+<script src="assets/site.js"></script>
+
+    <style>
+        .preview-container {
+            position: relative;
+            width: 100%;
+            max-width: 400px;
+            margin: 0 auto;
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            background: #000;
+        }
+        
+        .preview-container img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        .grid-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+        
+        .grid-line {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.5);
+        }
+        
+        .grid-line.vertical {
+            top: 0;
+            bottom: 0;
+            width: 1px;
+        }
+        
+        .grid-line.horizontal {
+            left: 0;
+            right: 0;
+            height: 1px;
+        }
+        
+        #gridResult {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            gap: 0.75rem;
+        }
+        
+        .grid-item {
+            position: relative;
+            aspect-ratio: 1;
+            border-radius: var(--radius-sm);
+            overflow: hidden;
+            background: var(--bg-light);
+        }
+        
+        .grid-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .grid-item .download-btn {
+            position: absolute;
+            bottom: 0.5rem;
+            right: 0.5rem;
+            padding: 0.25rem 0.5rem;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            border: none;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            font-size: 0.75rem;
+            transition: var(--transition-fast);
+        }
+        
+        .grid-item .download-btn:hover {
+            background: var(--primary-color);
+        }
+        
+        .grid-item .grid-number {
+            position: absolute;
+            top: 0.5rem;
+            left: 0.5rem;
+            padding: 0.25rem 0.5rem;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            border-radius: var(--radius-sm);
+            font-size: 0.75rem;
+            font-weight: bold;
+        }
+    </style>
+</body>
+</html>

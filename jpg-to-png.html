@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jpg转png在线转换工具 - 图片转png格式免费工具</title>
+    <meta name="description" content="免费在线jpg转png工具，支持批量jpg转换成png，提供如何把图片转为png格式的最简单方法，支持jpeg转jpg格式转换。">
+    <meta name="keywords" content="jpg转png, jpg转换成png, 如何把图片转为png格式, 图片转png格式免费, jpeg转jpg">
+        <link rel="canonical" href="jpg-to-png.html">
+    <link rel="alternate" hreflang="zh-Hans" href="jpg-to-png.html" />
+    <link rel="alternate" hreflang="en" href="en/jpg-to-png.html" />
+    <link rel="alternate" hreflang="x-default" href="en/jpg-to-png.html" />
+    <link rel="stylesheet" href="assets/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="icon" href="assets/favicon.ico">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <!-- 结构化数据标记 -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "jpg转png工具",
+        "description": "免费在线jpg转png工具，支持批量图片格式转换",
+        "applicationCategory": "UtilityApplication",
+        "featureList": ["jpg转png", "jpg转换成png", "图片转png", "批量转换", "免费转换"],
+        "operatingSystem": "All"
+    }
+    </script>
+</head>
+<body>
+
+<div id="header-placeholder"></div>
+
+<!-- 页面标题 -->
+<div class="page-header">
+    <h1 class="page-title">jpg转png工具 - 在线图片转png格式免费工具</h1>
+    <p class="page-subtitle">想要知道如何把图片转为png格式？使用我们的jpg转png在线工具，支持批量jpg转换成png，提供图片转png格式免费服务，还支持jpeg转jpg格式转换。</p>
+</div>
+
+<!-- 工具主体 -->
+<section class="tool-page">
+    <div class="tool-container">
+        <div class="tool-card">
+            <!-- 上传区域 -->
+            <div class="upload-section">
+                <div class="upload-area" id="uploadArea">
+                    <i class="bi bi-image upload-icon" alt="图片上传图标"></i>
+                    <h3>点击或拖拽上传图片进行jpg转png</h3>
+                    <p>支持 JPG、JPEG、PNG、GIF、BMP 格式，单张最大 10MB</p>
+                    <input type="file" id="fileInput" accept="image/*" multiple hidden>
+                </div>
+                <div class="upload-hint">
+                    <i class="bi bi-info-circle"></i>
+                    <span>支持同时上传多张图片进行批量jpg转换成png，自动处理转换</span>
+                </div>
+            </div>
+
+            <!-- 图片预览区域 -->
+            <div class="images-preview" id="imagesPreview" style="display: none;">
+                <div class="preview-header">
+                    <h3 class="preview-title">
+                        <i class="bi bi-images"></i>
+                        已上传图片
+                    </h3>
+                    <span class="image-count">共 <span id="imageCount">0</span> 张图片</span>
+                </div>
+                <div class="preview-grid" id="previewGrid"></div>
+            </div>
+
+            <!-- 转换设置区域 -->
+            <div class="settings-section">
+                <h3 class="settings-title">
+                    <i class="bi bi-sliders"></i>
+                    转换设置（jpg转png参数）
+                </h3>
+                <div class="settings-grid">
+                    <div class="setting-item">
+                        <label for="outputFormat">输出格式（jpg转png格式）</label>
+                        <select id="outputFormat">
+                            <option value="png" selected>PNG（支持透明度）</option>
+                            <option value="png8">PNG-8（256色）</option>
+                        </select>
+                    </div>
+                    <div class="setting-item">
+                        <label for="imageQuality">图片质量：<span id="qualityValue">高</span></label>
+                        <input type="range" id="imageQuality" min="0.5" max="1" step="0.1" value="1">
+                    </div>
+                    <div class="setting-item">
+                        <label for="preserveAlpha">保留透明度（png转png）</label>
+                        <select id="preserveAlpha">
+                            <option value="true" selected>是（保留透明背景）</option>
+                            <option value="false">否（填充白色）</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 操作按钮 -->
+            <div class="action-buttons">
+                <button class="btn btn-secondary" id="clearBtn">
+                    <i class="bi bi-trash"></i>
+                    清空图片
+                </button>
+                <button class="btn btn-primary" id="convertBtn" disabled>
+                    <i class="bi bi-arrow-right"></i>
+                    开始jpg转png
+                </button>
+            </div>
+
+            <!-- 转换进度 -->
+            <div class="progress-container" id="progressContainer" style="display: none;">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                <div class="progress-text" id="progressText">正在转换图片...</div>
+            </div>
+
+            <!-- 转换结果区域 -->
+            <div class="result-section" id="resultSection" style="display: none;">
+                <div class="result-header">
+                    <h3>
+                        <i class="bi bi-images"></i>
+                        jpg转png转换结果
+                    </h3>
+                    <button class="btn btn-primary" id="downloadAllBtn">
+                        <i class="bi bi-download"></i>
+                        打包下载全部
+                    </button>
+                </div>
+                <div class="result-grid" id="resultGrid"></div>
+            </div>
+        </div>
+
+        <!-- 功能特点卡片 -->
+        <div class="info-card feature-card">
+            <h2>为什么选择我们的jpg转png工具？</h2>
+            <div class="feature-grid">
+                <div class="feature-item">
+                    <div class="feature-icon">⚡</div>
+                    <div class="feature-content">
+                        <h3>快速jpg转png</h3>
+                        <p>利用浏览器本地处理，快速将jpg转换成png，提供图片转png格式免费服务。</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">📊</div>
+                    <div class="feature-content">
+                        <h3>批量图片转png</h3>
+                        <p>支持同时上传多张图片进行批量jpg转png，高效处理。</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🎨</div>
+                    <div class="feature-content">
+                        <h3>保留透明度</h3>
+                        <p>支持保留PNG图片的透明背景，确保jpg转png质量无损。</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🔒</div>
+                    <div class="feature-content">
+                        <h3>纯本地处理</h3>
+                        <p>所有jpg转png操作在浏览器本地完成，保护您的隐私安全。</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">📥</div>
+                    <div class="feature-content">
+                        <h3>便捷下载</h3>
+                        <p>支持单张下载或打包下载所有jpg转png结果，方便快捷。</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">📱</div>
+                    <div class="feature-content">
+                        <h3>随时随地使用</h3>
+                        <p>完美适配各种设备，随时随地进行jpg转png在线操作。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 使用教程 -->
+        <div class="info-card">
+            <h2>如何把图片转为png格式？详细教程</h2>
+            <div class="tutorial-steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h4>上传图片</h4>
+                        <p>点击上传区域或拖拽图片到页面，支持JPG、JPEG、PNG等格式，这是jpg转png的第一步。</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h4>设置参数</h4>
+                        <p>选择输出格式、图片质量等参数，确保jpg转换成png效果符合预期。</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h4>开始转换</h4>
+                        <p>点击"开始jpg转png"按钮，等待转换完成，这就是图片转png格式免费方法。</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h4>下载结果</h4>
+                        <p>转换完成后，单张下载或打包下载所有jpg转png结果文件。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- FAQ 区域 -->
+        <div class="info-card">
+            <h2>jpg转png常见问题解答 (FAQ)</h2>
+            
+            <div class="faq-item">
+                <div class="faq-question">Q1：如何把图片转为png格式？</div>
+                <div class="faq-answer">A：使用我们的jpg转png工具，上传图片，设置参数，点击转换即可完成jpg转换成png操作，这是最简单的图片转png格式免费方法。</div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">Q2：有免费的jpg转png工具吗？</div>
+                <div class="faq-answer">A：我们提供完全免费的图片转png格式免费服务，支持jpg转换成png，无需注册登录即可使用。</div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">Q3：支持哪些图片格式转换？</div>
+                <div class="faq-answer">A：支持JPG、JPEG、PNG、GIF、BMP等常见图片格式的jpg转png操作，也支持jpeg转jpg。</div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">Q4：可以批量jpg转png吗？</div>
+                <div class="faq-answer">A：支持！您可以同时上传多张图片进行批量jpg转换成png，转换完成后可以打包下载所有结果。</div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">Q5：jpg转png会保留透明度吗？</div>
+                <div class="faq-answer">A：是的！我们的工具支持保留PNG图片的透明背景，确保jpg转png质量无损。</div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">Q6：jpg转png在线安全吗？</div>
+                <div class="faq-answer">A：<strong>完全安全！</strong>所有jpg转png操作都在您的浏览器中完成，不会上传到服务器。</div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">Q7：支持jpeg转jpg吗？</div>
+                <div class="faq-answer">A：支持！我们的工具不仅支持jpg转png，还支持jpeg转jpg等其他图片格式转换。</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 相关工具推荐 -->
+<section class="related-tools">
+    <div class="container">
+        <h3 class="related-title">jpg转png相关工具推荐</h3>
+        <div class="related-grid">
+            <a href="jpg-to-webp.html" class="related-item">
+                <i class="bi bi-image related-icon" alt="图片格式转换图标"></i>
+                <div class="related-content">
+                    <h4>JPG转WebP</h4>
+                    <p>图片格式转换工具</p>
+                </div>
+            </a>
+            <a href="jpg-to-pdf.html" class="related-item">
+                <i class="bi bi-file-pdf related-icon" alt="PDF转换图标"></i>
+                <div class="related-content">
+                    <h4>JPG转PDF</h4>
+                    <p>图片转PDF工具</p>
+                </div>
+            </a>
+            <a href="pdf-to-image.html" class="related-item">
+                <i class="bi bi-file-pdf related-icon" alt="PDF转换图标"></i>
+                <div class="related-content">
+                    <h4>PDF转图片</h4>
+                    <p>PDF转JPG在线工具</p>
+                </div>
+            </a>
+        </div>
+    </div>
+</section>
+
+<div id="footer-placeholder"></div>
+<div id="toast" class="toast"></div>
+
+<script src="assets/jpg-to-png.js"></script>
+<script src="assets/tools-data.js"></script>
+<script src="assets/site.js"></script>
+
+<style>
+    /* 页面特定样式 */
+    .page-header {
+        margin-bottom: 0.5rem !important;
+        padding-bottom: 0 !important;
+    }
+    
+    .page-title {
+        font-size: 1.75rem !important;
+        margin-bottom: 0.5rem !important;
+    }
+    
+    .page-subtitle {
+        font-size: 0.95rem !important;
+        margin-bottom: 0 !important;
+    }
+    
+    .tool-page {
+        padding-top: 0 !important;
+    }
+    
+    .tool-card {
+        margin-bottom: 0.75rem;
+        padding: 1rem 1.25rem !important;
+    }
+    
+    /* 上传区域 */
+    .upload-section {
+        margin-bottom: 0.75rem;
+    }
+    
+    .upload-area {
+        border: 2px dashed var(--border-color);
+        border-radius: var(--radius-lg);
+        padding: 2rem;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        background: var(--bg-light);
+    }
+    
+    .upload-area:hover,
+    .upload-area.dragover {
+        border-color: var(--primary-color);
+        background: var(--primary-light);
+    }
+    
+    .upload-icon {
+        font-size: 3rem;
+        color: var(--primary-color);
+        margin-bottom: 0.75rem;
+    }
+    
+    .upload-area h3 {
+        margin-bottom: 0.25rem;
+        font-size: 1rem;
+        color: var(--text-primary);
+    }
+    
+    .upload-area p {
+        font-size: 0.85rem;
+        color: var(--text-secondary);
+    }
+    
+    .upload-hint {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-top: 0.5rem;
+        font-size: 0.85rem;
+        color: var(--text-secondary);
+    }
+    
+    /* 图片预览区域 */
+    .images-preview {
+        margin-bottom: 0.75rem;
+        padding: 0.75rem;
+        background: var(--bg-light);
+        border-radius: var(--radius-lg);
+    }
+    
+    .preview-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 0.5rem;
+    }
+    
+    .preview-title {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.95rem;
+        font-weight: 600;
+        color: var(--text-primary);
+    }
+    
+    .image-count {
+        font-size: 0.85rem;
+        color: var(--text-secondary);
+    }
+    
+    .preview-grid, .result-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+        gap: 0.5rem;
+    }
+    
+    .image-item, .result-item {
+        position: relative;
+        aspect-ratio: 4/3;
+        border: 1px solid var(--border-color);
+        border-radius: var(--radius-md);
+        overflow: hidden;
+        background: var(--bg-white);
+    }
+    
+    .image-item img, .result-item img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    
+    .image-item .image-remove, .result-item .result-download {
+        position: absolute;
+        top: 2px;
+        right: 2px;
+        background: rgba(0, 0, 0, 0.6);
+        color: white;
+        border: none;
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        font-size: 12px;
+        opacity: 0;
+        transition: opacity 0.2s;
+    }
+    
+    .image-item:hover .image-remove, .result-item:hover .result-download {
+        opacity: 1;
+    }
+    
+    .result-download {
+        right: 24px;
+    }
+    
+    /* 设置区域 */
+    .settings-section {
+        margin-bottom: 0.75rem;
+        padding: 0.75rem;
+        background: var(--bg-light);
+        border-radius: var(--radius-lg);
+    }
+    
+    .settings-title {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.95rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        color: var(--text-primary);
+    }
+    
+    .settings-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 0.75rem;
+    }
+    
+    .setting-item {
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+    }
+    
+    .setting-item label {
+        font-size: 0.85rem;
+        font-weight: 500;
+        color: var(--text-primary);
+    }
+    
+    .setting-item select,
+    .setting-item input[type="range"] {
+        padding: 0.375rem 0.5rem;
+        border: 1px solid var(--border-color);
+        border-radius: var(--radius-sm);
+        background: var(--bg-white);
+        font-size: 0.85rem;
+    }
+    
+    /* 操作按钮 */
+    .action-buttons {
+        display: flex;
+        gap: 0.5rem;
+        justify-content: flex-end;
+    }
+    
+    .btn {
+        display: flex;
+        align-items: center;
+        gap: 0.375rem;
+        padding: 0.5rem 1rem;
+        border-radius: var(--radius-md);
+        cursor: pointer;
+        font-size: 0.9rem;
+        font-weight: 500;
+        transition: all 0.2s;
+        border: none;
+    }
+    
+    .btn-primary {
+        background: var(--primary-color);
+        color: white;
+    }
+    
+    .btn-primary:hover:not(:disabled) {
+        background: var(--primary-hover);
+    }
+    
+    .btn-secondary {
+        background: var(--bg-secondary);
+        color: var(--text-primary);
+        border: 1px solid var(--border-color);
+    }
+    
+    .btn-secondary:hover {
+        background: var(--bg-light);
+    }
+    
+    .btn:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+    
+    /* 进度条 */
+    .progress-container {
+        margin-bottom: 0.75rem;
+        padding: 0.5rem;
+        background: var(--bg-light);
+        border-radius: var(--radius-lg);
+    }
+    
+    .progress-bar {
+        height: 8px;
+        background: var(--bg-white);
+        border-radius: 4px;
+        overflow: hidden;
+        margin-bottom: 0.25rem;
+    }
+    
+    .progress-fill {
+        height: 100%;
+        background: var(--primary-color);
+        border-radius: 4px;
+        transition: width 0.3s;
+    }
+    
+    .progress-text {
+        font-size: 0.85rem;
+        color: var(--text-secondary);
+        text-align: center;
+    }
+    
+    /* 结果区域 */
+    .result-section {
+        margin-bottom: 0.75rem;
+        padding: 0.75rem;
+        background: var(--bg-light);
+        border-radius: var(--radius-lg);
+    }
+    
+    .result-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 0.5rem;
+    }
+    
+    .result-header h3 {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.95rem;
+        font-weight: 600;
+        color: var(--text-primary);
+    }
+    
+    /* 功能卡片样式 */
+    .feature-card {
+        margin-bottom: 1rem;
+    }
+    
+    .feature-card h2 {
+        margin-bottom: 1rem;
+        font-size: 1.25rem;
+    }
+    
+    .feature-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.75rem;
+    }
+    
+    .feature-item {
+        display: flex;
+        gap: 0.75rem;
+        padding: 0.75rem;
+        background: var(--bg-light);
+        border-radius: var(--radius-md);
+        transition: all 0.3s ease;
+    }
+    
+    .feature-item:hover {
+        transform: translateX(5px);
+    }
+    
+    .feature-icon {
+        font-size: 1.5rem;
+        flex-shrink: 0;
+    }
+    
+    .feature-content h3 {
+        font-size: 0.95rem;
+        font-weight: 600;
+        color: var(--text-primary);
+        margin-bottom: 0.25rem;
+    }
+    
+    .feature-content p {
+        font-size: 0.85rem;
+        color: var(--text-secondary);
+        line-height: 1.5;
+    }
+    
+    /* 教程步骤样式 */
+    .tutorial-steps {
+        margin-top: 0.75rem;
+    }
+    
+    .step {
+        display: flex;
+        gap: 1rem;
+        padding: 0.75rem 0;
+        border-bottom: 1px solid var(--border-color);
+    }
+    
+    .step:last-child {
+        border-bottom: none;
+    }
+    
+    .step-number {
+        flex-shrink: 0;
+        width: 2rem;
+        height: 2rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: var(--primary-color);
+        color: white;
+        border-radius: 50%;
+        font-weight: 600;
+        font-size: 0.9rem;
+    }
+    
+    .step-content h4 {
+        font-size: 0.95rem;
+        font-weight: 600;
+        color: var(--text-primary);
+        margin-bottom: 0.25rem;
+    }
+    
+    .step-content p {
+        font-size: 0.85rem;
+        color: var(--text-secondary);
+        line-height: 1.5;
+    }
+    
+    /* FAQ样式 */
+    .faq-item {
+        margin-bottom: 0.75rem;
+        padding-bottom: 0.75rem;
+        border-bottom: 1px solid var(--border-color);
+    }
+    
+    .faq-item:last-child {
+        border-bottom: none;
+        margin-bottom: 0;
+        padding-bottom: 0;
+    }
+    
+    .faq-question {
+        font-weight: 600;
+        color: var(--text-primary);
+        margin-bottom: 0.25rem;
+        font-size: 0.9rem;
+    }
+    
+    .faq-answer {
+        color: var(--text-secondary);
+        line-height: 1.5;
+        font-size: 0.85rem;
+    }
+    
+    /* 响应式设计 */
+    @media (max-width: 768px) {
+        .preview-grid, .result-grid {
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+        }
+        
+        .feature-grid {
+            grid-template-columns: 1fr;
+        }
+        
+        .settings-grid {
+            grid-template-columns: 1fr;
+        }
+        
+        .action-buttons {
+            justify-content: center;
+        }
+        
+        .tool-card {
+            padding: 0.75rem 1rem !important;
+        }
+    }
+    
+    /* info-card 优化 */
+    .info-card {
+        padding: 1rem 1.25rem;
+        margin-bottom: 0.75rem;
+    }
+    
+    .info-card h2 {
+        font-size: 1.15rem;
+        margin-bottom: 0.5rem;
+        padding-bottom: 0.375rem;
+    }
+    
+    /* 相关工具区域优化 */
+    .related-tools {
+        padding: 1.5rem 0;
+    }
+    
+    .related-title {
+        font-size: 1rem;
+        margin-bottom: 0.75rem;
+    }
+</style>
+</body>
+</html>

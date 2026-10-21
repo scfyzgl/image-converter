@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>限定体积压缩工具 - 在线图片压缩到指定大小</title>
+    <meta name="description" content="免费在线限定体积压缩工具，设置目标文件大小，智能压缩图片至指定体积，支持批量处理。">
+    <meta name="keywords" content="限定体积压缩,图片压缩到指定大小,图片压缩工具,压缩图片到指定KB">
+        <link rel="canonical" href="target-size-compress.html">
+    <link rel="alternate" hreflang="zh-Hans" href="target-size-compress.html" />
+    <link rel="alternate" hreflang="en" href="en/target-size-compress.html" />
+    <link rel="alternate" hreflang="x-default" href="en/target-size-compress.html" />
+    <link rel="stylesheet" href="assets/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="icon" href="assets/favicon.ico">
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "限定体积压缩工具",
+        "description": "免费在线限定体积压缩工具，设置目标文件大小，智能压缩图片至指定体积",
+        "applicationCategory": "UtilityApplication",
+        "featureList": ["限定体积", "智能压缩", "批量处理", "实时进度"],
+        "operatingSystem": "All"
+    }
+    </script>
+</head>
+<body>
+    <div id="header-placeholder"></div>
+
+    <div class="page-header">
+        <h1 class="page-title">限定体积压缩工具</h1>
+        <p class="page-subtitle">设置目标文件大小（KB），智能压缩图片至指定体积，支持批量处理</p>
+    </div>
+
+    <section class="tool-page">
+        <div class="tool-container">
+            <div class="tool-card">
+                <div class="upload-section">
+                    <div class="upload-area" id="uploadArea">
+                        <i class="bi bi-image upload-icon"></i>
+                        <h3>点击或拖拽上传图片</h3>
+                        <p>支持 JPG、JPEG、PNG、GIF、BMP 格式，单张最大 50MB</p>
+                        <input type="file" id="fileInput" accept="image/*" multiple hidden>
+                    </div>
+                </div>
+
+                <div class="image-list" id="imageList" style="display: none;">
+                    <div class="list-header">
+                        <h3>已上传图片</h3>
+                        <button class="btn btn-secondary" id="clearBtn">
+                            <i class="bi bi-trash"></i>
+                            清空
+                        </button>
+                    </div>
+                    <div id="imagesContainer"></div>
+                </div>
+
+                <div class="settings-section" id="settingsSection" style="display: none;">
+                    <h3 class="settings-title">
+                        <i class="bi bi-sliders"></i>
+                        压缩设置
+                    </h3>
+                    <div class="config-row">
+                        <div class="config-item">
+                            <label>目标大小（KB）</label>
+                            <input type="number" id="targetSize" value="100" min="1" max="10000">
+                        </div>
+                        <div class="config-item">
+                            <label>输出格式</label>
+                            <select id="outputFormat">
+                                <option value="jpg">JPEG</option>
+                                <option value="png">PNG</option>
+                                <option value="webp">WebP</option>
+                                <option value="original">保持原格式</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="action-buttons">
+                        <button class="btn btn-primary" id="compressBtn">
+                            <i class="bi bi-compress"></i>
+                            开始压缩
+                        </button>
+                    </div>
+                </div>
+
+                <div class="progress-section" id="progressSection" style="display: none;">
+                    <div class="progress-bar-container">
+                        <div class="progress-bar" id="progressBar"></div>
+                    </div>
+                    <div class="progress-text" id="progressText">正在准备...</div>
+                </div>
+
+                <div class="result-section" id="resultSection" style="display: none;">
+                    <h3 class="preview-title">
+                        <i class="bi bi-check-circle"></i>
+                        压缩结果
+                    </h3>
+                    <div id="resultsContainer"></div>
+                    <div class="action-buttons mt-3">
+                        <button class="btn btn-primary" id="downloadAllBtn">
+                            <i class="bi bi-download"></i>
+                            全部下载
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-card">
+                <h2>为什么选择我们的限定体积压缩工具？</h2>
+                <div class="feature-grid">
+                    <div class="feature-item">
+                        <div class="feature-icon">🎯</div>
+                        <div class="feature-content">
+                            <h3>精准压缩</h3>
+                            <p>设置目标大小，智能压缩至指定体积</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">⚡</div>
+                        <div class="feature-content">
+                            <h3>高效算法</h3>
+                            <p>自动迭代优化，快速达到目标大小</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">📦</div>
+                        <div class="feature-content">
+                            <h3>批量处理</h3>
+                            <p>支持多图片同时压缩，打包下载</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🔒</div>
+                        <div class="feature-content">
+                            <h3>隐私安全</h3>
+                            <p>所有操作在浏览器本地完成</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-card">
+                <h2>使用说明</h2>
+                <div class="tutorial-steps">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h4>上传图片</h4>
+                            <p>点击上传区域或拖拽图片，支持多张同时上传</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h4>设置目标大小</h4>
+                            <p>输入目标文件大小（KB），选择输出格式</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h4>开始压缩</h4>
+                            <p>点击开始压缩，工具会自动迭代优化质量</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <h4>下载结果</h4>
+                            <p>查看压缩结果，单张或批量下载</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-card">
+                <h2>常见问题</h2>
+                <div class="error-item">
+                    <div class="error-question">
+                        <i class="bi bi-exclamation-circle error-icon"></i>
+                        无法压缩到目标大小怎么办？
+                    </div>
+                    <p class="error-cause">如果图片本身已经很小，或者目标大小设置过小，可能无法达到目标值。</p>
+                    <p class="error-solution">建议适当增大目标大小，或检查原始图片是否已经是压缩后的格式。</p>
+                </div>
+                <div class="error-item">
+                    <div class="error-question">
+                        <i class="bi bi-exclamation-circle error-icon"></i>
+                        压缩后图片质量会下降吗？
+                    </div>
+                    <p class="error-cause">是的，压缩会降低图片质量以减小文件大小。</p>
+                    <p class="error-solution">目标大小越接近原始大小，质量损失越小。建议设置合理的目标大小。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="related-tools">
+        <div class="container">
+            <h3 class="related-title">相关工具推荐</h3>
+            <div class="related-grid">
+                <a href="jpg-compress.html" class="related-item">
+                    <i class="bi bi-compress related-icon"></i>
+                    <div class="related-content">
+                        <h4>JPG图片压缩</h4>
+                        <p>在线压缩图片大小</p>
+                    </div>
+                </a>
+                <a href="image-resize.html" class="related-item">
+                    <i class="bi bi-image-alt related-icon"></i>
+                    <div class="related-content">
+                        <h4>图片批量缩放</h4>
+                        <p>调整图片尺寸</p>
+                    </div>
+                </a>
+                <a href="image-cropper.html" class="related-item">
+                    <i class="bi bi-crop related-icon"></i>
+                    <div class="related-content">
+                        <h4>图片裁剪器</h4>
+                        <p>裁剪图片尺寸</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <div id="footer-placeholder"></div>
+    <div id="toast" class="toast"></div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="assets/target-size-compress.js"></script>
+    <script src="assets/tools-data.js"></script>
+<script src="assets/site.js"></script>
+
+    <style>
+        .result-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: var(--bg-light);
+            border-radius: var(--radius-md);
+            margin-bottom: 0.75rem;
+        }
+        
+        .result-item img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: var(--radius-sm);
+        }
+        
+        .result-info {
+            flex: 1;
+        }
+        
+        .result-info h4 {
+            font-size: 0.95rem;
+            color: var(--text-primary);
+            margin-bottom: 0.25rem;
+        }
+        
+        .result-stats {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .result-stats span {
+            font-family: 'Courier New', monospace;
+        }
+        
+        .success-text {
+            color: var(--success-color);
+        }
+        
+        .warning-text {
+            color: var(--warning-color);
+        }
+        
+        .download-btn {
+            padding: 0.5rem 1rem;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            transition: var(--transition-fast);
+            white-space: nowrap;
+        }
+        
+        .download-btn:hover {
+            background: var(--primary-hover);
+        }
+    </style>
+</body>
+</html>

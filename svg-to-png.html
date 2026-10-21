@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SVG转PNG在线转换器 - 免费矢量图转位图工具 - 易工具网</title>
+    <meta name="description" content="免费在线SVG转PNG工具，无需安装软件，直接在浏览器中将SVG矢量图转换为PNG位图格式。支持透明背景，无损输出，批量转换，完全免费！">
+    <meta name="keywords" content="svg转png,svg转换成png,svg怎么转换成png,在线svg转png,svg转png工具,矢量图转位图,svg转图片,svg格式转换,svg转png免费,svg转位图">
+    <link rel="canonical" href="svg-to-png.html">
+    <link rel="alternate" hreflang="zh-Hans" href="svg-to-png.html" />
+    <link rel="alternate" hreflang="en" href="en/svg-to-png.html" />
+    <link rel="alternate" hreflang="x-default" href="en/svg-to-png.html" />
+    <link rel="stylesheet" href="assets/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="icon" href="assets/favicon.ico">
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "SVG转PNG在线转换工具",
+        "description": "免费在线SVG矢量图转PNG位图工具，支持透明背景，无损输出，批量转换",
+        "applicationCategory": "UtilityApplication",
+        "featureList": ["svg转png", "svg转换成png", "在线svg转png", "svg转png工具", "批量svg转png", "免费svg转png"],
+        "operatingSystem": "All",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "CNY"
+        },
+        "url": "svg-to-png.html"
+    }
+    </script>
+    <meta property="og:title" content="SVG转PNG在线转换器 - 免费矢量图转位图工具">
+    <meta property="og:description" content="免费在线SVG转PNG工具，无需安装软件，直接在浏览器中将SVG矢量图转换为PNG位图格式。支持透明背景，无损输出，批量转换。">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="svg-to-png.html">
+    <style>
+        .page-header {
+            margin-bottom: 0.5rem !important;
+            padding-bottom: 0 !important;
+        }
+
+        .page-title {
+            font-size: 1.75rem !important;
+            margin-bottom: 0.5rem !important;
+        }
+
+        .page-subtitle {
+            font-size: 0.95rem !important;
+            margin-bottom: 0 !important;
+        }
+
+        .tool-page {
+            padding-top: 0 !important;
+        }
+
+        .tool-card {
+            margin-bottom: 0.75rem;
+            padding: 1rem 1.25rem !important;
+        }
+
+        .upload-section {
+            margin-bottom: 0.75rem;
+        }
+
+        .upload-area {
+            border: 2px dashed var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: var(--bg-light);
+        }
+
+        .upload-area:hover,
+        .upload-area.dragover {
+            border-color: var(--primary-color);
+            background: var(--primary-light);
+        }
+
+        .upload-icon {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 0.75rem;
+        }
+
+        .upload-area h3 {
+            margin-bottom: 0.25rem;
+            font-size: 1rem;
+            color: var(--text-primary);
+        }
+
+        .upload-area p {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .upload-hint {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .file-info-display {
+            display: flex;
+            gap: 1rem;
+            margin-top: 0.75rem;
+            padding: 0.75rem;
+            background: var(--bg-white);
+            border-radius: var(--radius-md);
+            border: 2px solid var(--primary-color);
+            flex-wrap: wrap;
+        }
+
+        .file-info-item {
+            display: flex;
+            align-items: center;
+            gap: 0.375rem;
+            font-size: 0.85rem;
+            color: var(--text-primary);
+        }
+
+        .file-info-item i {
+            color: var(--primary-color);
+            font-size: 1rem;
+        }
+
+        .file-info-item strong {
+            color: var(--primary-color);
+        }
+
+        .files-list {
+            margin-bottom: 0.75rem;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .file-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.5rem;
+            background: var(--bg-light);
+            border-radius: var(--radius-md);
+            margin-bottom: 0.375rem;
+        }
+
+        .file-preview {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border-color);
+        }
+
+        .file-details {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .file-name {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-primary);
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .file-size {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        .file-remove {
+            padding: 0.375rem;
+            cursor: pointer;
+            color: var(--text-secondary);
+            transition: color 0.2s;
+        }
+
+        .file-remove:hover {
+            color: #e74c3c;
+        }
+
+        .settings-section {
+            margin-bottom: 0.75rem;
+            padding: 0.75rem;
+            background: var(--bg-light);
+            border-radius: var(--radius-lg);
+        }
+
+        .settings-title {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.95rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .settings-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 0.75rem;
+        }
+
+        .setting-item {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .setting-item label {
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        .setting-item select,
+        .setting-item input {
+            padding: 0.375rem 0.5rem;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            background: var(--bg-white);
+            font-size: 0.85rem;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 0.5rem;
+            justify-content: flex-end;
+            margin-bottom: 0.75rem;
+        }
+
+        .btn {
+            display: flex;
+            align-items: center;
+            gap: 0.375rem;
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.2s;
+            border: none;
+        }
+
+        .btn-primary {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .btn-primary:hover:not(:disabled) {
+            background: var(--primary-hover);
+        }
+
+        .btn-secondary {
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+        }
+
+        .btn-secondary:hover {
+            background: var(--bg-light);
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .progress-container {
+            margin-bottom: 0.75rem;
+            padding: 0.5rem;
+            background: var(--bg-light);
+            border-radius: var(--radius-lg);
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: var(--bg-white);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 0.25rem;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--primary-color);
+            border-radius: 4px;
+            transition: width 0.3s;
+            width: 0%;
+        }
+
+        .progress-text {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            text-align: center;
+        }
+
+        .result-section {
+            margin-top: 0.75rem;
+            padding: 0.75rem;
+            background: #d4edda;
+            border-radius: var(--radius-lg);
+            border: 1px solid #c3e6cb;
+        }
+
+        .result-title {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #155724;
+            margin-bottom: 0.5rem;
+        }
+
+        .result-title i {
+            color: #28a745;
+        }
+
+        .result-info {
+            font-size: 0.9rem;
+            color: #155724;
+        }
+
+        .result-info p {
+            margin-bottom: 0.25rem;
+        }
+
+        .result-files {
+            margin-top: 0.5rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            flex-direction: column;
+        }
+
+        .result-file-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.375rem;
+            background: rgba(255,255,255,0.5);
+            border-radius: var(--radius-sm);
+        }
+
+        .result-file-name {
+            flex: 1;
+            font-size: 0.85rem;
+        }
+
+        .download-link {
+            color: #155724;
+            text-decoration: underline;
+            font-size: 0.85rem;
+        }
+
+        .feature-card {
+            margin-bottom: 1rem;
+        }
+
+        .feature-card h2 {
+            margin-bottom: 1rem;
+            font-size: 1.25rem;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.75rem;
+        }
+
+        .feature-item {
+            display: flex;
+            gap: 0.75rem;
+            padding: 0.75rem;
+            background: var(--bg-light);
+            border-radius: var(--radius-md);
+            transition: all 0.3s ease;
+        }
+
+        .feature-item:hover {
+            transform: translateX(5px);
+        }
+
+        .feature-icon {
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .feature-content h3 {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.25rem;
+        }
+
+        .feature-content p {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        .tutorial-steps {
+            margin-top: 0.75rem;
+        }
+
+        .step {
+            display: flex;
+            gap: 1rem;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .step:last-child {
+            border-bottom: none;
+        }
+
+        .step-number {
+            flex-shrink: 0;
+            width: 2rem;
+            height: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .step-content h4 {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.25rem;
+        }
+
+        .step-content p {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        .faq-item {
+            margin-bottom: 0.75rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .faq-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .faq-question {
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.25rem;
+            font-size: 0.9rem;
+        }
+
+        .faq-answer {
+            color: var(--text-secondary);
+            line-height: 1.5;
+            font-size: 0.85rem;
+        }
+
+        @media (max-width: 768px) {
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .settings-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .action-buttons {
+                justify-content: center;
+            }
+
+            .tool-card {
+                padding: 0.75rem 1rem !important;
+            }
+
+            .file-info-display {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .file-item {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+
+        .info-card {
+            padding: 1rem 1.25rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .info-card h2 {
+            font-size: 1.15rem;
+            margin-bottom: 0.5rem;
+            padding-bottom: 0.375rem;
+        }
+
+        .related-tools {
+            padding: 1.5rem 0;
+        }
+
+        .related-title {
+            font-size: 1rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .common-mistakes {
+            margin-top: 0.75rem;
+        }
+
+        .mistake-item {
+            display: flex;
+            gap: 0.75rem;
+            padding: 0.625rem;
+            background: #fff3cd;
+            border-radius: var(--radius-md);
+            margin-bottom: 0.375rem;
+            border-left: 3px solid #ffc107;
+        }
+
+        .mistake-icon {
+            color: #e67e22;
+            font-size: 1.1rem;
+            flex-shrink: 0;
+            margin-top: 0.125rem;
+        }
+
+        .mistake-content {
+            flex: 1;
+        }
+
+        .mistake-content strong {
+            font-size: 0.85rem;
+            color: #856404;
+        }
+
+        .mistake-content p {
+            font-size: 0.8rem;
+            color: #856404;
+            margin: 0.125rem 0 0;
+            line-height: 1.4;
+        }
+    </style>
+</head>
+<body>
+
+<div id="header-placeholder"></div>
+
+<div class="page-header">
+    <h1 class="page-title">SVG转PNG在线转换器 - 免费矢量图转位图工具</h1>
+    <p class="page-subtitle">将SVG矢量图转换为PNG位图格式，支持透明背景，无损输出。无需安装软件，直接在浏览器中完成转换，支持批量处理，完全免费！</p>
+</div>
+
+<section class="tool-page">
+    <div class="tool-container">
+        <div class="tool-card">
+            <div class="upload-section">
+                <div class="upload-area" id="uploadArea">
+                    <i class="bi bi-file-earmark-image upload-icon"></i>
+                    <h3>点击或拖拽上传 SVG 文件进行svg转png操作</h3>
+                    <p>支持 .svg 格式，最大 50MB，最多 20 个文件，轻松解决svg怎么转换成png的问题</p>
+                    <input type="file" id="fileInput" accept=".svg,image/svg+xml" multiple hidden>
+                </div>
+                <div class="upload-hint">
+                    <i class="bi bi-info-circle"></i>
+                    <span>上传SVG文件后，可预览图片并设置转换选项，所有svg转png操作在浏览器本地完成，文件不会上传到服务器</span>
+                </div>
+
+                <div class="file-info-display" id="fileInfoDisplay" style="display: none;">
+                    <div class="file-info-item">
+                        <i class="bi bi-files"></i>
+                        <span>已选择: <strong id="selectedFileCount">0</strong> 个文件</span>
+                    </div>
+                    <div class="file-info-item">
+                        <i class="bi bi-hdd"></i>
+                        <span>总大小: <strong id="selectedFileSize">0 KB</strong></span>
+                    </div>
+                </div>
+
+                <div class="files-list" id="filesList" style="display: none;"></div>
+            </div>
+
+            <div class="settings-section" id="settingsSection" style="display: none;">
+                <h3 class="settings-title">
+                    <i class="bi bi-sliders"></i>
+                    SVG转PNG设置 - 选择转换选项
+                </h3>
+                <div class="settings-grid">
+                    <div class="setting-item">
+                        <label for="outputWidth">输出宽度 (px)</label>
+                        <input type="number" id="outputWidth" placeholder="留空使用原始尺寸" min="1">
+                    </div>
+                    <div class="setting-item">
+                        <label for="outputHeight">输出高度 (px)</label>
+                        <input type="number" id="outputHeight" placeholder="留空使用原始尺寸" min="1">
+                    </div>
+                </div>
+            </div>
+
+            <div class="action-buttons">
+                <button class="btn btn-secondary" id="clearBtn">
+                    <i class="bi bi-trash"></i>
+                    清空文件
+                </button>
+                <button class="btn btn-primary" id="convertBtn" disabled>
+                    <i class="bi bi-image"></i>
+                    开始转换（svg转png）
+                </button>
+            </div>
+
+            <div class="progress-container" id="progressContainer" style="display: none;">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                <div class="progress-text" id="progressText">正在转换中...</div>
+            </div>
+
+            <div class="result-section" id="resultSection" style="display: none;">
+                <h3 class="result-title">
+                    <i class="bi bi-check-circle"></i>
+                    SVG转PNG转换完成
+                </h3>
+                <div class="result-info" id="resultInfo"></div>
+                <div class="result-files" id="resultFiles"></div>
+            </div>
+        </div>
+
+        <div class="info-card feature-card">
+            <h2>为什么选择我们的svg转png工具？</h2>
+            <div class="feature-grid">
+                <div class="feature-item">
+                    <div class="feature-icon">⚡</div>
+                    <div class="feature-content">
+                        <h3>快速转换效率高</h3>
+                        <p>只需几秒即可完成svg转png操作，无需等待上传下载，是svg转换成png最快速的方法。</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">📸</div>
+                    <div class="feature-content">
+                        <h3>无损输出质量</h3>
+                        <p>PNG是无损格式，转换后保留SVG的完整细节和透明背景，完美解决svg怎么转换成png的质量问题。</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🎨</div>
+                    <div class="feature-content">
+                        <h3>保留透明背景</h3>
+                        <p>SVG转PNG时完美保留透明背景，不会像转JPG那样填充白色背景，适合需要透明通道的场景。</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">📦</div>
+                    <div class="feature-content">
+                        <h3>批量处理支持</h3>
+                        <p>支持一次性转换最多20个SVG文件，满足批量svg转png需求，大大提高工作效率。</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🔒</div>
+                    <div class="feature-content">
+                        <h3>本地安全处理</h3>
+                        <p>所有svg转png操作都在浏览器本地完成，文件不会上传到服务器，完全保护您的隐私安全。</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">📱</div>
+                    <div class="feature-content">
+                        <h3>多平台支持</h3>
+                        <p>完美支持Windows、Mac、Linux系统，以及手机浏览器，随时随地解决svg怎么转换成png的问题。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="info-card">
+            <h2>SVG转PNG知识科普</h2>
+            <p style="font-size:0.9rem;color:var(--text-secondary);line-height:1.6;margin-bottom:0.75rem;">
+                <strong>SVG（Scalable Vector Graphics）</strong>是矢量图格式，基于XML描述图形，可以无限放大而不失真，文件通常较小，适合图标、Logo等图形。<strong>PNG（Portable Network Graphics）</strong>是位图格式，由固定数量的像素组成，支持透明背景（Alpha通道），采用无损压缩，适合需要透明背景或高质量输出的场景。SVG转PNG就是将矢量图"栅格化"为固定分辨率的位图，同时保留透明通道，转换后图片将具有特定的像素尺寸，不再支持无损缩放。
+            </p>
+            <div class="common-mistakes">
+                <h3 style="font-size:1rem;font-weight:600;margin-bottom:0.5rem;">常见误区</h3>
+                <div class="mistake-item">
+                    <i class="bi bi-exclamation-triangle mistake-icon"></i>
+                    <div class="mistake-content">
+                        <strong>不设置输出尺寸导致模糊</strong>
+                        <p>SVG如果没有明确的宽高属性，默认可能只有很小的像素尺寸，转换后图片会非常模糊。建议手动设置输出宽度或高度。</p>
+                    </div>
+                </div>
+                <div class="mistake-item">
+                    <i class="bi bi-exclamation-triangle mistake-icon"></i>
+                    <div class="mistake-content">
+                        <strong>SVG包含外部引用无法渲染</strong>
+                        <p>如果SVG引用了外部字体、图片或其他资源，在浏览器中可能无法正确渲染，导致转换结果不完整。</p>
+                    </div>
+                </div>
+                <div class="mistake-item">
+                    <i class="bi bi-exclamation-triangle mistake-icon"></i>
+                    <div class="mistake-content">
+                        <strong>中文字体在SVG中可能丢失</strong>
+                        <p>SVG中使用的字体如果未嵌入或未在系统中安装，转换后文字可能显示为默认字体或方块。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="info-card">
+            <h2>svg怎么转换成png？详细使用教程</h2>
+            <div class="tutorial-steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h4>上传SVG文件</h4>
+                        <p>点击上传区域或拖拽SVG文件（.svg格式），这是解决svg如何转png的第一步操作。</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h4>预览图片</h4>
+                        <p>上传后系统会自动显示图片缩略图，可查看原图信息（尺寸、大小），这是svg转换成png前的重要确认步骤。</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h4>设置转换选项</h4>
+                        <p>设置输出宽度和高度（可选），PNG为无损格式无需设置质量，这是svg转png的关键设置步骤。</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h4>开始转换</h4>
+                        <p>点击"开始转换"按钮，工具将自动处理SVG转PNG，这是解决svg怎么转换成png的核心步骤。</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">5</div>
+                    <div class="step-content">
+                        <h4>下载PNG</h4>
+                        <p>转换完成后点击下载链接，完美解决svg如何转png的问题，获得无损的PNG文件。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="info-card">
+            <h2>SVG转PNG常见问题解答 (FAQ)</h2>
+
+            <div class="faq-item">
+                <div class="faq-question">Q1：为什么转换后图片模糊？</div>
+                <div class="faq-answer">A：SVG是矢量图，没有固定的像素尺寸。如果SVG文件没有明确的宽高属性，浏览器可能以很小的默认尺寸渲染，导致转换后图片模糊。建议在转换设置中手动指定输出宽度或高度，例如设置为1920像素宽，即可获得清晰的PNG图片。</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">Q2：SVG中的文字能正确显示吗？</div>
+                <div class="faq-answer">A：如果SVG中使用的字体已嵌入文件或在您的系统中已安装，文字可以正确显示。但如果SVG引用了未安装的字体，文字可能会被替换为默认字体。建议在SVG中嵌入字体或将文字转为路径（outline）后再转换。</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">Q3：支持包含动画的SVG吗？</div>
+                <div class="faq-answer">A：不支持。SVG转PNG会将动画定格在第一帧的状态，只输出静态的PNG图片。如果需要动画效果，请保留SVG格式或转换为GIF。</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">Q4：svg怎么转换成png？</div>
+                <div class="faq-answer">A：使用我们的svg转换成png在线工具，上传SVG文件后，设置输出尺寸（可选），点击"开始转换"即可完成。是svg怎么转换成png最简单的方法，无需安装软件。</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">Q5：转换后能保留透明背景吗？</div>
+                <div class="faq-answer">A：可以！PNG格式原生支持透明通道（Alpha通道），SVG转PNG时会完美保留透明背景，不会填充白色。这也是SVG转PNG比SVG转JPG更适合需要透明背景场景的原因。</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">Q6：支持批量svg转png吗？</div>
+                <div class="faq-answer">A：支持！可以同时上传最多20个SVG文件进行批量转换，大大提高了svg转换成png的工作效率，适合需要处理大量文件的用户。</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">Q7：文件大小有限制吗？</div>
+                <div class="faq-answer">A：单个SVG文件最大支持50MB。超过限制的建议精简SVG内容后再进行svg转png操作。</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">Q8：转换后的文件安全吗？</div>
+                <div class="faq-answer">A：<strong>非常安全！</strong>所有svg转png操作都在您的浏览器本地完成，文件不会上传到任何服务器，完全保护您的隐私和数据安全。</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="related-tools">
+    <div class="container">
+        <h3 class="related-title">SVG转PNG相关工具推荐</h3>
+        <div class="related-grid">
+            <a href="png-to-jpg.html" class="related-item">
+                <i class="bi bi-image related-icon"></i>
+                <div class="related-content">
+                    <h4>PNG转JPG</h4>
+                    <p>PNG转换为JPG格式</p>
+                </div>
+            </a>
+            <a href="jpg-to-png.html" class="related-item">
+                <i class="bi bi-image related-icon"></i>
+                <div class="related-content">
+                    <h4>JPG转PNG</h4>
+                    <p>JPG转换为PNG格式</p>
+                </div>
+            </a>
+            <a href="webp-to-png.html" class="related-item">
+                <i class="bi bi-image related-icon"></i>
+                <div class="related-content">
+                    <h4>WebP转PNG</h4>
+                    <p>WebP转换为PNG格式</p>
+                </div>
+            </a>
+            <a href="gif-to-jpg.html" class="related-item">
+                <i class="bi bi-image related-icon"></i>
+                <div class="related-content">
+                    <h4>GIF转JPG</h4>
+                    <p>GIF转换为JPG格式</p>
+                </div>
+            </a>
+            <a href="avif-to-jpg.html" class="related-item">
+                <i class="bi bi-image related-icon"></i>
+                <div class="related-content">
+                    <h4>AVIF转JPG</h4>
+                    <p>AVIF转换为JPG格式</p>
+                </div>
+            </a>
+        </div>
+    </div>
+</section>
+
+<div id="footer-placeholder"></div>
+<div id="toast" class="toast"></div>
+
+<script src="assets/svg-to-png.js"></script>
+<script src="assets/tools-data.js"></script>
+<script src="assets/site.js"></script>
+
+</body>
+</html>

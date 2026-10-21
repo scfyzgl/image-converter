@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>图片格式转换器 - 在线免费JPG/PNG/WebP/HEIC批量转换工具 - 易工具</title>
+    <meta name="description" content="免费在线图片格式转换器，支持JPG、PNG、WebP、HEIC、AVIF、GIF、BMP等格式批量互转，一键批量转换，本地处理安全可靠，完全免费无需注册。">
+    <meta name="keywords" content="图片格式转换,图片转换器,jpg转png,png转jpg,webp转换,heic转jpg,批量图片转换,在线转换,图片格式互转,免费图片转换器">
+    <link rel="canonical" href="image-converter.html">
+    <link rel="alternate" hreflang="zh-Hans" href="image-converter.html" />
+    <link rel="alternate" hreflang="en" href="en/image-converter.html" />
+    <link rel="alternate" hreflang="x-default" href="en/image-converter.html" />
+    <link rel="stylesheet" href="assets/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="icon" href="assets/favicon.ico">
+    <script src="https://cdn.jsdelivr.net/npm/heic2any@0.0.4/dist/heic2any.min.js"></script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "图片格式转换器",
+        "description": "免费在线图片格式转换器，支持JPG、PNG、WebP、HEIC、AVIF等格式批量互转",
+        "applicationCategory": "UtilityApplication",
+        "featureList": ["图片格式转换", "jpg转png", "png转jpg", "webp转换", "heic转jpg", "批量转换"],
+        "operatingSystem": "All",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "CNY"
+        },
+        "url": "image-converter.html"
+    }
+    </script>
+    <meta property="og:title" content="图片格式转换器 - 在线免费JPG/PNG/WebP/HEIC批量转换工具">
+    <meta property="og:description" content="免费在线图片格式转换器，支持JPG、PNG、WebP、HEIC、AVIF等格式批量互转。">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="image-converter.html">
+    <style>
+        .page-header {
+            margin-bottom: 0.5rem !important;
+            padding-bottom: 0 !important;
+        }
+        
+        .page-title {
+            font-size: 1.75rem !important;
+            margin-bottom: 0.5rem !important;
+        }
+        
+        .page-subtitle {
+            font-size: 0.95rem !important;
+            margin-bottom: 0 !important;
+        }
+        
+        .tool-page {
+            padding-top: 0 !important;
+        }
+        
+        .tool-card {
+            margin-bottom: 0.75rem;
+            padding: 1rem 1.25rem !important;
+        }
+        
+        .upload-section {
+            margin-bottom: 0.75rem;
+        }
+        
+        .upload-area {
+            border: 2px dashed var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: var(--bg-light);
+        }
+        
+        .upload-area:hover,
+        .upload-area.dragover {
+            border-color: var(--primary-color);
+            background: var(--primary-light);
+        }
+        
+        .upload-icon {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 0.75rem;
+        }
+        
+        .upload-area h3 {
+            margin-bottom: 0.25rem;
+            font-size: 1rem;
+            color: var(--text-primary);
+        }
+        
+        .upload-area p {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+        
+        .upload-hint {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+        
+        .format-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.375rem;
+            justify-content: center;
+            margin-top: 0.5rem;
+        }
+        
+        .format-tag {
+            display: inline-block;
+            padding: 0.125rem 0.5rem;
+            background: var(--primary-light);
+            color: var(--primary-color);
+            border-radius: 999px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+        
+        .file-info-display {
+            display: flex;
+            gap: 1rem;
+            margin-top: 0.75rem;
+            padding: 0.75rem;
+            background: var(--bg-white);
+            border-radius: var(--radius-md);
+            border: 2px solid var(--primary-color);
+            flex-wrap: wrap;
+        }
+        
+        .file-info-item {
+            display: flex;
+            align-items: center;
+            gap: 0.375rem;
+            font-size: 0.85rem;
+            color: var(--text-primary);
+        }
+        
+        .file-info-item i {
+            color: var(--primary-color);
+            font-size: 1rem;
+        }
+        
+        .file-info-item strong {
+            color: var(--primary-color);
+        }
+        
+        .files-list {
+            margin-bottom: 0.75rem;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        
+        .file-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.5rem;
+            background: var(--bg-light);
+            border-radius: var(--radius-md);
+            margin-bottom: 0.375rem;
+        }
+        
+        .file-preview {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border-color);
+        }
+        
+        .file-details {
+            flex: 1;
+            min-width: 0;
+        }
+        
+        .file-name {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-primary);
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        
+        .file-size {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+        
+        .file-remove {
+            padding: 0.375rem;
+            cursor: pointer;
+            color: var(--text-secondary);
+            transition: color 0.2s;
+        }
+        
+        .file-remove:hover {
+            color: #e74c3c;
+        }
+        
+        .settings-section {
+            margin-bottom: 0.75rem;
+            padding: 0.75rem;
+            background: var(--bg-light);
+            border-radius: var(--radius-lg);
+        }
+        
+        .settings-title {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.95rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+        
+        .settings-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 0.75rem;
+        }
+        
+        .setting-item {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+        
+        .setting-item label {
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+        
+        .setting-item select,
+        .setting-item input {
+            padding: 0.375rem 0.5rem;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            background: var(--bg-white);
+            font-size: 0.85rem;
+        }
+        
+        .quality-slider-group {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .quality-slider-group input[type="range"] {
+            flex: 1;
+        }
+        
+        .quality-value {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            min-width: 2.5rem;
+            text-align: right;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 0.5rem;
+            justify-content: flex-end;
+            margin-bottom: 0.75rem;
+        }
+        
+        .btn {
+            display: flex;
+            align-items: center;
+            gap: 0.375rem;
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.2s;
+            border: none;
+        }
+        
+        .btn-primary {
+            background: var(--primary-color);
+            color: white;
+        }
+        
+        .btn-primary:hover:not(:disabled) {
+            background: var(--primary-hover);
+        }
+        
+        .btn-secondary {
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+        }
+        
+        .btn-secondary:hover {
+            background: var(--bg-light);
+        }
+        
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .btn-sm {
+            padding: 0.25rem 0.75rem;
+            font-size: 0.8rem;
+        }
+        
+        .progress-container {
+            margin-bottom: 0.75rem;
+            padding: 0.5rem;
+            background: var(--bg-light);
+            border-radius: var(--radius-lg);
+        }
+        
+        .progress-bar {
+            height: 8px;
+            background: var(--bg-white);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 0.25rem;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: var(--primary-color);
+            border-radius: 4px;
+            transition: width 0.3s;
+            width: 0%;
+        }
+        
+        .progress-text {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            text-align: center;
+        }
+        
+        .result-section {
+            margin-top: 0.75rem;
+            padding: 0.75rem;
+            background: #d4edda;
+            border-radius: var(--radius-lg);
+            border: 1px solid #c3e6cb;
+        }
+        
+        .result-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        
+        .result-title {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #155724;
+        }
+        
+        .result-title i {
+            color: #28a745;
+        }
+        
+        .result-info {
+            font-size: 0.9rem;
+            color: #155724;
+            margin-bottom: 0.5rem;
+        }
+        
+        .result-files {
+            margin-top: 0.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.375rem;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        
+        .feature-card {
+            margin-bottom: 1rem;
+        }
+        
+        .feature-card h2 {
+            margin-bottom: 1rem;
+            font-size: 1.25rem;
+        }
+        
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.75rem;
+        }
+        
+        .feature-item {
+            display: flex;
+            gap: 0.75rem;
+            padding: 0.75rem;
+            background: var(--bg-light);
+            border-radius: var(--radius-md);
+            transition: all 0.3s ease;
+        }
+        
+        .feature-item:hover {
+            transform: translateX(5px);
+        }
+        
+        .feature-icon {
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+        
+        .feature-content h3 {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.25rem;
+        }
+        
+        .feature-content p {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+        
+        .tutorial-steps {
+            margin-top: 0.75rem;
+        }
+        
+        .step {
+            display: flex;
+            gap: 1rem;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .step:last-child {
+            border-bottom: none;
+        }
+        
+        .step-number {
+            flex-shrink: 0;
+            width: 2rem;
+            height: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        
+        .step-content h4 {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.25rem;
+        }
+        
+        .step-content p {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+        
+        .faq-item {
+            margin-bottom: 0.75rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .faq-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        
+        .faq-question {
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.25rem;
+            font-size: 0.9rem;
+        }
+        
+        .faq-answer {
+            color: var(--text-secondary);
+            line-height: 1.5;
+            font-size: 0.85rem;
+        }
+        
+        .info-card {
+            padding: 1rem 1.25rem;
+            margin-bottom: 0.75rem;
+        }
+        
+        .info-card h2 {
+            font-size: 1.15rem;
+            margin-bottom: 0.5rem;
+            padding-bottom: 0.375rem;
+        }
+        
+        .related-tools {
+            padding: 1.5rem 0;
+        }
+        
+        .related-title {
+            font-size: 1rem;
+            margin-bottom: 0.75rem;
+        }
+        
+        .format-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.375rem;
+            margin-top: 0.5rem;
+        }
+        
+        .format-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.125rem 0.5rem;
+            background: var(--bg-white);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+        }
+        
+        @media (max-width: 768px) {
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .settings-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .action-buttons {
+                justify-content: center;
+            }
+            
+            .tool-card {
+                padding: 0.75rem 1rem !important;
+            }
+            
+            .file-info-display {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .file-item {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div id="header-placeholder"></div>
+
+<div class="page-header">
+    <h1 class="page-title">图片格式转换器 - 在线免费JPG/PNG/WebP/HEIC批量转换工具</h1>
+    <p class="page-subtitle">支持JPG、PNG、WebP、HEIC、AVIF、GIF、BMP等多种图片格式批量互转，自动识别上传格式，一键转换目标格式，本地处理安全可靠，完全免费无需注册。</p>
+</div>
+
+<section class="tool-page">
+    <div class="tool-container">
+        <div class="tool-card">
+            <div class="upload-section">
+                <div class="upload-area" id="uploadArea">
+                    <i class="bi bi-images upload-icon"></i>
+                    <h3>点击或拖拽上传图片</h3>
+                    <p>支持 JPG、PNG、WebP、HEIC、AVIF、GIF、BMP 格式，单个最大 50MB，最多 20 张</p>
+                    <div class="format-tags">
+                        <span class="format-tag">JPG</span>
+                        <span class="format-tag">PNG</span>
+                        <span class="format-tag">WebP</span>
+                        <span class="format-tag">HEIC</span>
+                        <span class="format-tag">AVIF</span>
+                        <span class="format-tag">GIF</span>
+                        <span class="format-tag">BMP</span>
+                    </div>
+                    <input type="file" id="fileInput" accept="image/*,.heic,.heif,.avif" multiple hidden>
+                </div>
+                <div class="upload-hint">
+                    <i class="bi bi-info-circle"></i>
+                    <span>所有转换操作在浏览器本地完成，文件不会上传到服务器，完全保护您的隐私安全</span>
+                </div>
+                
+                <div class="file-info-display" id="fileInfoDisplay" style="display: none;">
+                    <div class="file-info-item">
+                        <i class="bi bi-files"></i>
+                        <span>已选择: <strong id="selectedFileCount">0</strong> 个文件</span>
+                    </div>
+                    <div class="file-info-item">
+                        <i class="bi bi-hdd"></i>
+                        <span>总大小: <strong id="selectedFileSize">0 KB</strong></span>
+                    </div>
+                </div>
+                
+                <div class="files-list" id="filesList" style="display: none;"></div>
+            </div>
+
+            <div class="settings-section" id="settingsSection" style="display: none;">
+                <h3 class="settings-title">
+                    <i class="bi bi-sliders"></i>
+                    转换设置
+                </h3>
+                <div class="settings-grid">
+                    <div class="setting-item">
+                        <label for="targetFormat">目标格式</label>
+                        <select id="targetFormat">
+                            <option value="jpeg">JPEG / JPG</option>
+                            <option value="png">PNG（无损）</option>
+                            <option value="webp">WebP</option>
+                        </select>
+                    </div>
+                    <div class="setting-item" id="qualityGroup">
+                        <label for="imageQuality">图片质量</label>
+                        <div class="quality-slider-group">
+                            <input type="range" id="imageQuality" min="10" max="100" value="85">
+                            <span class="quality-value" id="qualityValue">85</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="action-buttons">
+                <button class="btn btn-secondary" id="clearBtn">
+                    <i class="bi bi-trash"></i>
+                    清空文件
+                </button>
+                <button class="btn btn-primary" id="convertBtn" disabled>
+                    <i class="bi bi-arrow-repeat"></i>
+                    开始转换
+                </button>
+            </div>
+
+            <div class="progress-container" id="progressContainer" style="display: none;">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                <div class="progress-text" id="progressText">正在转换中...</div>
+            </div>
+
+            <div class="result-section" id="resultSection" style="display: none;">
+                <div class="result-header">
+                    <h3 class="result-title">
+                        <i class="bi bi-check-circle"></i>
+                        转换完成
+                    </h3>
+                    <button class="btn btn-primary btn-sm" id="downloadAllBtn">
+                        <i class="bi bi-download"></i>
+                        打包下载 ZIP
+                    </button>
+                </div>
+                <div class="result-info" id="resultInfo"></div>
+                <div class="result-files" id="resultFiles"></div>
+            </div>
+        </div>
+
+        <div class="info-card feature-card">
+            <h2>为什么选择我们的图片格式转换器？</h2>
+            <div class="feature-grid">
+                <div class="feature-item">
+                    <div class="feature-icon">🔄</div>
+                    <div class="feature-content">
+                        <h3>多格式互转</h3>
+                        <p>支持 JPG、PNG、WebP、HEIC、AVIF、GIF、BMP 等 7 种常用图片格式之间的相互转换。</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">⚡</div>
+                    <div class="feature-content">
+                        <h3>快速高效</h3>
+                        <p>本地浏览器处理，无需上传下载，转换速度快，批量处理更高效，节省您的宝贵时间。</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">📦</div>
+                    <div class="feature-content">
+                        <h3>批量转换</h3>
+                        <p>支持一次上传最多 20 张图片批量转换，批量打包下载为 ZIP 文件，大大提高工作效率。</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">💰</div>
+                    <div class="feature-content">
+                        <h3>完全免费</h3>
+                        <p>所有功能完全免费，无需注册登录，无隐藏收费，无转换次数限制，真正的免费工具。</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🔒</div>
+                    <div class="feature-content">
+                        <h3>隐私安全</h3>
+                        <p>所有图片转换操作都在浏览器本地完成，文件不会上传到任何服务器，完全保护您的隐私。</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">📱</div>
+                    <div class="feature-content">
+                        <h3>多平台支持</h3>
+                        <p>支持 Windows、Mac、Linux 系统以及手机浏览器，随时随地进行图片格式转换。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="info-card">
+            <h2>使用教程 - 如何进行图片格式转换</h2>
+            <div class="tutorial-steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h4>上传图片</h4>
+                        <p>点击上传区域或拖拽图片文件到上传区域，支持 JPG、PNG、WebP、HEIC、AVIF、GIF、BMP 等多种格式。</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h4>选择目标格式</h4>
+                        <p>在设置区域选择您想要转换的目标格式（JPEG、PNG 或 WebP），并调整图片质量。</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h4>开始转换</h4>
+                        <p>点击"开始转换"按钮，工具将自动批量处理所有图片，您可以看到实时转换进度。</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h4>下载结果</h4>
+                        <p>转换完成后，您可以单独下载每张图片，也可以点击"打包下载 ZIP"一键下载所有转换后的图片。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="info-card">
+            <h2>支持的图片格式说明</h2>
+            <div class="format-list">
+                <span class="format-badge">📷 JPEG / JPG - 最常用的有损压缩格式</span>
+                <span class="format-badge">🖼️ PNG - 无损压缩，支持透明背景</span>
+                <span class="format-badge">🎯 WebP - 高效压缩，体积更小</span>
+                <span class="format-badge">📱 HEIC / HEIF - 苹果设备高效图片格式</span>
+                <span class="format-badge">🎬 AVIF - 新一代高效图片格式</span>
+                <span class="format-badge">🎞️ GIF - 动态图片格式</span>
+                <span class="format-badge">🖌️ BMP - Windows 位图格式</span>
+            </div>
+        </div>
+
+        <div class="info-card">
+            <h2>图片格式转换常见问题 (FAQ)</h2>
+            
+            <div class="faq-item">
+                <div class="faq-question">Q1：支持哪些图片格式之间的转换？</div>
+                <div class="faq-answer">A：输入支持 JPG、PNG、WebP、HEIC、AVIF、GIF、BMP 共 7 种格式，输出支持 JPEG、PNG、WebP 三种最常用格式。后续会逐步增加更多输出格式支持。</div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">Q2：转换后的图片质量会下降吗？</div>
+                <div class="faq-answer">A：JPEG 和 WebP 是有损压缩格式，转换时可以通过质量滑块调节（10-100），质量越高文件越大。PNG 是无损格式，转换后不会损失画质。</div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">Q3：一次可以转换多少张图片？</div>
+                <div class="faq-answer">A：一次最多支持 20 张图片批量转换，单张图片最大 50MB。批量转换后可打包下载为 ZIP 文件。</div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">Q4：转换是免费的吗？有次数限制吗？</div>
+                <div class="faq-answer">A：完全免费！没有任何转换次数限制，无需注册登录，打开就能用，是真正免费的在线图片格式转换工具。</div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">Q5：我的图片会上传到服务器吗？</div>
+                <div class="faq-answer">A：<strong>绝对不会！</strong>所有图片转换操作都在您的浏览器本地完成，文件不会上传到任何服务器，完全保护您的隐私和数据安全。</div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">Q6：HEIC 格式是什么？为什么需要转换？</div>
+                <div class="faq-answer">A：HEIC 是苹果设备（iPhone/iPad）默认的照片格式，压缩率高但兼容性较差。将 HEIC 转换为 JPG 或 PNG 可以在更多设备和软件中打开使用。</div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">Q7：手机上可以使用这个工具吗？</div>
+                <div class="faq-answer">A：可以！我们的图片格式转换器完美适配手机浏览器，无论 Android 还是 iOS 都能轻松使用，随时随地转换图片格式。</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="related-tools">
+    <div class="container">
+        <h3 class="related-title">图片转换相关工具推荐</h3>
+        <div class="related-grid">
+            <a href="jpg-to-png.html" class="related-item">
+                <i class="bi bi-image related-icon"></i>
+                <div class="related-content">
+                    <h4>JPG转PNG</h4>
+                    <p>JPG转换为PNG格式</p>
+                </div>
+            </a>
+            <a href="png-to-jpg.html" class="related-item">
+                <i class="bi bi-image related-icon"></i>
+                <div class="related-content">
+                    <h4>PNG转JPG</h4>
+                    <p>PNG转换为JPG格式</p>
+                </div>
+            </a>
+            <a href="webp-to-jpg.html" class="related-item">
+                <i class="bi bi-image related-icon"></i>
+                <div class="related-content">
+                    <h4>WebP转JPG</h4>
+                    <p>WebP转换为JPG格式</p>
+                </div>
+            </a>
+            <a href="heic-to-pdf.html" class="related-item">
+                <i class="bi bi-file-pdf related-icon"></i>
+                <div class="related-content">
+                    <h4>HEIC转PDF</h4>
+                    <p>HEIC图片转PDF文档</p>
+                </div>
+            </a>
+            <a href="target-size-compress.html" class="related-item">
+                <i class="bi bi-compress related-icon"></i>
+                <div class="related-content">
+                    <h4>图片压缩</h4>
+                    <p>压缩图片文件大小</p>
+                </div>
+            </a>
+            <a href="index.html" class="related-item">
+                <i class="bi bi-grid related-icon"></i>
+                <div class="related-content">
+                    <h4>更多图片工具</h4>
+                    <p>查看全部图片工具</p>
+                </div>
+            </a>
+        </div>
+    </div>
+</section>
+
+<div id="footer-placeholder"></div>
+<div id="toast" class="toast"></div>
+
+<script src="assets/image-converter.js"></script>
+<script src="assets/tools-data.js"></script>
+<script src="assets/site.js"></script>
+
+</body>
+</html>

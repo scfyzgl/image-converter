@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>自定义形状裁剪 - 在线图片形状裁剪</title>
+    <meta name="description" content="免费在线自定义形状裁剪工具，支持圆形、心形、星形、六边形等多种形状，自定义形状大小和位置。">
+    <meta name="keywords" content="自定义形状裁剪,圆形裁剪,心形裁剪,图片形状裁剪,shape crop">
+        <link rel="canonical" href="custom-shape-crop.html">
+    <link rel="alternate" hreflang="zh-Hans" href="custom-shape-crop.html" />
+    <link rel="alternate" hreflang="en" href="en/custom-shape-crop.html" />
+    <link rel="alternate" hreflang="x-default" href="en/custom-shape-crop.html" />
+    <link rel="stylesheet" href="assets/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="icon" href="assets/favicon.ico">
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "自定义形状裁剪",
+        "description": "免费在线自定义形状裁剪工具，支持多种形状裁剪",
+        "applicationCategory": "UtilityApplication",
+        "featureList": ["圆形裁剪", "心形裁剪", "星形裁剪", "自定义形状"],
+        "operatingSystem": "All"
+    }
+    </script>
+</head>
+<body>
+    <div id="header-placeholder"></div>
+
+    <div class="page-header">
+        <h1 class="page-title">自定义形状裁剪</h1>
+        <p class="page-subtitle">支持圆形、心形、星形、六边形等多种形状，自定义形状大小和位置</p>
+    </div>
+
+    <section class="tool-page">
+        <div class="tool-container">
+            <div class="tool-card">
+                <div class="upload-section">
+                    <div class="upload-area" id="uploadArea">
+                        <i class="bi bi-shape upload-icon"></i>
+                        <h3>点击或拖拽上传图片</h3>
+                        <p>支持 JPG、JPEG、PNG、GIF、BMP 格式，单张最大 50MB</p>
+                        <input type="file" id="fileInput" accept="image/*" hidden>
+                    </div>
+                </div>
+
+                <div class="crop-section" id="cropSection" style="display: none;">
+                    <div class="shape-preview-container">
+                        <canvas id="shapeCanvas"></canvas>
+                    </div>
+
+                    <div class="settings-section">
+                        <h3 class="settings-title">
+                            <i class="bi bi-sliders"></i>
+                            形状设置
+                        </h3>
+                        <div class="config-row">
+                            <div class="config-item">
+                                <label>选择形状</label>
+                                <div class="shape-grid">
+                                    <button class="shape-btn active" data-shape="circle">
+                                        <i class="bi bi-circle-fill"></i>
+                                        <span>圆形</span>
+                                    </button>
+                                    <button class="shape-btn" data-shape="heart">
+                                        <i class="bi bi-heart-fill"></i>
+                                        <span>心形</span>
+                                    </button>
+                                    <button class="shape-btn" data-shape="star">
+                                        <i class="bi bi-star-fill"></i>
+                                        <span>星形</span>
+                                    </button>
+                                    <button class="shape-btn" data-shape="hexagon">
+                                        <i class="bi bi-hexagon-fill"></i>
+                                        <span>六边形</span>
+                                    </button>
+                                    <button class="shape-btn" data-shape="triangle">
+                                        <i class="bi bi-triangle-fill"></i>
+                                        <span>三角形</span>
+                                    </button>
+                                    <button class="shape-btn" data-shape="diamond">
+                                        <i class="bi bi-diamond-fill"></i>
+                                        <span>菱形</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="config-row">
+                            <div class="config-item">
+                                <label>形状大小（%）</label>
+                                <input type="range" id="shapeSize" value="50" min="10" max="90">
+                            </div>
+                            <div class="config-item">
+                                <label>输出格式</label>
+                                <select id="outputFormat">
+                                    <option value="png">PNG（透明背景）</option>
+                                    <option value="webp">WebP（透明背景）</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="action-buttons">
+                            <button class="btn btn-secondary" id="resetBtn">
+                                <i class="bi bi-arrow-clockwise"></i>
+                                重置
+                            </button>
+                            <button class="btn btn-primary" id="cropBtn">
+                                <i class="bi bi-scissors"></i>
+                                确认裁剪
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="preview-section" id="previewSection" style="display: none;">
+                    <h3 class="preview-title">
+                        <i class="bi bi-eye"></i>
+                        裁剪预览
+                    </h3>
+                    <div class="preview-container">
+                        <img id="previewImage" src="" alt="裁剪结果">
+                    </div>
+                    <div class="image-info">
+                        <span id="resultSize"></span>
+                    </div>
+                    <div class="action-buttons">
+                        <button class="btn btn-secondary" id="backBtn">
+                            <i class="bi bi-arrow-left"></i>
+                            返回重新裁剪
+                        </button>
+                        <button class="btn btn-primary" id="downloadBtn">
+                            <i class="bi bi-download"></i>
+                            下载图片
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-card">
+                <h2>为什么选择我们的形状裁剪工具？</h2>
+                <div class="feature-grid">
+                    <div class="feature-item">
+                        <div class="feature-icon">🟢</div>
+                        <div class="feature-content">
+                            <h3>多种形状</h3>
+                            <p>支持圆形、心形、星形等多种预设形状</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🎯</div>
+                        <div class="feature-content">
+                            <h3>自由调整</h3>
+                            <p>拖拽调整形状位置，自定义大小</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">✨</div>
+                        <div class="feature-content">
+                            <h3>透明背景</h3>
+                            <p>支持 PNG/WebP 透明背景输出</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🔒</div>
+                        <div class="feature-content">
+                            <h3>隐私安全</h3>
+                            <p>所有操作在浏览器本地完成</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-card">
+                <h2>使用说明</h2>
+                <div class="tutorial-steps">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h4>上传图片</h4>
+                            <p>点击上传区域或拖拽图片到页面</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h4>选择形状</h4>
+                            <p>从预设形状中选择想要的裁剪形状</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h4>调整位置</h4>
+                            <p>拖拽形状调整位置，滑动调整大小</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <h4>确认裁剪</h4>
+                            <p>点击确认裁剪按钮，预览并下载结果</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-card">
+                <h2>常见问题</h2>
+                <div class="error-item">
+                    <div class="error-question">
+                        <i class="bi bi-exclamation-circle error-icon"></i>
+                        裁剪后背景不是透明的？
+                    </div>
+                    <p class="error-cause">JPEG 格式不支持透明背景。</p>
+                    <p class="error-solution">请选择 PNG 或 WebP 格式输出。</p>
+                </div>
+                <div class="error-item">
+                    <div class="error-question">
+                        <i class="bi bi-exclamation-circle error-icon"></i>
+                        如何调整形状位置？
+                    </div>
+                    <p class="error-cause">默认形状居中显示。</p>
+                    <p class="error-solution">在预览区域拖拽形状可以调整位置。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="related-tools">
+        <div class="container">
+            <h3 class="related-title">相关工具推荐</h3>
+            <div class="related-grid">
+                <a href="image-cropper.html" class="related-item">
+                    <i class="bi bi-crop related-icon"></i>
+                    <div class="related-content">
+                        <h4>图片裁剪器</h4>
+                        <p>自由裁剪图片</p>
+                    </div>
+                </a>
+                <a href="image-rotate-flip.html" class="related-item">
+                    <i class="bi bi-rotate related-icon"></i>
+                    <div class="related-content">
+                        <h4>图片旋转翻转</h4>
+                        <p>旋转和翻转图片</p>
+                    </div>
+                </a>
+                <a href="image-resize.html" class="related-item">
+                    <i class="bi bi-image-alt related-icon"></i>
+                    <div class="related-content">
+                        <h4>图片批量缩放</h4>
+                        <p>调整图片尺寸</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <div id="footer-placeholder"></div>
+    <div id="toast" class="toast"></div>
+
+    <script src="assets/custom-shape-crop.js"></script>
+    <script src="assets/tools-data.js"></script>
+<script src="assets/site.js"></script>
+
+    <style>
+        .shape-preview-container {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto;
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            background: #000;
+        }
+        
+        #shapeCanvas {
+            display: block;
+            width: 100%;
+            height: auto;
+            cursor: move;
+        }
+        
+        .shape-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.5rem;
+        }
+        
+        .shape-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.25rem;
+            padding: 0.75rem;
+            background: var(--bg-light);
+            border: 2px solid transparent;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: var(--transition-fast);
+            color: var(--text-secondary);
+        }
+        
+        .shape-btn:hover {
+            background: var(--bg-hover);
+            border-color: var(--primary-color);
+        }
+        
+        .shape-btn.active {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+        
+        .shape-btn i {
+            font-size: 1.25rem;
+        }
+        
+        .shape-btn span {
+            font-size: 0.75rem;
+        }
+        
+        .preview-container {
+            position: relative;
+            width: 100%;
+            max-width: 400px;
+            margin: 0 auto;
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            background: #1a1a1a;
+            padding: 1rem;
+        }
+        
+        .preview-container img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+        }
+        
+        .image-info {
+            text-align: center;
+            margin-top: 0.75rem;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+    </style>
+</body>
+</html>

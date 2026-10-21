@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>图片批量缩放工具 - 在线调整图片尺寸</title>
+    <meta name="description" content="免费在线图片批量缩放工具，支持按比例缩放、自定义尺寸、批量处理，保持图片比例。">
+    <meta name="keywords" content="图片缩放,图片尺寸调整,批量缩放,图片大小调整,resize image">
+        <link rel="canonical" href="image-resize.html">
+    <link rel="alternate" hreflang="zh-Hans" href="image-resize.html" />
+    <link rel="alternate" hreflang="en" href="en/image-resize.html" />
+    <link rel="alternate" hreflang="x-default" href="en/image-resize.html" />
+    <link rel="stylesheet" href="assets/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="icon" href="assets/favicon.ico">
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "图片批量缩放工具",
+        "description": "免费在线图片批量缩放工具，支持按比例缩放、自定义尺寸",
+        "applicationCategory": "UtilityApplication",
+        "featureList": ["批量处理", "按比例缩放", "自定义尺寸", "保持比例"],
+        "operatingSystem": "All"
+    }
+    </script>
+</head>
+<body>
+    <div id="header-placeholder"></div>
+
+    <div class="page-header">
+        <h1 class="page-title">图片批量缩放工具</h1>
+        <p class="page-subtitle">支持按比例缩放、自定义尺寸，批量处理多张图片，保持比例不变</p>
+    </div>
+
+    <section class="tool-page">
+        <div class="tool-container">
+            <div class="tool-card">
+                <div class="upload-section">
+                    <div class="upload-area" id="uploadArea">
+                        <i class="bi bi-image upload-icon"></i>
+                        <h3>点击或拖拽上传图片</h3>
+                        <p>支持 JPG、JPEG、PNG、GIF、BMP 格式，单张最大 50MB</p>
+                        <input type="file" id="fileInput" accept="image/*" multiple hidden>
+                    </div>
+                </div>
+
+                <div class="image-list" id="imageList" style="display: none;">
+                    <div class="list-header">
+                        <h3>已上传图片</h3>
+                        <button class="btn btn-secondary" id="clearBtn">
+                            <i class="bi bi-trash"></i>
+                            清空
+                        </button>
+                    </div>
+                    <div id="imagesContainer"></div>
+                </div>
+
+                <div class="settings-section" id="settingsSection" style="display: none;">
+                    <h3 class="settings-title">
+                        <i class="bi bi-sliders"></i>
+                        缩放设置
+                    </h3>
+                    <div class="config-row">
+                        <div class="config-item">
+                            <label>缩放方式</label>
+                            <select id="resizeMode">
+                                <option value="percentage">按比例缩放</option>
+                                <option value="width">按宽度</option>
+                                <option value="height">按高度</option>
+                                <option value="both">自定义宽高</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="config-row">
+                        <div class="config-item">
+                            <label id="labelWidth">百分比（%）</label>
+                            <input type="number" id="widthValue" value="50" min="1" max="500">
+                        </div>
+                        <div class="config-item">
+                            <label id="labelHeight">高度（像素）</label>
+                            <input type="number" id="heightValue" value="0" min="0">
+                        </div>
+                    </div>
+                    <div class="config-row">
+                        <div class="config-item">
+                            <label>保持比例</label>
+                            <input type="checkbox" id="keepRatio" checked>
+                        </div>
+                        <div class="config-item">
+                            <label>输出格式</label>
+                            <select id="outputFormat">
+                                <option value="jpg">JPEG</option>
+                                <option value="png">PNG</option>
+                                <option value="webp">WebP</option>
+                                <option value="original">保持原格式</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="action-buttons">
+                        <button class="btn btn-primary" id="resizeBtn">
+                            <i class="bi bi-arrow-up-down"></i>
+                            开始缩放
+                        </button>
+                    </div>
+                </div>
+
+                <div class="progress-section" id="progressSection" style="display: none;">
+                    <div class="progress-bar-container">
+                        <div class="progress-bar" id="progressBar"></div>
+                    </div>
+                    <div class="progress-text" id="progressText">正在准备...</div>
+                </div>
+
+                <div class="result-section" id="resultSection" style="display: none;">
+                    <h3 class="preview-title">
+                        <i class="bi bi-check-circle"></i>
+                        缩放结果
+                    </h3>
+                    <div id="resultsContainer"></div>
+                    <div class="action-buttons mt-3">
+                        <button class="btn btn-primary" id="downloadAllBtn">
+                            <i class="bi bi-download"></i>
+                            全部下载
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-card">
+                <h2>为什么选择我们的图片缩放工具？</h2>
+                <div class="feature-grid">
+                    <div class="feature-item">
+                        <div class="feature-icon">📐</div>
+                        <div class="feature-content">
+                            <h3>灵活缩放</h3>
+                            <p>支持按比例、宽度、高度等多种缩放方式</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">📦</div>
+                        <div class="feature-content">
+                            <h3>批量处理</h3>
+                            <p>支持多张图片同时缩放，打包下载</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🔄</div>
+                        <div class="feature-content">
+                            <h3>保持比例</h3>
+                            <p>自动保持图片宽高比，避免变形</p>
+                        </div>
+                    </div>
+                    <div class="feature-icon">🔒</div>
+                    <div class="feature-content">
+                        <h3>隐私安全</h3>
+                        <p>所有操作在浏览器本地完成</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-card">
+                <h2>使用说明</h2>
+                <div class="tutorial-steps">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h4>上传图片</h4>
+                            <p>点击上传区域或拖拽图片，支持多张同时上传</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h4>选择缩放方式</h4>
+                            <p>按比例、宽度、高度或自定义宽高</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h4>设置参数</h4>
+                            <p>输入缩放比例或尺寸，选择输出格式</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <h4>开始缩放</h4>
+                            <p>点击开始缩放按钮，等待处理完成</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-card">
+                <h2>常见问题</h2>
+                <div class="error-item">
+                    <div class="error-question">
+                        <i class="bi bi-exclamation-circle error-icon"></i>
+                        缩放后图片模糊怎么办？
+                    </div>
+                    <p class="error-cause">放大图片会导致像素拉伸，出现模糊。</p>
+                    <p class="error-solution">建议只缩小不放大，或使用更高分辨率的原始图片。</p>
+                </div>
+                <div class="error-item">
+                    <div class="error-question">
+                        <i class="bi bi-exclamation-circle error-icon"></i>
+                        如何保持图片比例？
+                    </div>
+                    <p class="error-cause">取消勾选"保持比例"后，可以自由设置宽高。</p>
+                    <p class="error-solution">勾选"保持比例"，设置一个维度，另一个会自动计算。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="related-tools">
+        <div class="container">
+            <h3 class="related-title">相关工具推荐</h3>
+            <div class="related-grid">
+                <a href="image-cropper.html" class="related-item">
+                    <i class="bi bi-crop related-icon"></i>
+                    <div class="related-content">
+                        <h4>图片裁剪器</h4>
+                        <p>裁剪图片尺寸</p>
+                    </div>
+                </a>
+                <a href="jpg-compress.html" class="related-item">
+                    <i class="bi bi-compress related-icon"></i>
+                    <div class="related-content">
+                        <h4>JPG图片压缩</h4>
+                        <p>在线压缩图片</p>
+                    </div>
+                </a>
+                <a href="image-rotate-flip.html" class="related-item">
+                    <i class="bi bi-rotate related-icon"></i>
+                    <div class="related-content">
+                        <h4>图片旋转翻转</h4>
+                        <p>旋转和翻转图片</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <div id="footer-placeholder"></div>
+    <div id="toast" class="toast"></div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="assets/image-resize.js"></script>
+    <script src="assets/tools-data.js"></script>
+<script src="assets/site.js"></script>
+
+    <style>
+        .result-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: var(--bg-light);
+            border-radius: var(--radius-md);
+            margin-bottom: 0.75rem;
+        }
+        
+        .result-item img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: var(--radius-sm);
+        }
+        
+        .result-info {
+            flex: 1;
+        }
+        
+        .result-info h4 {
+            font-size: 0.95rem;
+            color: var(--text-primary);
+            margin-bottom: 0.25rem;
+        }
+        
+        .result-stats {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .result-stats span {
+            font-family: 'Courier New', monospace;
+        }
+        
+        .download-btn {
+            padding: 0.5rem 1rem;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            transition: var(--transition-fast);
+            white-space: nowrap;
+        }
+        
+        .download-btn:hover {
+            background: var(--primary-hover);
+        }
+    </style>
+</body>
+</html>

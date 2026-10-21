@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>图片 DPI 修改工具 - 在线图片分辨率调整</title>
+    <meta name="description" content="免费在线图片 DPI 修改工具，调整图片打印分辨率，支持常见 DPI 值设置。">
+    <meta name="keywords" content="图片DPI修改,DPI调整,打印分辨率,image dpi,dpi changer">
+        <link rel="canonical" href="image-dpi-changer.html">
+    <link rel="alternate" hreflang="zh-Hans" href="image-dpi-changer.html" />
+    <link rel="alternate" hreflang="en" href="en/image-dpi-changer.html" />
+    <link rel="alternate" hreflang="x-default" href="en/image-dpi-changer.html" />
+    <link rel="stylesheet" href="assets/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="icon" href="assets/favicon.ico">
+    <script src="https://cdn.jsdelivr.net/npm/exif-js@2.3.0/exif.js"></script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "图片 DPI 修改工具",
+        "description": "免费在线图片 DPI 修改工具",
+        "applicationCategory": "UtilityApplication",
+        "featureList": ["查看 DPI", "修改 DPI", "预设值", "打印优化"],
+        "operatingSystem": "All"
+    }
+    </script>
+</head>
+<body>
+    <div id="header-placeholder"></div>
+
+    <div class="page-header">
+        <h1 class="page-title">图片 DPI 修改工具</h1>
+        <p class="page-subtitle">调整图片打印分辨率，支持 72/96/150/200/300 DPI 等常见设置</p>
+    </div>
+
+    <section class="tool-page">
+        <div class="tool-container">
+            <div class="tool-card">
+                <div class="upload-section">
+                    <div class="upload-area" id="uploadArea">
+                        <i class="bi bi-display upload-icon"></i>
+                        <h3>点击或拖拽上传图片</h3>
+                        <p>支持 JPG、JPEG、PNG 格式，单张最大 50MB</p>
+                        <input type="file" id="fileInput" accept="image/*" hidden>
+                    </div>
+                </div>
+
+                <div class="edit-section" id="editSection" style="display: none;">
+                    <div class="preview-container">
+                        <img id="previewImage" src="" alt="预览图片">
+                    </div>
+
+                    <div class="settings-section">
+                        <h3 class="settings-title">
+                            <i class="bi bi-info-circle"></i>
+                            当前信息
+                        </h3>
+                        
+                        <div class="info-grid">
+                            <div class="info-item">
+                                <span class="info-label">当前 DPI</span>
+                                <span class="info-value" id="currentDpi">-</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">图片尺寸</span>
+                                <span class="info-value" id="imageSize">-</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">文件大小</span>
+                                <span class="info-value" id="fileSize">-</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">打印尺寸</span>
+                                <span class="info-value" id="printSize">-</span>
+                            </div>
+                        </div>
+
+                        <h3 class="settings-title" style="margin-top: 1.5rem;">
+                            <i class="bi bi-sliders"></i>
+                            设置新 DPI
+                        </h3>
+
+                        <div class="dpi-presets">
+                            <button class="dpi-btn" data-dpi="72">72 DPI</button>
+                            <button class="dpi-btn" data-dpi="96">96 DPI</button>
+                            <button class="dpi-btn" data-dpi="150">150 DPI</button>
+                            <button class="dpi-btn" data-dpi="200">200 DPI</button>
+                            <button class="dpi-btn active" data-dpi="300">300 DPI</button>
+                        </div>
+
+                        <div class="setting-item">
+                            <label>自定义 DPI</label>
+                            <div class="input-row">
+                                <input type="number" id="customDpi" value="300" min="1" max="1200">
+                                <span class="input-unit">DPI</span>
+                            </div>
+                        </div>
+
+                        <div class="action-buttons">
+                            <button class="btn btn-secondary" id="resetBtn">
+                                <i class="bi bi-arrow-clockwise"></i>
+                                重置
+                            </button>
+                            <button class="btn btn-primary" id="applyBtn">
+                                <i class="bi bi-check-circle"></i>
+                                应用修改
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="result-section" id="resultSection" style="display: none;">
+                    <h3 class="preview-title">
+                        <i class="bi bi-check-circle"></i>
+                        DPI 修改完成
+                    </h3>
+                    <div class="preview-container">
+                        <img id="resultImage" src="" alt="处理结果">
+                    </div>
+                    <div class="result-info">
+                        <div class="info-row">
+                            <span class="info-label">新 DPI</span>
+                            <span class="info-value" id="newDpi">-</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">图片尺寸</span>
+                            <span class="info-value" id="resultSize">-</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">打印尺寸</span>
+                            <span class="info-value" id="resultPrintSize">-</span>
+                        </div>
+                    </div>
+                    <div class="action-buttons">
+                        <button class="btn btn-secondary" id="backBtn">
+                            <i class="bi bi-arrow-left"></i>
+                            返回修改
+                        </button>
+                        <button class="btn btn-primary" id="downloadBtn">
+                            <i class="bi bi-download"></i>
+                            下载图片
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-card">
+                <h2>为什么选择我们的 DPI 工具？</h2>
+                <div class="feature-grid">
+                    <div class="feature-item">
+                        <div class="feature-icon">📊</div>
+                        <div class="feature-content">
+                            <h3>查看 DPI</h3>
+                            <p>查看图片当前分辨率信息</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">⚙️</div>
+                        <div class="feature-content">
+                            <h3>预设值</h3>
+                            <p>常用 DPI 预设一键选择</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🖨️</div>
+                        <div class="feature-content">
+                            <h3>打印优化</h3>
+                            <p>适配各种打印需求</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🔒</div>
+                        <div class="feature-content">
+                            <h3>隐私安全</h3>
+                            <p>所有操作在浏览器本地完成</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-card">
+                <h2>使用说明</h2>
+                <div class="tutorial-steps">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h4>上传图片</h4>
+                            <p>点击上传区域或拖拽图片到页面</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h4>查看信息</h4>
+                            <p>查看当前 DPI 和图片信息</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h4>设置 DPI</h4>
+                            <p>选择预设或输入自定义 DPI 值</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <h4>下载图片</h4>
+                            <p>点击下载按钮保存修改后的图片</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-card">
+                <h2>常见问题</h2>
+                <div class="error-item">
+                    <div class="error-question">
+                        <i class="bi bi-exclamation-circle error-icon"></i>
+                        DPI 修改后图片大小会变吗？
+                    </div>
+                    <p class="error-cause">DPI 只影响打印分辨率，不改变像素尺寸。</p>
+                    <p class="error-solution">打印尺寸会随 DPI 变化而变化，像素尺寸不变。</p>
+                </div>
+                <div class="error-item">
+                    <div class="error-question">
+                        <i class="bi bi-exclamation-circle error-icon"></i>
+                        为什么显示 DPI 为 -？
+                    </div>
+                    <p class="error-cause">图片可能没有包含 DPI 元数据。</p>
+                    <p class="error-solution">这种情况下默认按 96 DPI 计算打印尺寸。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="related-tools">
+        <div class="container">
+            <h3 class="related-title">相关工具推荐</h3>
+            <div class="related-grid">
+                <a href="image-resize.html" class="related-item">
+                    <i class="bi bi-arrows-expand related-icon"></i>
+                    <div class="related-content">
+                        <h4>图片批量缩放</h4>
+                        <p>调整图片尺寸</p>
+                    </div>
+                </a>
+                <a href="target-size-compress.html" class="related-item">
+                    <i class="bi bi-compress related-icon"></i>
+                    <div class="related-content">
+                        <h4>限定体积压缩</h4>
+                        <p>压缩图片大小</p>
+                    </div>
+                </a>
+                <a href="exif-viewer.html" class="related-item">
+                    <i class="bi bi-info-circle related-icon"></i>
+                    <div class="related-content">
+                        <h4>EXIF 查看清除</h4>
+                        <p>查看清除元数据</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <div id="footer-placeholder"></div>
+    <div id="toast" class="toast"></div>
+
+    <script src="assets/image-dpi-changer.js"></script>
+    <script src="assets/tools-data.js"></script>
+<script src="assets/site.js"></script>
+
+    <style>
+        .preview-container {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto;
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            background: #000;
+        }
+        
+        .preview-container img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+        
+        .info-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem;
+            background: var(--bg-light);
+            border-radius: var(--radius-sm);
+        }
+        
+        .info-label {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+        
+        .info-value {
+            color: var(--text-primary);
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        
+        .dpi-presets {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .dpi-btn {
+            padding: 0.75rem 0.5rem;
+            border: 2px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            background: var(--bg-light);
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+        
+        .dpi-btn:hover {
+            border-color: var(--primary-color);
+            background: var(--bg-primary-light);
+        }
+        
+        .dpi-btn.active {
+            border-color: var(--primary-color);
+            background: var(--primary-color);
+            color: #fff;
+        }
+        
+        .input-row {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .input-row input {
+            flex: 1;
+            padding: 0.75rem;
+            border: 2px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            font-size: 1rem;
+        }
+        
+        .input-unit {
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+        
+        .result-info {
+            margin-bottom: 1.5rem;
+        }
+        
+        .result-info .info-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+    </style>
+</body>
+</html>
